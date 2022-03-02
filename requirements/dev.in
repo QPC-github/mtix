@@ -1,0 +1,11 @@
+-r test.in
+
+ipdb
+django-debug-toolbar
+django-extensions
+pip-compile-multi
+yapf
+flake8
+pylint
+pylint-django
+tox<3.1  # packit depends on packaging==1.6.8, while tox 3.1 needs >1.7
