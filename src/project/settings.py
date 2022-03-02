@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 # production.  It should be generated securely, and then provided to your
 # application using the DJANGO_SECRET_KEY environment variable in your
 # locked-down config repository.
-SECRET_KEY = 'tu3&w$o54=8a9yozz44e$kzi(p5*r9)n+&)tg_zmq-8vkyg1yt'
+SECRET_KEY = ''
 
 # SECURITY WARNING: DEBUG must be set to False in production! For example, set the env. var.
 # in your deployment system settings: `DJANGO_DEBUG=False`.
