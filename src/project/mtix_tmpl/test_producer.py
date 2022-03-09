@@ -89,9 +89,10 @@ config = {'bootstrap.servers': ",".join(servers),
 producer = Producer(config)
 
 # jevent = PrepareJson()
-jevent = ReadJson("pubmed22n1212.json")
+jevent = ReadJson("/home/timonin/work/django/mtix/pubmed22n1212.json")
 
-dHeaders = {"bucket": "something", "file": "nuccore/xml-8-5-2020/uidterms.xml.20"}
+dHeaders = {"bucket": "timonin-nidx-src", "file": "nuccore/xml-8-5-2020/uidterms.xml.20",
+            "ingest": "s3://timonin-nidx-dst/ingest",   "redshift": "/nuccore/redshift"}
 
 for event in [jevent]:
     producer.poll(0)

@@ -7,7 +7,8 @@ from confluent_kafka import Consumer, Producer, KafkaError, KafkaException
 
 from project.mtix_tmpl.app_config import cAppConfig
 from project.mtix_tmpl.kafka_config import cKfkConfig
-from project.mtix_tmpl.input_data import CInputData
+from project.mtix_tmpl.bmcs_data import BmcsData
+from project.mtix_tmpl.mtix_data import MtixData
 
 
 logger = logging.getLogger(__name__)
@@ -174,17 +175,43 @@ class cKfkRunner(object):
             print("Producer restarted OK.")
     # -----------------------------------------------------------------------------------------------------------------------
 
-    def calculate_mesh_terms(self, lo_data_objects):
-        # :param lo_articles: list of OBJECTS represented input data
-        # Run models and make calculations here
-        pass
+    def calculate_mesh_terms(self, lo_articles):
+        # :param lo_articles: list of obtained from Kafka articles
+
+        # Prepare suitable for data model input format
+        l_mtix_articles = list()
+
+        for o_art in lo_articles:
+            try:
+                o_mtix_article = MtixData.from_xml(o_art.pmid(), o_art.xml())
+            except Exception as e:
+                msg = "calculate_mesh_terms(): can't create MTIX article, UID: \"{}\": \"{}\". Ignored." \
+                      "".format(o_art.pmid(), str(e))
+                print(msg, file=sys.stderr)
+                continue
+
+            # Article processed OK
+            l_mtix_articles.append(o_mtix_article.to_json_dict())
+
+        # Dump data to JSON
+        model_input_json = None
+        try:
+            model_input_json = json.dumps(l_mtix_articles)
+        except Exception as e:
+            msg = "calculate_mesh_terms(): can't dump MTIX articles to JSON format: \"{}\". Stop.".format(str(e))
+            raise Exception(msg)
 
         # Results are in this list
         l_results = list()
 
+        # Run models and make calculations here, use "model_input_json" as input data
+        # For debugging purposes: connect input and output, remove this later
+        l_results = [model_input_json]
+        pass
+
         # Now write result into Kafka producer topic
         try:
-            self.notify(lo_data_objects)
+            self.notify(l_results)
         except KafkaException as ke:
             # Kafka related, try to restart producer. This could help.
             msg = "Kafka Producer Error: \"{}\". Restarting Kafka producer...".format(str(ke))
@@ -200,7 +227,7 @@ class cKfkRunner(object):
 
             # If we are here, producer was successfully restarted. Try one more time
             try:
-                self.notify(lo_data_objects)
+                self.notify(l_results)
             except KafkaException as ke:
                 # Kafka related, even producer restart did not help.
                 msg = "Kafka Producer Error: \"{}\". Kafka producer restart did not help.".format(str(ke))
@@ -357,9 +384,8 @@ class cKfkRunner(object):
                 # "message.value()" contains input data as they were put into Kafka by data supplier
                 try:
                     # Create an object from source data here
-                    lo_input_records = cKfkRunner.from_kafka_message(message.value())
-                    if len(lo_input_records) > 0:
-                        lObjects.extend(lo_input_records)
+                    o_art = BmcsData.from_xml(message.value())
+                    lObjects.append(o_art)
                 except Exception as e:
                     msg = "Can't obtain article XML: \"{}\". Omit it.".format(str(e))
 
@@ -392,38 +418,6 @@ class cKfkRunner(object):
                 print(str(ge), file=sys.stderr)
 
         print("Thread is completed")
-# -----------------------------------------------------------------------------------------------------------------------
-
-    # Get Kafka message and prepare list of objects
-    @staticmethod
-    def from_kafka_message(b_message: bytes):
-        l_batch_articles = list()
-
-        d_articles = None
-        try:
-            d_articles = json.loads(b_message)
-        except ValueError as ve:
-            errmsg = "cKfkRunner::from_kafka_json(): Invalid JSON detected: \"{}\". What was obtained: \"{}\"." \
-                     "".format(str(ve), b_message.decode('utf-8'))
-            raise Exception(errmsg)
-
-        # Valid JSON was obtained.from
-        for d_art in d_articles:
-            if not isinstance(d_art, dict):
-                msg = "cKfkRunner::from_kafka_json(): entry is not a valid dictionary: \"{}\". Ignored.".format(str(d_art))
-                print(msg, file=sys.stderr)
-                continue
-
-            # Make a class entry for each article
-            try:
-                oArt = CInputData.from_json(d_art)
-                l_batch_articles.append(oArt)
-            except Exception as e:
-                msg = "cKfkRunner::from_kafka_json(): something wrong with article: \"{}\". Ignored.".format(str(e))
-                print(msg, file=sys.stderr)
-                continue
-
-        return l_batch_articles
 # -----------------------------------------------------------------------------------------------------------------------
 
     def initialize_kafka(self, is_producer: bool = True, is_consumer: bool = True):
