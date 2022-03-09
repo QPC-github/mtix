@@ -1,9 +1,0 @@
--r base.in
-
-pytest
-pytest-django>=4.5.1
-pytest-cov
-pytest-pythonpath
-ncbi-pytest-selenium
-teamcity-messages
-tomli<2.0.0
