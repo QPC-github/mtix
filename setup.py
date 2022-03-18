@@ -15,4 +15,6 @@ setup(name='mtix_descriptor_prediction_pipeline',
       packages=['mtix_descriptor_prediction_pipeline'],
       install_requires=[],
       include_package_data=True,
-      zip_safe=False)
+      zip_safe=False
+      test_suite='nose.collector',
+      tests_require=['nose'])
