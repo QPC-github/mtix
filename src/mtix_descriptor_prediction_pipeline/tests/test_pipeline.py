@@ -4,7 +4,7 @@ from mtix_descriptor_prediction_pipeline.predictors import CnnModelTopNPredictor
 from unittest import TestCase
 #from unittest.mock import MagicMock
 
-
+# TODO: Data should be included in package
 TEST_SET_DATA_PATH = "/home/raear/working_dir/mtix/scripts/create_test_set_data/test_set_data.json"
 TEST_SET_PREDICTIONS_PATH = "/home/raear/working_dir/mtix/scripts/create_test_set_predictions/test_set_2017-2022_Listwise22Avg_Results.json"
 
