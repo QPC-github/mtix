@@ -1,9 +1,8 @@
-from .utils import apply_threshold, avg_top_results, create_query_lookup 
+from .utils import avg_top_results, create_query_lookup 
 
 
-class DescriptorPredictionPipeline():
-    def __init__(self, config, cnn_model_top_n_predictor, pointwise_model_top_n_predictor, listwise_model_top_n_predictor, results_formatter):
-        self.config = config
+class DescriptorPredictionPipeline:
+    def __init__(self, cnn_model_top_n_predictor, pointwise_model_top_n_predictor, listwise_model_top_n_predictor, results_formatter):
         self.input_data_parser = InputDataParser()
         self.cnn_model_top_n_predictor = cnn_model_top_n_predictor
         self.pointwise_model_top_n_predictor = pointwise_model_top_n_predictor
@@ -18,12 +17,11 @@ class DescriptorPredictionPipeline():
         pointwsie_avg_results = avg_top_results(cnn_results, pointwise_results)
         listwise_results = self.listwise_model_top_n_predictor.predict(query_lookup, pointwsie_avg_results)
         listwise_avg_results = avg_top_results(pointwsie_avg_results, listwise_results)
-        results = apply_threshold(listwise_avg_results, self.config["threshold"])
-        predictions = self.results_formatter.format(results)
+        predictions = self.results_formatter.format(listwise_avg_results)
         return predictions
 
 
-class InputDataParser():
+class InputDataParser:
     def __init__(self):
         pass
     
@@ -39,10 +37,11 @@ class InputDataParser():
         return citation_data
 
 
-class MtiJsonResultsFormatter():
-    def __init__(self, dui_lookup):
+class MtiJsonResultsFormatter:
+    def __init__(self, dui_lookup, threshold):
         self.dui_lookup = dui_lookup
+        self.threshold = threshold
 
-    def format(results):
+    def format(self, results):
         mti_json_object = None
         return mti_json_object

@@ -1,8 +1,3 @@
-def apply_threshold(top_results, threshold):
-    results = None
-    return results
-
-
 def avg_top_results(input_top_results, output_top_results):
     average_top_results = None
     return average_top_results

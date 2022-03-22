@@ -1,25 +1,25 @@
-class CnnModelTopNPredictor():
+class CnnModelTopNPredictor:
     def __init__(self, top_n):
         self.top_n = top_n
 
-    def predict(citation_data):
+    def predict(self, citation_data):
         top_results = None
         return top_results
 
-class PointwiseModelTopNPredictor():
+class PointwiseModelTopNPredictor:
     def __init__(self, desc_name_lookup, top_n):
         self.desc_name_lookup = desc_name_lookup
         self.top_n = top_n
 
-    def predict(query_lookup, top_results):
+    def predict(self, query_lookup, top_results):
         top_results = None
         return top_results
 
-class ListwiseModelTopNPredictor():
+class ListwiseModelTopNPredictor:
     def __init__(self, desc_name_lookup, top_n):
         self.desc_name_lookup = desc_name_lookup
         self.top_n = top_n
 
-    def predict(query_lookup, top_results):
+    def predict(self, query_lookup, top_results):
         top_results = None
         return top_results
