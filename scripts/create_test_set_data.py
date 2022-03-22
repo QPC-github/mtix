@@ -11,7 +11,7 @@ ENCODING="utf-8"
 LIMIT = 1000000000
 MAX_RETRYS = 3
 PUBONE_URL = "https://pubmed.ncbi.nlm.nih.gov/api/pubone/pubmed/pubmed_"
-WORKING_DIR="/home/raear/working_dir/mtix/scripts"
+WORKING_DIR="/home/raear/working_dir/mtix/scripts/create_test_set_data"
 
 
 def base64_encode(text):
@@ -20,6 +20,7 @@ def base64_encode(text):
     text = base64.b64encode(text) 
     text = text.decode(ENCODING) 
     return text
+
 
 def get_pubone_xml(pmid):
     url = PUBONE_URL + str(pmid)
@@ -37,6 +38,7 @@ def get_pubone_xml(pmid):
             else:
                 raise Exception("Exceeded max retrys.")
     return root_node
+
 
 def main():
     test_set_path = os.path.join(WORKING_DIR, "test_set.jsonl.gz")
