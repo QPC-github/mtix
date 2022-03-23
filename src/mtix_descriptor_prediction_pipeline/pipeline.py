@@ -25,18 +25,18 @@ class DescriptorPredictionPipeline:
 
 
 class MedlineDateParser:
-    def extract_pub_year(self, medlinedate_text):
-        pub_year = medlinedate_text[:4]
+    def extract_pub_year(self, text):
+        pub_year = text[:4]
         try:
             pub_year = int(pub_year)
         except ValueError:
-            match = re.search(r"\d{4}", medlinedate_text)
+            match = re.search(r"\d{4}", text)
             if match:
                 pub_year = match.group(0)
                 pub_year = int(pub_year)
             else:
                 try:
-                    pub_year = dateutil.parser.parse(medlinedate_text, fuzzy=True).date().year
+                    pub_year = dateutil.parser.parse(text, fuzzy=True).date().year
                 except:
                     pub_year = None
         return pub_year
@@ -64,9 +64,10 @@ class PubMedXmlInputDataParser:
 
         title = ""
         title_node = medline_citation_node.find("Article/ArticleTitle") 
-        title = ET.tostring(title_node, encoding="unicode", method="text")
-        title = title.strip() if title is not None else ""
-        
+        title_text = ET.tostring(title_node, encoding="unicode", method="text")
+        if title_text is not None:
+            title = title_text.strip()
+                
         abstract = ""
         abstract_node = medline_citation_node.find("Article/Abstract")
         if abstract_node is not None:
@@ -80,19 +81,25 @@ class PubMedXmlInputDataParser:
                 if abstract_text is not None:
                     abstract += abstract_text.strip()
 
+        journal_nlmid = None
         journal_nlmid_node = medline_citation_node.find("MedlineJournalInfo/NlmUniqueID")
-        journal_nlmid = journal_nlmid_node.text.strip() if journal_nlmid_node is not None else None
+        if journal_nlmid_node is not None:
+            journal_nlmid = journal_nlmid_node.text.strip()
 
-        journal_title_node = medline_citation_node.find("Article/Journal/Title")
         journal_title = ""
+        journal_title_node = medline_citation_node.find("Article/Journal/Title")
         if journal_title_node is not None:
-            journal_title = ET.tostring(journal_title_node, encoding="unicode", method="text")
-            journal_title = journal_title.strip() if journal_title is not None else ""
+            journal_title_text = ET.tostring(journal_title_node, encoding="unicode", method="text")
+            if journal_title_text is not None:
+                journal_title = journal_title_text.strip() 
 
-        medlinedate_node = medline_citation_node.find("Article/Journal/JournalIssue/PubDate/MedlineDate")
-        if medlinedate_node is not None:
-            medlinedate_text = medlinedate_node.text.strip()
-            pub_year = self.medline_date_parser.extract_pub_year(medlinedate_text)
+        pub_year = None
+        medline_date_node = medline_citation_node.find("Article/Journal/JournalIssue/PubDate/MedlineDate")
+        if medline_date_node is not None:
+            medline_date_text = ET.tostring(medline_date_node, encoding="unicode", method="text")
+            if medline_date_text is not None:
+                medline_date_text = medline_date_text.strip()
+                pub_year = self.medline_date_parser.extract_pub_year(medline_date_text)
         else:
             pub_year_node = medline_citation_node.find("Article/Journal/JournalIssue/PubDate/Year")
             pub_year = pub_year_node.text.strip()
@@ -101,16 +108,18 @@ class PubMedXmlInputDataParser:
         year_completed = None
         date_completed_node = medline_citation_node.find("DateCompleted")
         if date_completed_node is not None:
-            year_completed = int(date_completed_node.find("Year").text.strip())
+            year_completed_node = date_completed_node.find("Year")
+            year_completed = year_completed_node.text.strip()
+            year_completed = int(year_completed)
         
         citation_data = {
-                    "pmid": pmid, 
-                    "title": title, 
-                    "abstract": abstract,
-                    "journal_nlmid": journal_nlmid,
-                    "journal_title": journal_title,
-                    "pub_year": pub_year,
-                    "year_completed": year_completed,
+                    "pmid": pmid, # Not None
+                    "title": title, # Not None, possibly ""
+                    "abstract": abstract, # Not None, possibly ""
+                    "journal_nlmid": journal_nlmid, # Possibly None
+                    "journal_title": journal_title, # Not None, possibly ""
+                    "pub_year": pub_year, # Possibly None
+                    "year_completed": year_completed, # Possibly None
                     }
 
         return citation_data
