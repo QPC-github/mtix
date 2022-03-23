@@ -1,4 +1,4 @@
-from .utils import avg_top_results, create_query_lookup 
+from .utils import avg_top_results, base64_decode, create_query_lookup, extract_citation_data
 
 
 class DescriptorPredictionPipeline:
@@ -25,16 +25,15 @@ class InputDataParser:
     def __init__(self):
         pass
     
+    # TODO: what about null outputs
     def parse(self, input_data):
-        citation_data = [
-            { "pmid": 1,
-              "title": "",
-              "abstract": "",
-              "pub_year": "",
-              "journal name": "",
-              "journal_nlmid": "",}
-        ]
-        return citation_data
+        citation_data_list = []
+        for item in input_data:
+            citation_xml = item["data"]
+            citation_xml = base64_decode(citation_xml)
+            citation_data = extract_citation_data(citation_xml)
+            citation_data_list.append(citation_data)
+        return citation_data_list
 
 
 class MtiJsonResultsFormatter:
