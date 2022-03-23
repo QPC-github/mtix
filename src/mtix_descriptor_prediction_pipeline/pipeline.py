@@ -71,8 +71,8 @@ class PubMedXmlInputDataParser:
         abstract = ""
         abstract_node = medline_citation_node.find("Article/Abstract")
         if abstract_node is not None:
-            abstract_text_nodes = abstract_node.findall("AbstractText")
-            for abstract_text_node in abstract_text_nodes:
+            abstract_text_node_list = abstract_node.findall("AbstractText")
+            for abstract_text_node in abstract_text_node_list:
                 if "Label" in abstract_text_node.attrib:
                     if len(abstract) > 0:
                         abstract += " "
@@ -113,13 +113,13 @@ class PubMedXmlInputDataParser:
             year_completed = int(year_completed)
         
         citation_data = {
-                    "pmid": pmid, # Not None
-                    "title": title, # Not None, possibly ""
-                    "abstract": abstract, # Not None, possibly ""
-                    "journal_nlmid": journal_nlmid, # Possibly None
-                    "journal_title": journal_title, # Not None, possibly ""
-                    "pub_year": pub_year, # Possibly None
-                    "year_completed": year_completed, # Possibly None
+                    "pmid": pmid, # int, Not None
+                    "title": title, # str Not None, possibly ""
+                    "abstract": abstract, # str Not None, possibly ""
+                    "journal_nlmid": journal_nlmid, # str, Possibly None
+                    "journal_title": journal_title, # str, Not None, possibly ""
+                    "pub_year": pub_year, # int, Possibly None
+                    "year_completed": year_completed, # int, Possibly None
                     }
 
         return citation_data
