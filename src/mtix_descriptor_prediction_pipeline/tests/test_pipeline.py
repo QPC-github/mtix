@@ -1,5 +1,5 @@
 import json
-from mtix_descriptor_prediction_pipeline.pipeline import DescriptorPredictionPipeline, InputDataParser, MtiJsonResultsFormatter
+from mtix_descriptor_prediction_pipeline.pipeline import DescriptorPredictionPipeline, MedlineDateParser, PubMedXmlInputDataParser, MtiJsonResultsFormatter
 from mtix_descriptor_prediction_pipeline.predictors import CnnModelTopNPredictor, PointwiseModelTopNPredictor, ListwiseModelTopNPredictor
 from unittest import TestCase
 #from unittest.mock import MagicMock
@@ -28,11 +28,13 @@ CITATION_DATA_2 = {"pmid": 30455223,
 class TestDescriptorPredictionPipeline(TestCase):
     
     def test_predict(self):
+        medline_date_parser = MedlineDateParser()
+        input_data_parser = PubMedXmlInputDataParser(medline_date_parser)
         cnn_predictor = CnnModelTopNPredictor(100)
         pointwise_predictor = PointwiseModelTopNPredictor({}, 100)
         listwise_predictor = ListwiseModelTopNPredictor({}, 50)
         results_formatter = MtiJsonResultsFormatter({}, 0.475)
-        pipeline = DescriptorPredictionPipeline(cnn_predictor, pointwise_predictor, listwise_predictor, results_formatter)
+        pipeline = DescriptorPredictionPipeline(input_data_parser, cnn_predictor, pointwise_predictor, listwise_predictor, results_formatter)
         input_data = json.load(open(TEST_SET_DATA_PATH))
         expected_predictions = json.load(open(TEST_SET_PREDICTIONS_PATH))
         predictions = pipeline.predict(input_data)
@@ -42,7 +44,8 @@ class TestDescriptorPredictionPipeline(TestCase):
 class TestInputDataParser(TestCase):
 
     def setUp(self):
-        self.parser = InputDataParser()
+        self.medline_date_parser = MedlineDateParser()
+        self.parser = PubMedXmlInputDataParser(self.medline_date_parser)
         self.test_set_data = json.load(open(TEST_SET_DATA_PATH))
     
     def test_parse_no_citations(self):

@@ -1,3 +1,5 @@
+# TODO: need to deal with different types of null input
+
 class CnnModelTopNPredictor:
     def __init__(self, top_n):
         self.top_n = top_n
