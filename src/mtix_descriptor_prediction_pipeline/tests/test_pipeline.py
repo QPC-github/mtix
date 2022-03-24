@@ -102,3 +102,24 @@ class TestInputDataParser(TestCase):
         expected_citation_data = [EXPECTED_CITATION_DATA[2]]
         self.assertEqual(citaton_data, expected_citation_data, "Citation data different from expected citation data.")
         self.medline_date_parser.extract_pub_year.assert_called_once_with("2021 Mar-Apr 01")
+
+
+class TestMedlineDateParser(TestCase):
+
+    def assert_pub_year_extracted_correctly(self, text, expected_pub_year):
+        parser = MedlineDateParser()
+        pub_year = parser.extract_pub_year(text)
+        self.assertEqual(pub_year, expected_pub_year, "Extracted wrong pub year")
+
+    def test_extract_pub_year(self):
+        self.assert_pub_year_extracted_correctly("2021 Mar-Apr 01", 2021)
+        self.assert_pub_year_extracted_correctly("1998 Dec-1999 Jan", 1998)
+        self.assert_pub_year_extracted_correctly("2022 Spring", 2022)
+        self.assert_pub_year_extracted_correctly("2016 Spring-Summer", 2016)
+        self.assert_pub_year_extracted_correctly("1965 Nov-Dec", 1965)
+        self.assert_pub_year_extracted_correctly("2000 Dec 23-30", 2000)
+        self.assert_pub_year_extracted_correctly("", None)
+        self.assert_pub_year_extracted_correctly("invalid", None)
+        self.assert_pub_year_extracted_correctly("Summer 2009", 2009)
+        self.assert_pub_year_extracted_correctly("24th March 2018", 2018)
+        self.assert_pub_year_extracted_correctly("24th Mar '01", 2001)
