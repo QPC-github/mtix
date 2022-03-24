@@ -42,6 +42,16 @@ class MedlineDateParser:
         return pub_year
 
 
+class MtiJsonResultsFormatter:
+    def __init__(self, dui_lookup, threshold):
+        self.dui_lookup = dui_lookup
+        self.threshold = threshold
+
+    def format(self, results):
+        mti_json_object = None
+        return mti_json_object
+
+
 class PubMedXmlInputDataParser:
     def __init__(self, medline_date_parser):
         self.medline_date_parser = medline_date_parser
@@ -123,13 +133,3 @@ class PubMedXmlInputDataParser:
                     }
 
         return citation_data
-
-
-class MtiJsonResultsFormatter:
-    def __init__(self, dui_lookup, threshold):
-        self.dui_lookup = dui_lookup
-        self.threshold = threshold
-
-    def format(self, results):
-        mti_json_object = None
-        return mti_json_object
