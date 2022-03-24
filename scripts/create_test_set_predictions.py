@@ -1,17 +1,11 @@
 import json
 import os.path
-import pandas as pd
 import pytrec_eval
+from mtix_descriptor_prediction_pipeline.utils import create_lookup
 
 
 THRESHOLD = 0.475
 WORKING_DIR="/home/raear/working_dir/mtix/scripts/create_test_set_predictions"
-
-
-def create_lookup(path):
-    data = pd.read_csv(path, sep="\t", header=None)
-    lookup = dict(zip(data.iloc[:,0], data.iloc[:,1]))
-    return lookup
 
 
 def main():

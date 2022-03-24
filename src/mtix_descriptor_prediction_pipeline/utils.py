@@ -1,11 +1,14 @@
 import base64
-import dateutil.parser
+import pandas as pd
 import zlib
-import re
-import xml.etree.ElementTree as ET
 
 
 ENCODING = "utf-8"
+
+
+def avg_top_results(input_top_results, output_top_results):
+    average_top_results = []
+    return average_top_results
 
 
 def base64_decode(text):
@@ -23,9 +26,10 @@ def base64_encode(text):
     return text
 
 
-def avg_top_results(input_top_results, output_top_results):
-    average_top_results = None
-    return average_top_results
+def create_lookup(path):
+    data = pd.read_csv(path, sep="\t", header=None)
+    lookup = dict(zip(data.iloc[:,0], data.iloc[:,1]))
+    return lookup
 
 
 def create_query_lookup(citation_data): # Is this the right place for this function

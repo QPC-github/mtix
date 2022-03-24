@@ -43,13 +43,30 @@ class MedlineDateParser:
 
 
 class MtiJsonResultsFormatter:
-    def __init__(self, dui_lookup, threshold):
+    def __init__(self, desc_name_lookup, dui_lookup, threshold):
+        self.desc_name_lookup = desc_name_lookup
         self.dui_lookup = dui_lookup
         self.threshold = threshold
 
     def format(self, results):
-        mti_json_object = None
-        return mti_json_object
+        mti_json = []
+        for q_id in results:
+            pmid = int(q_id)
+            citation_predictions = { "PMID": pmid, "Indexing": [] }
+            mti_json.append(citation_predictions)
+            for p_id in results[q_id]:
+                score = results[q_id][p_id]
+                if score >= self.threshold:
+                    label_id = int(p_id)
+                    name = self.desc_name_lookup[label_id]
+                    ui = self.dui_lookup[label_id]
+                    citation_predictions["Indexing"].append({
+                        "Term": name, 
+                        "Type": "Descriptor", 
+                        "ID": ui, 
+                        "IM": None, 
+                        "Reason": f"score: {score:.9f}"})
+        return mti_json
 
 
 class PubMedXmlInputDataParser:

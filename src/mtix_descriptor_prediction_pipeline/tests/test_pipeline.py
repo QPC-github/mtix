@@ -1,4 +1,4 @@
-from .data import EXPECTED_CITATION_DATA, EXPECTED_PREDICTIONS, LISTWISE_AVG_RESULTS, PUB_MED_XML_INPUT_DATA
+from .data import DESC_NAME_LOOKUP, DUI_LOOKUP, EXPECTED_CITATION_DATA, EXPECTED_PREDICTIONS, LISTWISE_AVG_RESULTS, PUB_MED_XML_INPUT_DATA, THRESHOLD
 import gzip
 import json
 from mtix_descriptor_prediction_pipeline.pipeline import DescriptorPredictionPipeline, MedlineDateParser, MtiJsonResultsFormatter, PubMedXmlInputDataParser
@@ -21,7 +21,7 @@ class TestDescriptorPredictionPipeline(TestCase):
         cnn_predictor = CnnModelTopNPredictor(100)
         pointwise_predictor = PointwiseModelTopNPredictor({}, 100)
         listwise_predictor = ListwiseModelTopNPredictor({}, 50)
-        results_formatter = MtiJsonResultsFormatter({}, 0.475)
+        results_formatter = MtiJsonResultsFormatter({}, {}, THRESHOLD)
         pipeline = DescriptorPredictionPipeline(input_data_parser, cnn_predictor, pointwise_predictor, listwise_predictor, results_formatter)
         input_data = json.load(gzip.open(TEST_SET_DATA_PATH))
         expected_predictions = json.load(gzip.open(TEST_SET_PREDICTIONS_PATH))
@@ -53,7 +53,7 @@ class TestMedlineDateParser(TestCase):
 class TestMtiJsonResultsFormatter(TestCase):
 
     def setUp(self):
-        self.formatter = MtiJsonResultsFormatter({}, 0.475)
+        self.formatter = MtiJsonResultsFormatter(DESC_NAME_LOOKUP, DUI_LOOKUP, THRESHOLD)
 
     def test_format(self):
         predictions = self.formatter.format(LISTWISE_AVG_RESULTS)

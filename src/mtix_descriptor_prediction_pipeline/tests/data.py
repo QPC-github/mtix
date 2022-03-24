@@ -1,3 +1,45 @@
+from scripts.create_test_set_predictions import THRESHOLD
+
+
+DESC_NAME_LOOKUP = {
+    9291: "Humans",
+    8857: "Heart Rate",
+    7653: "Exercise Test",
+    7160: "Electrocardiography",
+    15149: "Soccer",
+    10719: "Male",
+    14670: "Running",
+    27783: "Young Adult",
+    12453: "Oxygen Consumption",
+    3075: "Adolescent",
+    17432: "Anaerobic Threshold",
+    14390: "Pulmonary Ventilation",
+    14386: "Respiration",
+    4978: "Carcinoma, Renal Cell",
+    10133: "Kidney Neoplasms",
+    28767: "Molecular Targeted Therapy"}
+
+
+DUI_LOOKUP = {
+    9291: "D006801",
+    8857: "D006339",
+    7653: "D005080",
+    7160: "D004562",
+    15149: "D012916",
+    10719: "D008297",
+    14670: "D012420",
+    27783: "D055815",
+    12453: "D010101",
+    3075: "D000293",
+    17432: "D015308",
+    14390: "D012123",
+    14386: "D012119",
+    4978: "D002292",
+    10133: "D007680",
+    28767: "D058990",
+}
+
+
 EXPECTED_CITATION_DATA = [
     {
         "pmid": 32770536,
@@ -284,3 +326,5 @@ LISTWISE_AVG_RESULTS = {
         "1930": 0.06585711380466819
     }
 }
+
+THRESHOLD=0.475
