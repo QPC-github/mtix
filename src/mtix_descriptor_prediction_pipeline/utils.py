@@ -6,9 +6,18 @@ import zlib
 ENCODING = "utf-8"
 
 
-def avg_top_results(input_top_results, output_top_results):
-    average_top_results = []
-    return average_top_results
+def average_top_results(input_top_results, output_top_results):
+    result_list = [output_top_results, input_top_results]
+    results_count = len(result_list)
+    
+    average_results = {}
+    for q_id in result_list[0]:
+        average_results[q_id] = {}
+        for p_id in result_list[0][q_id]:
+            scores = [results[q_id][p_id] for results in result_list]
+            avg = sum(scores) / results_count
+            average_results[q_id][p_id] = avg
+    return average_results
 
 
 def base64_decode(text):

@@ -1,5 +1,6 @@
-from mtix_descriptor_prediction_pipeline.utils import create_lookup, base64_decode, base64_encode
+from mtix_descriptor_prediction_pipeline.utils import average_top_results, create_lookup, base64_decode, base64_encode
 from io import StringIO
+from .test_data import LISTWISE_AVG_RESULTS, LISTWISE_RESULTS, POINTWISE_AVG_RESULTS
 from unittest import TestCase
 
 
@@ -45,3 +46,7 @@ class TestUtils(TestCase):
         buffer = StringIO(LOOKUP_TSV)
         lookup = create_lookup(buffer)
         self.assertEqual(lookup, EXPECTED_LOOKUP, "Created lookup not as expected.")
+
+    def test_average_top_results(self):
+        results = average_top_results(POINTWISE_AVG_RESULTS, LISTWISE_RESULTS)
+        self.assertEqual(results, LISTWISE_AVG_RESULTS, "Average results not as expected.")
