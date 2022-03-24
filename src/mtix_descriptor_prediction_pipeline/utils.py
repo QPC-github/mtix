@@ -18,9 +18,9 @@ def base64_decode(text):
     return text
 
 
-def base64_encode(text):
+def base64_encode(text, level=-1):
     text = text.encode(ENCODING)
-    text = zlib.compress(text)
+    text = zlib.compress(text, level=level)
     text = base64.b64encode(text) 
     text = text.decode(ENCODING) 
     return text

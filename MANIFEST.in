@@ -1,1 +1,3 @@
 include README.md
+include src/mtix_descriptor_prediction_pipeline/tests/data/test_set_data.json.gz
+include src/mtix_descriptor_prediction_pipeline/tests/data/test_set_2017-2022_Listwise22Avg_Results.json.gz

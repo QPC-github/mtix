@@ -1,10 +1,10 @@
-from .data import DESC_NAME_LOOKUP, DUI_LOOKUP, EXPECTED_CITATION_DATA, EXPECTED_PREDICTIONS, LISTWISE_AVG_RESULTS, PUB_MED_XML_INPUT_DATA, THRESHOLD
+from .test_pipeline_data import DESC_NAME_LOOKUP, DUI_LOOKUP, EXPECTED_CITATION_DATA, EXPECTED_PREDICTIONS, LISTWISE_AVG_RESULTS, PUB_MED_XML_INPUT_DATA, THRESHOLD
 import gzip
 import json
 from mtix_descriptor_prediction_pipeline.pipeline import DescriptorPredictionPipeline, MedlineDateParser, MtiJsonResultsFormatter, PubMedXmlInputDataParser
 from mtix_descriptor_prediction_pipeline.predictors import CnnModelTopNPredictor, PointwiseModelTopNPredictor, ListwiseModelTopNPredictor
 import os.path
-from unittest import TestCase
+from unittest import skip, TestCase
 from unittest.mock import MagicMock
 
 
@@ -12,7 +12,7 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_SET_DATA_PATH = os.path.join(THIS_DIR, "data", "test_set_data.json.gz")
 TEST_SET_PREDICTIONS_PATH = os.path.join(THIS_DIR, "data", "test_set_2017-2022_Listwise22Avg_Results.json.gz")
 
-
+@skip("Slow - not finished")
 class TestDescriptorPredictionPipeline(TestCase):
     
     def test_predict(self):
@@ -34,7 +34,7 @@ class TestMedlineDateParser(TestCase):
     def assert_pub_year_extracted_correctly(self, text, expected_pub_year):
         parser = MedlineDateParser()
         pub_year = parser.extract_pub_year(text)
-        self.assertEqual(pub_year, expected_pub_year, "Extracted wrong pub year")
+        self.assertEqual(pub_year, expected_pub_year, "Extracted wrong pub year.")
 
     def test_extract_pub_year(self):
         self.assert_pub_year_extracted_correctly("2021 Mar-Apr 01", 2021)
