@@ -37,8 +37,8 @@ DUI_LOOKUP = {
 }
 
 
-EXPECTED_CITATION_DATA = [
-    {
+EXPECTED_CITATION_DATA = {
+    32770536: {
         "pmid": 32770536,
         "title": "Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.",
         "abstract": "Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT2). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ2 was individually calculated using the deflection point of ventilatory equivalents. In addition, VT2 was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT2, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η2=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT2. Similarly, Bland Altman analysis showed a considerable agreement between VT2 vs. ECG-derived respiration (mean difference of -0.06 km·h-1, 95% CL: ±0.40) and VT2 vs. high frequency product (mean difference of 0.02 km·h-1, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT2 in a field shuttle run test.",
@@ -47,7 +47,7 @@ EXPECTED_CITATION_DATA = [
         "pub_year": 2021,
         "year_completed": 2021,
     },
-    {
+    30455223: {
         "pmid": 30455223,
         "title": "Update on the biology and management of renal cell carcinoma.",
         "abstract": "Renal cell cancer (RCC) (epithelial carcinoma of the kidney) represents 2%-4% of newly diagnosed adult tumors. Over the past 2 decades, RCC has been better characterized clinically and molecularly. It is a heterogeneous disease, with multiple subtypes, each with characteristic histology, genetics, molecular profiles, and biologic behavior. Tremendous heterogeneity has been identified with many distinct subtypes characterized. There are clinical questions to be addressed at every stage of this disease, and new targets being identified for therapeutic development. The unique characteristics of the clinical presentations of RCC have led to both questions and opportunities for improvement in management. Advances in targeted drug development and understanding of immunologic control of RCC are leading to a number of new clinical trials and regimens for advanced disease, with the goal of achieving long-term disease-free survival, as has been achieved in a proportion of such patients historically. RCC management is a promising area of ongoing clinical investigation.",
@@ -56,7 +56,7 @@ EXPECTED_CITATION_DATA = [
         "pub_year": 2019,
         "year_completed": 2020,
     },
-    {
+    33449580: {
         "pmid": 33449580,
         "title": "\"HIV and Aging in Special Populations: From the Mitochondria to the Metropolis\"-Proceedings From the 2019 Conference.",
         "abstract": "",
@@ -65,7 +65,7 @@ EXPECTED_CITATION_DATA = [
         "pub_year": 2021,
         "year_completed": 2021,
     },
-]
+}
 
 
 EXPECTED_PREDICTIONS = [

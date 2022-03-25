@@ -74,13 +74,13 @@ class PubMedXmlInputDataParser:
         self.medline_date_parser = medline_date_parser
     
     def parse(self, input_data):
-        citation_data_list = []
+        citation_data_lookup = {}
         for item in input_data:
             citation_xml = item["data"]
             citation_xml = base64_decode(citation_xml)
             citation_data = self._parse_xml(citation_xml)
-            citation_data_list.append(citation_data)
-        return citation_data_list
+            citation_data_lookup[citation_data["pmid"]] = citation_data
+        return citation_data_lookup
 
     def _parse_xml(self, citation_xml):
         medline_citation_node = ET.fromstring(citation_xml)

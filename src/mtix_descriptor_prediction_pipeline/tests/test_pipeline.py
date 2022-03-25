@@ -71,24 +71,24 @@ class TestPubMedXmlInputDataParser(TestCase):
     def test_parse_no_citations(self):
         input_data = []
         citaton_data = self.parser.parse(input_data)
-        expected_citation_data = []
-        self.assertEqual(citaton_data, expected_citation_data, "Expected citation data to be an empty list.")
+        expected_citation_data = {}
+        self.assertEqual(citaton_data, expected_citation_data, "Expected citation data to be an empty dictionary.")
 
     def test_parse_one_citation(self):
         input_data = PUB_MED_XML_INPUT_DATA[:1]
         citaton_data = self.parser.parse(input_data)
-        expected_citation_data = EXPECTED_CITATION_DATA[:1]
+        expected_citation_data = dict(list(EXPECTED_CITATION_DATA.items())[:1])
         self.assertEqual(citaton_data, expected_citation_data, "Citation data different from expected citation data.")
 
     def test_parse_two_citations(self):
         input_data = PUB_MED_XML_INPUT_DATA[:2]
         citaton_data = self.parser.parse(input_data)
-        expected_citation_data = EXPECTED_CITATION_DATA[:2]
+        expected_citation_data = dict(list(EXPECTED_CITATION_DATA.items())[:2])
         self.assertEqual(citaton_data, expected_citation_data, "Citation data different from expected citation data.")
 
     def test_parse_citation_with_medline_date(self):
         input_data = [PUB_MED_XML_INPUT_DATA[2]]
         citaton_data = self.parser.parse(input_data)
-        expected_citation_data = [EXPECTED_CITATION_DATA[2]]
+        expected_citation_data = dict(list(EXPECTED_CITATION_DATA.items())[2:3])
         self.assertEqual(citaton_data, expected_citation_data, "Citation data different from expected citation data.")
         self.medline_date_parser.extract_pub_year.assert_called_once_with("2021 Mar-Apr 01")
