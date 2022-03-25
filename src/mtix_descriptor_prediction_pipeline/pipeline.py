@@ -76,8 +76,7 @@ class MtiJsonResultsFormatter:
             pmid = int(q_id)
             citation_predictions = { "PMID": pmid, "Indexing": [] }
             mti_json.append(citation_predictions)
-            for p_id in results[q_id]:
-                score = results[q_id][p_id]
+            for p_id, score in sorted(results[q_id].items(), key=lambda x: x[1], reverse=True):
                 if score >= self.threshold:
                     label_id = int(p_id)
                     name = self.desc_name_lookup[label_id]
