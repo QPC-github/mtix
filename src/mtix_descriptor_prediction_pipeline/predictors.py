@@ -1,5 +1,3 @@
-# TODO: need to deal with different types of null input
-
 class CnnModelTopNPredictor:
     def __init__(self, top_n):
         self.top_n = top_n
@@ -13,7 +11,7 @@ class PointwiseModelTopNPredictor:
         self.desc_name_lookup = desc_name_lookup
         self.top_n = top_n
 
-    def predict(self, query_lookup, top_results):
+    def predict(self, citation_data, top_results):
         top_results = None
         return top_results
 
@@ -22,6 +20,6 @@ class ListwiseModelTopNPredictor:
         self.desc_name_lookup = desc_name_lookup
         self.top_n = top_n
 
-    def predict(self, query_lookup, top_results):
+    def predict(self, citation_data, top_results):
         top_results = None
         return top_results

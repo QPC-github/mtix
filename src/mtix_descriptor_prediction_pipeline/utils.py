@@ -39,8 +39,3 @@ def create_lookup(path):
     data = pd.read_csv(path, sep="\t", header=None)
     lookup = dict(zip(data.iloc[:,0], data.iloc[:,1]))
     return lookup
-
-
-def create_query_lookup(citation_data): # Is this the right place for this function
-    query_lookup = None
-    return query_lookup

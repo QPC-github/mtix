@@ -1,6 +1,6 @@
 import dateutil.parser
 import re
-from .utils import average_top_results, base64_decode, create_query_lookup
+from .utils import average_top_results, base64_decode
 import xml.etree.ElementTree as ET
 
 
@@ -37,11 +37,10 @@ class DescriptorPredictionPipeline:
     def predict(self, input_data):
         citation_data = self.input_data_parser.parse(input_data)
         citation_data = self.citation_data_sanitizer.sanitize(citation_data)
-        query_lookup = create_query_lookup(citation_data)
         cnn_results = self.cnn_model_top_n_predictor.predict(citation_data)
-        pointwise_results = self.pointwise_model_top_n_predictor.predict(query_lookup, cnn_results)
+        pointwise_results = self.pointwise_model_top_n_predictor.predict(citation_data, cnn_results)
         pointwsie_avg_results = average_top_results(cnn_results, pointwise_results)
-        listwise_results = self.listwise_model_top_n_predictor.predict(query_lookup, pointwsie_avg_results)
+        listwise_results = self.listwise_model_top_n_predictor.predict(citation_data, pointwsie_avg_results)
         listwise_avg_results = average_top_results(pointwsie_avg_results, listwise_results)
         predictions = self.results_formatter.format(listwise_avg_results)
         return predictions
