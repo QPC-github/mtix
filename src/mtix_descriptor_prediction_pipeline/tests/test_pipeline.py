@@ -1,7 +1,7 @@
 from .test_data import DESC_NAME_LOOKUP, DUI_LOOKUP, EXPECTED_CITATION_DATA, EXPECTED_PREDICTIONS, LISTWISE_AVG_RESULTS, PUB_MED_XML_INPUT_DATA
 import gzip
 import json
-from mtix_descriptor_prediction_pipeline.pipeline import DescriptorPredictionPipeline, MedlineDateParser, MtiJsonResultsFormatter, PubMedXmlInputDataParser
+from mtix_descriptor_prediction_pipeline.pipeline import CitationDataSanitizer, DescriptorPredictionPipeline, MedlineDateParser, MtiJsonResultsFormatter, PubMedXmlInputDataParser
 from mtix_descriptor_prediction_pipeline.predictors import CnnModelTopNPredictor, PointwiseModelTopNPredictor, ListwiseModelTopNPredictor
 import os.path
 from unittest import skip, TestCase
@@ -11,19 +11,148 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_SET_DATA_PATH = os.path.join(THIS_DIR, "data", "test_set_data.json.gz")
 TEST_SET_PREDICTIONS_PATH = os.path.join(THIS_DIR, "data", "test_set_2017-2022_Listwise22Avg_Results.json.gz")
 
+MAX_YEAR = 2021
 THRESHOLD = 0.475
+
+class TestCitationDataSanitizer(TestCase):
+
+    def setUp(self):
+        self.sanitizer = CitationDataSanitizer(MAX_YEAR)
+        
+    def test_sanitize_pass_through(self):
+        citation_data = {
+            123456789: {
+                "pmid": 123456789,
+                "title": "The title.",
+                "abstract": "The abstract.",
+                "journal_nlmid": "01234",
+                "journal_title": "The journal",
+                "pub_year": 2008,
+                "year_completed": 2009,
+            }
+        }
+        sanitized_citation_data = self.sanitizer.sanitize(citation_data)
+        self.assertEqual(sanitized_citation_data, citation_data, "Expected no changes for complete citation data.")
+
+    def test_sanitize_missing_journal_nlmid(self):
+        citation_data = {
+            123456789: {
+                "pmid": 123456789,
+                "title": "The title.",
+                "abstract": "The abstract.",
+                "journal_nlmid": None,
+                "journal_title": "The journal",
+                "pub_year": 2008,
+                "year_completed": 2009,
+            }
+        }
+        expected_citation_data = {
+            123456789: {
+                "pmid": 123456789,
+                "title": "The title.",
+                "abstract": "The abstract.",
+                "journal_nlmid": "<unknown>",
+                "journal_title": "The journal",
+                "pub_year": 2008,
+                "year_completed": 2009,
+            }
+        }
+        sanitized_citation_data = self.sanitizer.sanitize(citation_data)
+        self.assertEqual(sanitized_citation_data, expected_citation_data, "Expected null journal nlmid to be replaced with <unknown>.")
+
+
+    def test_sanitize_missing_pub_year(self):
+        citation_data = {
+            123456789: {
+                "pmid": 123456789,
+                "title": "The title.",
+                "abstract": "The abstract.",
+                "journal_nlmid": "01234",
+                "journal_title": "The journal",
+                "pub_year": None,
+                "year_completed": 2009,
+            }
+        }
+        expected_citation_data = {
+            123456789: {
+                "pmid": 123456789,
+                "title": "The title.",
+                "abstract": "The abstract.",
+                "journal_nlmid": "01234",
+                "journal_title": "The journal",
+                "pub_year": 2009,
+                "year_completed": 2009,
+            }
+        }
+        sanitized_citation_data = self.sanitizer.sanitize(citation_data)
+        self.assertEqual(sanitized_citation_data, expected_citation_data, "Expected null pub year to be replaced with year completed.")
+
+
+    def test_sanitize_missing_year_completed(self):
+        citation_data = {
+            123456789: {
+                "pmid": 123456789,
+                "title": "The title.",
+                "abstract": "The abstract.",
+                "journal_nlmid": "01234",
+                "journal_title": "The journal",
+                "pub_year": 2008,
+                "year_completed": None,
+            }
+        }
+        expected_citation_data = {
+            123456789: {
+                "pmid": 123456789,
+                "title": "The title.",
+                "abstract": "The abstract.",
+                "journal_nlmid": "01234",
+                "journal_title": "The journal",
+                "pub_year": 2008,
+                "year_completed": 2021,
+            }
+        }
+        sanitized_citation_data = self.sanitizer.sanitize(citation_data)
+        self.assertEqual(sanitized_citation_data, expected_citation_data, "Expected null year completed to be replaced with 2021.")
+
+    def test_sanitize_missing_pub_year_and_year_completed(self):
+        citation_data = {
+            123456789: {
+                "pmid": 123456789,
+                "title": "The title.",
+                "abstract": "The abstract.",
+                "journal_nlmid": "01234",
+                "journal_title": "The journal",
+                "pub_year": None,
+                "year_completed": None,
+            }
+        }
+        expected_citation_data = {
+            123456789: {
+                "pmid": 123456789,
+                "title": "The title.",
+                "abstract": "The abstract.",
+                "journal_nlmid": "01234",
+                "journal_title": "The journal",
+                "pub_year": 2021,
+                "year_completed": 2021,
+            }
+        }
+        sanitized_citation_data = self.sanitizer.sanitize(citation_data)
+        self.assertEqual(sanitized_citation_data, expected_citation_data, "Expected null pub year and year completed to be replaced by 2021.")
+
 
 @skip("Slow - not finished")
 class TestDescriptorPredictionPipeline(TestCase):
     
     def test_predict(self):
         medline_date_parser = MedlineDateParser()
+        sanitizer = CitationDataSanitizer(MAX_YEAR)
         input_data_parser = PubMedXmlInputDataParser(medline_date_parser)
         cnn_predictor = CnnModelTopNPredictor(100)
         pointwise_predictor = PointwiseModelTopNPredictor({}, 100)
         listwise_predictor = ListwiseModelTopNPredictor({}, 50)
         results_formatter = MtiJsonResultsFormatter({}, {}, THRESHOLD)
-        pipeline = DescriptorPredictionPipeline(input_data_parser, cnn_predictor, pointwise_predictor, listwise_predictor, results_formatter)
+        pipeline = DescriptorPredictionPipeline(input_data_parser, sanitizer, cnn_predictor, pointwise_predictor, listwise_predictor, results_formatter)
         input_data = json.load(gzip.open(TEST_SET_DATA_PATH))
         expected_predictions = json.load(gzip.open(TEST_SET_PREDICTIONS_PATH))
         predictions = pipeline.predict(input_data)

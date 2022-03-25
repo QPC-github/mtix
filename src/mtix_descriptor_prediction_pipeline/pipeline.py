@@ -4,9 +4,31 @@ from .utils import average_top_results, base64_decode, create_query_lookup
 import xml.etree.ElementTree as ET
 
 
+
+class CitationDataSanitizer:
+
+    def __init__(self, max_year):
+        self.max_year = max_year
+        
+    def sanitize(self, citation_data):
+        for pmid in citation_data:
+            pmid_data = citation_data[pmid]
+            if pmid_data["journal_nlmid"] is None:
+                pmid_data["journal_nlmid"] = "<unknown>"
+            if pmid_data["pub_year"] is None:
+                if pmid_data["year_completed"] is not None:
+                    pmid_data["pub_year"] = pmid_data["year_completed"]
+                else:
+                    pmid_data["pub_year"] = self.max_year
+            if pmid_data["year_completed"] is None:
+                pmid_data["year_completed"] = self.max_year
+        return citation_data
+
+
 class DescriptorPredictionPipeline:
-    def __init__(self, input_data_parser, cnn_model_top_n_predictor, pointwise_model_top_n_predictor, listwise_model_top_n_predictor, results_formatter):
+    def __init__(self, input_data_parser, citation_data_sanitizer, cnn_model_top_n_predictor, pointwise_model_top_n_predictor, listwise_model_top_n_predictor, results_formatter):
         self.input_data_parser = input_data_parser
+        self.citation_data_sanitizer = citation_data_sanitizer
         self.cnn_model_top_n_predictor = cnn_model_top_n_predictor
         self.pointwise_model_top_n_predictor = pointwise_model_top_n_predictor
         self.listwise_model_top_n_predictor = listwise_model_top_n_predictor
@@ -14,6 +36,7 @@ class DescriptorPredictionPipeline:
 
     def predict(self, input_data):
         citation_data = self.input_data_parser.parse(input_data)
+        citation_data = self.citation_data_sanitizer.sanitize(citation_data)
         query_lookup = create_query_lookup(citation_data)
         cnn_results = self.cnn_model_top_n_predictor.predict(citation_data)
         pointwise_results = self.pointwise_model_top_n_predictor.predict(query_lookup, cnn_results)
