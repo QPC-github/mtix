@@ -152,8 +152,9 @@ class TestDescriptorPredictionPipeline(TestCase):
         self.pointwise_predictor.predict = MagicMock(return_value=POINTWISE_RESULTS)
         self.listwise_predictor = ListwiseModelTopNPredictor({}, 50)
         self.listwise_predictor.predict = MagicMock(return_value=LISTWISE_RESULTS)
-        results_formatter = MtiJsonResultsFormatter(DESC_NAME_LOOKUP, DUI_LOOKUP, THRESHOLD)
-        self.pipeline = DescriptorPredictionPipeline(input_data_parser, self.sanitizer, self.cnn_predictor, self.pointwise_predictor, self.listwise_predictor, results_formatter)
+        self.results_formatter = MtiJsonResultsFormatter(DESC_NAME_LOOKUP, DUI_LOOKUP, THRESHOLD)
+        self.results_formatter.format = Mock(wraps=self.results_formatter.format)
+        self.pipeline = DescriptorPredictionPipeline(input_data_parser, self.sanitizer, self.cnn_predictor, self.pointwise_predictor, self.listwise_predictor, self.results_formatter)
 
     def test_predict(self):
         input_data = PUBMED_XML_INPUT_DATA
@@ -166,6 +167,7 @@ class TestDescriptorPredictionPipeline(TestCase):
         self.cnn_predictor.predict.assert_called_once_with(EXPECTED_CITATION_DATA)
         self.pointwise_predictor.predict.assert_called_once_with(EXPECTED_CITATION_DATA, CNN_RESULTS)
         self.listwise_predictor.predict.assert_called_once_with(EXPECTED_CITATION_DATA, POINTWISE_AVG_RESULTS)
+        self.results_formatter.format.assert_called_once_with(UNORDERED_LISTWISE_AVG_RESULTS)
 
 
 class TestMedlineDateParser(TestCase):
@@ -195,7 +197,7 @@ class TestMtiJsonResultsFormatter(TestCase):
         self.formatter = MtiJsonResultsFormatter(DESC_NAME_LOOKUP, DUI_LOOKUP, THRESHOLD)
 
     def test_format(self):
-        predictions = self.formatter.format(UNORDERED_LISTWISE_AVG)
+        predictions = self.formatter.format(UNORDERED_LISTWISE_AVG_RESULTS)
         self.assertEqual(predictions, EXPECTED_PREDICTIONS, "Predictions are not as expected.")
 
 
