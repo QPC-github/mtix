@@ -1,6 +1,6 @@
 class CnnModelTopNPredictor:
-    def __init__(self, top_n):
-        self.top_n = top_n
+    def __init__(self, tensorflow_predictor):
+        self.tensorflow_predictor = tensorflow_predictor
 
     def predict(self, citation_data):
         top_results = None
