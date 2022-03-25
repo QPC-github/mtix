@@ -1,13 +1,44 @@
 from mtix_descriptor_prediction_pipeline.predictors import CnnModelTopNPredictor
 from .test_data import *
 from unittest import TestCase
-#from unittest.mock import MagicMock, Mock
+from unittest.mock import MagicMock, Mock
 
 
+TENSORFLOW_PREDICTOR_EXPECTED_INPUT_DATA = {
+    "instances":
+    [
+        {
+            "title": "Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.",
+            "abstract": "Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT2). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ2 was individually calculated using the deflection point of ventilatory equivalents. In addition, VT2 was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT2, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η2=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT2. Similarly, Bland Altman analysis showed a considerable agreement between VT2 vs. ECG-derived respiration (mean difference of -0.06 km·h-1, 95% CL: ±0.40) and VT2 vs. high frequency product (mean difference of 0.02 km·h-1, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT2 in a field shuttle run test.",
+            "journal_nlmid": "8008349",
+            "pub_year": 2021,
+            "year_completed": 2021,
+        },
+        {
+            "title": "Update on the biology and management of renal cell carcinoma.",
+            "abstract": "Renal cell cancer (RCC) (epithelial carcinoma of the kidney) represents 2%-4% of newly diagnosed adult tumors. Over the past 2 decades, RCC has been better characterized clinically and molecularly. It is a heterogeneous disease, with multiple subtypes, each with characteristic histology, genetics, molecular profiles, and biologic behavior. Tremendous heterogeneity has been identified with many distinct subtypes characterized. There are clinical questions to be addressed at every stage of this disease, and new targets being identified for therapeutic development. The unique characteristics of the clinical presentations of RCC have led to both questions and opportunities for improvement in management. Advances in targeted drug development and understanding of immunologic control of RCC are leading to a number of new clinical trials and regimens for advanced disease, with the goal of achieving long-term disease-free survival, as has been achieved in a proportion of such patients historically. RCC management is a promising area of ongoing clinical investigation.",
+            "journal_nlmid": "9501229",
+            "pub_year": 2019,
+            "year_completed": 2020,
+        },
+    ]
+}
+TENSORFLOW_PREDICTOR_RESULT = {'predictions': [[[9291.0, 0.99991405], [8857.0, 0.996702433], [15149.0, 0.981794119], [7653.0, 0.909845233], [10719.0, 0.900856495], [7160.0, 0.86951232], [14670.0, 0.85514313], [3075.0, 0.744284868], [17432.0, 0.691533864], [27783.0, 0.668486834], [12453.0, 0.563120842], [27868.0, 0.541304171], [14390.0, 0.492241532], [27896.0, 0.430962414], [13943.0, 0.332509071], [14386.0, 0.315851539], [3109.0, 0.243542254], [7828.0, 0.211396456], [1058.0, 0.150406182], [17338.0, 0.150172174], [27389.0, 0.104654104], [8839.0, 0.0997825], [13133.0, 0.0561133623], [6074.0, 0.0504377484], [14396.0, 0.0449917912], [29719.0, 0.0399413407], [7794.0, 0.0353200734], [13740.0, 0.0283615589], [15372.0, 0.0258080661], [4651.0, 0.0241023], [7655.0, 0.0221712291], [14288.0, 0.021931529], [18833.0, 0.0192700028], [29829.0, 0.0188019276], [16178.0, 0.0182481706], [5322.0, 0.0169706047], [16185.0, 0.0166066587], [3465.0, 0.0160861611], [11385.0, 0.0146306157], [17544.0, 0.0132394433], [13135.0, 0.0126036108], [559.0, 0.0118727386], [17955.0, 0.0117587447], [14922.0, 0.00959324837], [3007.0, 0.00951391459], [15050.0, 0.009254843], [12452.0, 0.00909403], [13190.0, 0.00903201103], [13548.0, 0.00823283195], [17678.0, 0.00785794854], [16970.0, 0.00770175457], [20215.0, 0.00707453489], [20262.0, 0.00680217147], [15401.0, 0.006072402], [17947.0, 0.005962044], [20752.0, 0.00549891591], [7809.0, 0.0051754117], [12444.0, 0.00512075424], [4933.0, 0.00474587083], [8153.0, 0.0046531558], [17719.0, 0.00450506806], [14410.0, 0.00415954], [8400.0, 0.00411590934], [14412.0, 0.00405246], [8847.0, 0.00398141146], [9466.0, 0.00376901031], [5820.0, 0.00363495946], [15849.0, 0.00353819132], [16184.0, 0.00353240967], [8852.0, 0.00347152352], [17452.0, 0.00342169404], [18156.0, 0.00332275033], [29299.0, 0.00325247645], [10595.0, 0.0032376647], [17930.0, 0.00284028053], [7326.0, 0.00280493498], [7021.0, 0.00248488784], [17520.0, 0.00240907073], [4626.0, 0.00240835547], [8870.0, 0.00223618746], [10567.0, 0.00219872594], [25026.0, 0.00218451023], [14316.0, 0.00212264061], [17107.0, 0.00210902095], [3883.0, 0.00202342868], [14408.0, 0.00193503499], [5006.0, 0.00192338228], [10864.0, 0.00190702081], [18374.0, 0.00190150738], [4540.0, 0.00185212493], [8095.0, 0.00177639723], [27196.0, 0.00177267194], [15402.0, 0.00176078081], [29387.0, 0.00174471736], [4072.0, 0.00171655416], [15888.0, 0.00169724226], [4358.0, 0.00165814161], [4505.0, 0.00165370107], [3640.0, 0.00150859356], [3239.0, 0.00146594644]], [[9291.0, 0.999201417], [4978.0, 0.992458224], [10133.0, 0.91537416], [28767.0, 0.493482441], [5649.0, 0.298030645], [3718.0, 0.264088869], [9643.0, 0.214085281], [20100.0, 0.204979271], [3575.0, 0.202001214], [20854.0, 0.201140314], [18671.0, 0.152674556], [1930.0, 0.14245823], [11742.0, 0.106658667], [17505.0, 0.0968135595], [16588.0, 0.0740843117], [13680.0, 0.0597954392], [3719.0, 0.0585802197], [17952.0, 0.0561128855], [5789.0, 0.0561043322], [17965.0, 0.0530118048], [10122.0, 0.0496571064], [10908.0, 0.0450125337], [17911.0, 0.0423624218], [1347.0, 0.0420190692], [28183.0, 0.03696087], [17934.0, 0.0349369347], [19990.0, 0.0329229236], [18791.0, 0.0302933753], [25251.0, 0.0299238265], [28791.0, 0.0292187035], [11737.0, 0.028724581], [14561.0, 0.027315557], [3660.0, 0.025931567], [9631.0, 0.0244136155], [18332.0, 0.0216621757], [19045.0, 0.0213854611], [11767.0, 0.0208264589], [3109.0, 0.0192547739], [10719.0, 0.0181568563], [29131.0, 0.0173777938], [21306.0, 0.0162630975], [2344.0, 0.0162173212], [7828.0, 0.0160495639], [11539.0, 0.0158000588], [19115.0, 0.015158534], [28240.0, 0.014993161], [12976.0, 0.0146568716], [29181.0, 0.0143497586], [28571.0, 0.0137678683], [27776.0, 0.0132320821], [20468.0, 0.0128286779], [3148.0, 0.0127492547], [21590.0, 0.0123948753], [11349.0, 0.0123589337], [28811.0, 0.0113763511], [27380.0, 0.01105088], [1634.0, 0.0110328794], [3239.0, 0.0107408464], [11738.0, 0.0104124546], [20106.0, 0.0102720559], [11276.0, 0.00983902812], [29157.0, 0.009316504], [6958.0, 0.00860971212], [20728.0, 0.00844031572], [22300.0, 0.00820368528], [20098.0, 0.00805518], [19041.0, 0.00746485591], [14025.0, 0.00746440887], [9642.0, 0.00726681948], [14375.0, 0.00722879171], [26604.0, 0.00705811381], [27451.0, 0.00705370307], [17520.0, 0.00700190663], [28010.0, 0.00699970126], [18093.0, 0.0067935288], [9585.0, 0.00664961338], [17439.0, 0.00660657883], [16185.0, 0.00643861294], [4418.0, 0.00642251968], [11739.0, 0.00641462207], [29576.0, 0.00639393926], [21749.0, 0.00608283281], [18823.0, 0.00600987673], [29943.0, 0.00591522455], [75.0, 0.00577512383], [6807.0, 0.00566071272], [25455.0, 0.00543767214], [29869.0, 0.00515505672], [23963.0, 0.00513395667], [6810.0, 0.00504919887], [4400.0, 0.00479242206], [22308.0, 0.00465461612], [14374.0, 0.00453996658], [3149.0, 0.00449174643], [1250.0, 0.00448897481], [6338.0, 0.00444176793], [13006.0, 0.00433811545], [26132.0, 0.00425088406], [15806.0, 0.00415796041], [10129.0, 0.00400665402]]]}
+
+
+#TODO: does it make senese to continue to use pytrec_eval? with string keys?
 class TestCnnModelTopNPredictor(TestCase):
 
+    def round_top_results(self, top_results, ndigits):
+        top_results = { q_id: { p_id: round(top_results[q_id][p_id], ndigits) for p_id in top_results[q_id]} for q_id in top_results}
+        return top_results
+
     def test_predict(self):
-        tensorflow_predictor = None
+        tensorflow_predictor = Mock()
+        tensorflow_predictor.predict = MagicMock(return_value=TENSORFLOW_PREDICTOR_RESULT)
         cnn_predictor = CnnModelTopNPredictor(tensorflow_predictor)
         top_results = cnn_predictor.predict(EXPECTED_CITATION_DATA)
-        self.assertIsNotNone(top_results)
+        top_results = self.round_top_results(top_results, 4)
+        cnn_results = self.round_top_results(CNN_RESULTS, 4)
+        self.assertEqual(top_results, cnn_results, "top results not as expected.")
+        tensorflow_predictor.predict.assert_called_once_with(TENSORFLOW_PREDICTOR_EXPECTED_INPUT_DATA)
