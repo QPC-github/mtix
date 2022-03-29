@@ -12,12 +12,13 @@ class CnnModelTopNPredictor:
         return top_results
 
 class PointwiseModelTopNPredictor:
-    def __init__(self, desc_name_lookup, top_n):
+    def __init__(self, huggingface_predictor, desc_name_lookup, top_n):
+        self.huggingface_predictor = huggingface_predictor
         self.desc_name_lookup = desc_name_lookup
         self.top_n = top_n
 
     def predict(self, citation_data, top_results):
-        top_results = None
+        top_results = {}
         return top_results
 
 class ListwiseModelTopNPredictor:
