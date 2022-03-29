@@ -7,19 +7,38 @@ from unittest.mock import MagicMock, Mock
 
 HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA = {
     "inputs": [
-        [["2017-2021|Clinical & translational oncology : official publication of the Federation of Spanish Oncology Societies and of the National Cancer Institute of Mexico|Lysophosphatidic acid receptor 6 regulated by miR-27a-3p attenuates tumor proliferation in breast cancer.|PURPOSE: Lysophosphatidic acid (LPA) is a bioactive molecule which participates in many physical and pathological processes. Although LPA receptor 6 (LPAR6), the last identified LPA receptor, has been reported to have diverse effects in multiple cancers, including breast cancer, its effects and functioning mechanisms are not fully known.METHODS: Multiple public databases were used to investigate the mRNA expression of LPAR6, its prognostic value, and potential mechanisms in breast cancer. Western blotting was performed to validate the differential expression of LPAR6 in breast cancer tissues and their adjacent tissues. Furthermore, in vitro experiments were used to explore the effects of LPAR6 on breast cancer. Additionally, TargetScan and miRWalk were used to identify potential upstream regulating miRNAs and validated the relationship between miR-27a-3p and LPAR6 via real-time polymerase chain reaction and an in vitro rescue assay.RESULTS: LPAR6 was significantly downregulated in breast cancer at transcriptional and translational levels. Decreased LPAR6 expression in breast cancer is significantly correlated with poor overall survival, disease-free survival, and distal metastasis-free survival, particularly for hormone receptor-positive patients, regardless of lymph node metastatic status. In vitro gain and loss-of-function assays indicated that LPAR6 attenuated breast cancer cell proliferation. The analyses of TCGA and METABRIC datasets revealed that LPAR6 may regulate the cell cycle signal pathway. Furthermore, the expression of LPAR6 could be positively regulated by miR-27a-3p. The knockdown of miR-27a-3p increased cell proliferation, and ectopic expression of LPAR6 could partly rescue this phenotype.CONCLUSION: LPAR6 acts as a tumor suppressor in breast cancer and is positively regulated by miR-27a-3p.", "Humans"]],
-        [["2017-2021|Clinical & translational oncology : official publication of the Federation of Spanish Oncology Societies and of the National Cancer Institute of Mexico|Lysophosphatidic acid receptor 6 regulated by miR-27a-3p attenuates tumor proliferation in breast cancer.|PURPOSE: Lysophosphatidic acid (LPA) is a bioactive molecule which participates in many physical and pathological processes. Although LPA receptor 6 (LPAR6), the last identified LPA receptor, has been reported to have diverse effects in multiple cancers, including breast cancer, its effects and functioning mechanisms are not fully known.METHODS: Multiple public databases were used to investigate the mRNA expression of LPAR6, its prognostic value, and potential mechanisms in breast cancer. Western blotting was performed to validate the differential expression of LPAR6 in breast cancer tissues and their adjacent tissues. Furthermore, in vitro experiments were used to explore the effects of LPAR6 on breast cancer. Additionally, TargetScan and miRWalk were used to identify potential upstream regulating miRNAs and validated the relationship between miR-27a-3p and LPAR6 via real-time polymerase chain reaction and an in vitro rescue assay.RESULTS: LPAR6 was significantly downregulated in breast cancer at transcriptional and translational levels. Decreased LPAR6 expression in breast cancer is significantly correlated with poor overall survival, disease-free survival, and distal metastasis-free survival, particularly for hormone receptor-positive patients, regardless of lymph node metastatic status. In vitro gain and loss-of-function assays indicated that LPAR6 attenuated breast cancer cell proliferation. The analyses of TCGA and METABRIC datasets revealed that LPAR6 may regulate the cell cycle signal pathway. Furthermore, the expression of LPAR6 could be positively regulated by miR-27a-3p. The knockdown of miR-27a-3p increased cell proliferation, and ectopic expression of LPAR6 could partly rescue this phenotype.CONCLUSION: LPAR6 acts as a tumor suppressor in breast cancer and is positively regulated by miR-27a-3p.", "Guinea Pigs"]],
+        [[
+            '2017-2021|International journal of sports medicine|Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.|Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT2). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ2 was individually calculated using the deflection point of ventilatory equivalents. In addition, VT2 was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT2, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η2=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT2. Similarly, Bland Altman analysis showed a considerable agreement between VT2 vs. ECG-derived respiration (mean difference of -0.06\u2009km·h-1, 95% CL: ±0.40) and VT2 vs. high frequency product (mean difference of 0.02\u2009km·h-1, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT2 in a field shuttle run test.',
+            'Humans'
+        ]],
+        [[
+            '2017-2021|International journal of sports medicine|Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.|Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT2). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ2 was individually calculated using the deflection point of ventilatory equivalents. In addition, VT2 was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT2, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η2=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT2. Similarly, Bland Altman analysis showed a considerable agreement between VT2 vs. ECG-derived respiration (mean difference of -0.06\u2009km·h-1, 95% CL: ±0.40) and VT2 vs. high frequency product (mean difference of 0.02\u2009km·h-1, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT2 in a field shuttle run test.',
+            'Heart Rate'
+        ]],
+        [[
+            '2017-2021|Journal of investigative medicine : the official publication of the American Federation for Clinical Research|Update on the biology and management of renal cell carcinoma.|Renal cell cancer (RCC) (epithelial carcinoma of the kidney) represents 2%-4% of newly diagnosed adult tumors. Over the past 2 decades, RCC has been better characterized clinically and molecularly. It is a heterogeneous disease, with multiple subtypes, each with characteristic histology, genetics, molecular profiles, and biologic behavior. Tremendous heterogeneity has been identified with many distinct subtypes characterized. There are clinical questions to be addressed at every stage of this disease, and new targets being identified for therapeutic development. The unique characteristics of the clinical presentations of RCC have led to both questions and opportunities for improvement in management. Advances in targeted drug development and understanding of immunologic control of RCC are leading to a number of new clinical trials and regimens for advanced disease, with the goal of achieving long-term disease-free survival, as has been achieved in a proportion of such patients historically. RCC management is a promising area of ongoing clinical investigation.',
+            'Humans'
+        ]],
+        [[
+            '2017-2021|Journal of investigative medicine : the official publication of the American Federation for Clinical Research|Update on the biology and management of renal cell carcinoma.|Renal cell cancer (RCC) (epithelial carcinoma of the kidney) represents 2%-4% of newly diagnosed adult tumors. Over the past 2 decades, RCC has been better characterized clinically and molecularly. It is a heterogeneous disease, with multiple subtypes, each with characteristic histology, genetics, molecular profiles, and biologic behavior. Tremendous heterogeneity has been identified with many distinct subtypes characterized. There are clinical questions to be addressed at every stage of this disease, and new targets being identified for therapeutic development. The unique characteristics of the clinical presentations of RCC have led to both questions and opportunities for improvement in management. Advances in targeted drug development and understanding of immunologic control of RCC are leading to a number of new clinical trials and regimens for advanced disease, with the goal of achieving long-term disease-free survival, as has been achieved in a proportion of such patients historically. RCC management is a promising area of ongoing clinical investigation.',
+            'Carcinoma, Renal Cell'
+        ]],
     ],
     "parameters": {"max_length": 512,
                    "padding": "max_length",
                    "truncation": "longest_first",
                    "return_all_scores": True, },
 }
-HUGGINGFACE_PREDICTOR_POINTWISE_RESULT = [[{'label': 'LABEL_0', 'score': 0.00033122117747552693}, {'label': 'LABEL_1', 'score': 0.9996688365936279}], [{'label': 'LABEL_0', 'score': 0.9942746758460999}, {'label': 'LABEL_1', 'score': 0.005725273862481117}]]
+HUGGINGFACE_PREDICTOR_POINTWISE_RESULT = [
+    [{'label': 'LABEL_0', 'score': 0.0003322575648780912}, {'label': 'LABEL_1', 'score': 0.999667763710022}], 
+    [{'label': 'LABEL_0', 'score': 0.000692102883476764}, {'label': 'LABEL_1', 'score': 0.9993078708648682}], 
+    [{'label': 'LABEL_0', 'score': 0.00033282057847827673}, {'label': 'LABEL_1', 'score': 0.9996671676635742}], 
+    [{'label': 'LABEL_0', 'score': 0.00033223856007680297}, {'label': 'LABEL_1', 'score': 0.999667763710022}]]
 
 
 def round_top_results(top_results, ndigits):
-    top_results = { q_id: { p_id: round(top_results[q_id][p_id], ndigits) for p_id in top_results[q_id]} for q_id in top_results}
+    top_results = {q_id: {p_id: round(
+        top_results[q_id][p_id], ndigits) for p_id in top_results[q_id]} for q_id in top_results}
     return top_results
 
 
@@ -27,23 +46,31 @@ class TestCnnModelTopNPredictor(TestCase):
 
     def test_predict(self):
         tensorflow_predictor = Mock()
-        tensorflow_predictor.predict = MagicMock(return_value=TENSORFLOW_PREDICTOR_RESULT)
+        tensorflow_predictor.predict = MagicMock(
+            return_value=TENSORFLOW_PREDICTOR_RESULT)
         cnn_predictor = CnnModelTopNPredictor(tensorflow_predictor)
         top_results = cnn_predictor.predict(EXPECTED_CITATION_DATA)
         top_results = round_top_results(top_results, 4)
         cnn_results = round_top_results(CNN_RESULTS, 4)
-        self.assertEqual(top_results, cnn_results, "top results not as expected.")
-        tensorflow_predictor.predict.assert_called_once_with(TENSORFLOW_PREDICTOR_EXPECTED_INPUT_DATA)
+        self.assertEqual(top_results, cnn_results,
+                         "top results not as expected.")
+        tensorflow_predictor.predict.assert_called_once_with(
+            TENSORFLOW_PREDICTOR_EXPECTED_INPUT_DATA)
 
 
 class TestPointwiseModelTopNPredictor(TestCase):
 
     def test_predict(self):
         huggingface_predictor = Mock()
-        huggingface_predictor.predict = MagicMock(return_value=HUGGINGFACE_PREDICTOR_POINTWISE_RESULT)
-        pointwise_predictor = PointwiseModelTopNPredictor(huggingface_predictor, DESC_NAME_LOOKUP, 10)
-        top_results = pointwise_predictor.predict(EXPECTED_CITATION_DATA, CNN_RESULTS)
+        huggingface_predictor.predict = MagicMock(
+            return_value=HUGGINGFACE_PREDICTOR_POINTWISE_RESULT)
+        pointwise_predictor = PointwiseModelTopNPredictor(
+            huggingface_predictor, DESC_NAME_LOOKUP, 2)
+        top_results = pointwise_predictor.predict(
+            EXPECTED_CITATION_DATA, CNN_RESULTS)
         top_results = round_top_results(top_results, 4)
         pointwise_results = round_top_results(POINTWISE_RESULTS, 4)
-        self.assertEqual(top_results, pointwise_results, "top results not as expected.")
-        huggingface_predictor.predict.assert_called_once_with(HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA)
+        self.assertEqual(top_results, pointwise_results,
+                         "top results not as expected.")
+        huggingface_predictor.predict.assert_called_once_with(
+            HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA)
