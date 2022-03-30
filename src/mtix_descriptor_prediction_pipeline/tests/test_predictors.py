@@ -41,9 +41,8 @@ HUGGINGFACE_PREDICTOR_POINTWISE_RESULT = [
     [{'label': 'LABEL_0', 'score': 0.22837106883525848}, {'label': 'LABEL_1', 'score': 0.7716289162635803}]]
 
 
-def round_top_results(top_results, ndigits):
-    top_results = {q_id: {p_id: round(
-        top_results[q_id][p_id], ndigits) for p_id in top_results[q_id]} for q_id in top_results}
+def round_top_results(top_results, ndigits, top_n=10000000):
+    top_results = {q_id: {p_id: round(score, ndigits) for p_id, score in sorted(top_results[q_id].items(), key=lambda x: x[1], reverse=True)[:top_n] } for q_id in top_results}
     return top_results
 
 
@@ -65,17 +64,20 @@ class TestCnnModelTopNPredictor(TestCase):
 
 class TestPointwiseModelTopNPredictor(TestCase):
 
+    # TODO: need to test that CNN top results are sorted
     def test_predict(self):
         huggingface_predictor = Mock()
         huggingface_predictor.predict = MagicMock(
             return_value=HUGGINGFACE_PREDICTOR_POINTWISE_RESULT)
+        top_n = 5
         pointwise_predictor = PointwiseModelTopNPredictor(
-            huggingface_predictor, DESC_NAME_LOOKUP, 2)
+            huggingface_predictor, DESC_NAME_LOOKUP, top_n)
         top_results = pointwise_predictor.predict(
             EXPECTED_CITATION_DATA, CNN_RESULTS)
-        top_results = round_top_results(top_results, 4)
-        pointwise_results = round_top_results(POINTWISE_RESULTS, 4)
-        self.assertEqual(top_results, pointwise_results,
-                         "top results not as expected.")
-        huggingface_predictor.predict.assert_called_once_with(
-            HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA)
+        top_results = round_top_results(top_results, 6)
+        expected_top_results =  {q_id: {p_id: POINTWISE_RESULTS[q_id][p_id] for p_id in top_results[q_id]} for q_id in top_results}
+        expected_top_results = round_top_results(expected_top_results, 6)
+        self.assertEqual(top_results, expected_top_results, "top results not as expected.")
+        self.assertEqual(len(top_results["32770536"]), top_n, f"Expected {top_n} top results for each pmid.")
+        self.assertEqual(len(top_results["30455223"]), top_n, f"Expected {top_n} top results for each pmid.")
+        huggingface_predictor.predict.assert_called_once_with(HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA)
