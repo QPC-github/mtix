@@ -5,35 +5,40 @@ from unittest.mock import MagicMock, Mock
 
 #TODO: does it make senese to continue to use pytrec_eval? with string keys?
 
+QUERY_1 = "2017-2021|International journal of sports medicine|Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.|Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT2). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ2 was individually calculated using the deflection point of ventilatory equivalents. In addition, VT2 was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT2, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η2=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT2. Similarly, Bland Altman analysis showed a considerable agreement between VT2 vs. ECG-derived respiration (mean difference of -0.06\u2009km·h-1, 95% CL: ±0.40) and VT2 vs. high frequency product (mean difference of 0.02\u2009km·h-1, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT2 in a field shuttle run test."
+QUERY_2 = "2017-2021|Journal of investigative medicine : the official publication of the American Federation for Clinical Research|Update on the biology and management of renal cell carcinoma.|Renal cell cancer (RCC) (epithelial carcinoma of the kidney) represents 2%-4% of newly diagnosed adult tumors. Over the past 2 decades, RCC has been better characterized clinically and molecularly. It is a heterogeneous disease, with multiple subtypes, each with characteristic histology, genetics, molecular profiles, and biologic behavior. Tremendous heterogeneity has been identified with many distinct subtypes characterized. There are clinical questions to be addressed at every stage of this disease, and new targets being identified for therapeutic development. The unique characteristics of the clinical presentations of RCC have led to both questions and opportunities for improvement in management. Advances in targeted drug development and understanding of immunologic control of RCC are leading to a number of new clinical trials and regimens for advanced disease, with the goal of achieving long-term disease-free survival, as has been achieved in a proportion of such patients historically. RCC management is a promising area of ongoing clinical investigation."
+                
 HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA = {
     "inputs": [
-        [[
-            '2017-2021|International journal of sports medicine|Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.|Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT2). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ2 was individually calculated using the deflection point of ventilatory equivalents. In addition, VT2 was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT2, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η2=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT2. Similarly, Bland Altman analysis showed a considerable agreement between VT2 vs. ECG-derived respiration (mean difference of -0.06\u2009km·h-1, 95% CL: ±0.40) and VT2 vs. high frequency product (mean difference of 0.02\u2009km·h-1, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT2 in a field shuttle run test.',
-            'Humans'
-        ]],
-        [[
-            '2017-2021|International journal of sports medicine|Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.|Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT2). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ2 was individually calculated using the deflection point of ventilatory equivalents. In addition, VT2 was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT2, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η2=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT2. Similarly, Bland Altman analysis showed a considerable agreement between VT2 vs. ECG-derived respiration (mean difference of -0.06\u2009km·h-1, 95% CL: ±0.40) and VT2 vs. high frequency product (mean difference of 0.02\u2009km·h-1, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT2 in a field shuttle run test.',
-            'Heart Rate'
-        ]],
-        [[
-            '2017-2021|Journal of investigative medicine : the official publication of the American Federation for Clinical Research|Update on the biology and management of renal cell carcinoma.|Renal cell cancer (RCC) (epithelial carcinoma of the kidney) represents 2%-4% of newly diagnosed adult tumors. Over the past 2 decades, RCC has been better characterized clinically and molecularly. It is a heterogeneous disease, with multiple subtypes, each with characteristic histology, genetics, molecular profiles, and biologic behavior. Tremendous heterogeneity has been identified with many distinct subtypes characterized. There are clinical questions to be addressed at every stage of this disease, and new targets being identified for therapeutic development. The unique characteristics of the clinical presentations of RCC have led to both questions and opportunities for improvement in management. Advances in targeted drug development and understanding of immunologic control of RCC are leading to a number of new clinical trials and regimens for advanced disease, with the goal of achieving long-term disease-free survival, as has been achieved in a proportion of such patients historically. RCC management is a promising area of ongoing clinical investigation.',
-            'Humans'
-        ]],
-        [[
-            '2017-2021|Journal of investigative medicine : the official publication of the American Federation for Clinical Research|Update on the biology and management of renal cell carcinoma.|Renal cell cancer (RCC) (epithelial carcinoma of the kidney) represents 2%-4% of newly diagnosed adult tumors. Over the past 2 decades, RCC has been better characterized clinically and molecularly. It is a heterogeneous disease, with multiple subtypes, each with characteristic histology, genetics, molecular profiles, and biologic behavior. Tremendous heterogeneity has been identified with many distinct subtypes characterized. There are clinical questions to be addressed at every stage of this disease, and new targets being identified for therapeutic development. The unique characteristics of the clinical presentations of RCC have led to both questions and opportunities for improvement in management. Advances in targeted drug development and understanding of immunologic control of RCC are leading to a number of new clinical trials and regimens for advanced disease, with the goal of achieving long-term disease-free survival, as has been achieved in a proportion of such patients historically. RCC management is a promising area of ongoing clinical investigation.',
-            'Carcinoma, Renal Cell'
-        ]],
+            [[ QUERY_1, "Humans"]],
+            [[ QUERY_1, "Heart Rate"]],
+            [[ QUERY_1, "Soccer"]],
+            [[ QUERY_1, "Exercise Test"]],
+            [[ QUERY_1, "Male"]],
+            [[ QUERY_2, "Humans"]],
+            [[ QUERY_2, "Carcinoma, Renal Cell"]],
+            [[ QUERY_2, "Kidney Neoplasms"]],
+            [[ QUERY_2, "Molecular Targeted Therapy"]],
+            [[ QUERY_2, "Clinical Trials as Topic"]],
     ],
     "parameters": {"max_length": 512,
                    "padding": "max_length",
                    "truncation": "longest_first",
                    "return_all_scores": True, },
 }
+
+
 HUGGINGFACE_PREDICTOR_POINTWISE_RESULT = [
     [{'label': 'LABEL_0', 'score': 0.0003322575648780912}, {'label': 'LABEL_1', 'score': 0.999667763710022}], 
     [{'label': 'LABEL_0', 'score': 0.000692102883476764}, {'label': 'LABEL_1', 'score': 0.9993078708648682}], 
+    [{'label': 'LABEL_0', 'score': 0.024880778044462204}, {'label': 'LABEL_1', 'score': 0.9751191735267639}], 
+    [{'label': 'LABEL_0', 'score': 0.05469166859984398}, {'label': 'LABEL_1', 'score': 0.9453083872795105}], 
+    [{'label': 'LABEL_0', 'score': 0.010324337519705296}, {'label': 'LABEL_1', 'score': 0.9896757006645203}], 
     [{'label': 'LABEL_0', 'score': 0.00033282057847827673}, {'label': 'LABEL_1', 'score': 0.9996671676635742}], 
-    [{'label': 'LABEL_0', 'score': 0.00033223856007680297}, {'label': 'LABEL_1', 'score': 0.999667763710022}]]
+    [{'label': 'LABEL_0', 'score': 0.00033223856007680297}, {'label': 'LABEL_1', 'score': 0.999667763710022}], 
+    [{'label': 'LABEL_0', 'score': 0.0009819401893764734}, {'label': 'LABEL_1', 'score': 0.9990180730819702}], 
+    [{'label': 'LABEL_0', 'score': 0.10123130679130554}, {'label': 'LABEL_1', 'score': 0.8987686634063721}], 
+    [{'label': 'LABEL_0', 'score': 0.22837106883525848}, {'label': 'LABEL_1', 'score': 0.7716289162635803}]]
 
 
 def round_top_results(top_results, ndigits):

@@ -14,7 +14,9 @@ DESC_NAME_LOOKUP = {
     14386: "Respiration",
     4978: "Carcinoma, Renal Cell",
     10133: "Kidney Neoplasms",
-    28767: "Molecular Targeted Therapy"}
+    28767: "Molecular Targeted Therapy",
+    5649: "Clinical Trials as Topic",
+    }
 
 
 DUI_LOOKUP = {
@@ -34,6 +36,7 @@ DUI_LOOKUP = {
     4978: "D002292",
     10133: "D007680",
     28767: "D058990",
+    5649: "D002986",
 }
 
 
