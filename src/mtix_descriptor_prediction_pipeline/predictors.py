@@ -14,47 +14,60 @@ class CnnModelTopNPredictor:
         top_results = { str(pmid): { str(int(desc_id)): float(score) for desc_id, score in citation_top_results} for pmid, citation_top_results in zip(pmids, predictions)}
         return top_results
 
+
 class PointwiseModelTopNPredictor:
+
     def __init__(self, huggingface_predictor, desc_name_lookup, top_n):
         self.huggingface_predictor = huggingface_predictor
         self.desc_name_lookup = desc_name_lookup
         self.top_n = top_n
 
-    def predict(self, citation_data_lookup, top_results):
-        inputs, pmid_list, label_id_list = self.create_inputs(citation_data_lookup, top_results)
-        data = { "inputs": inputs, "parameters": {"max_length": 512, "padding": "max_length", "truncation": "longest_first", "return_all_scores": True, }, }
-        pointwise_result_list = self.huggingface_predictor.predict(data)
-        pointwise_result_list = [label_score for label_score_list in pointwise_result_list for label_score in label_score_list if label_score["label"] == "LABEL_1"]
-
-        pointwise_top_results = {}
-        pmid_count = len(pmid_list)
-        for idx in range(pmid_count):
-            pmid = pmid_list[idx]
-            label_id = label_id_list[idx]
-            score = float(pointwise_result_list[idx]["score"])
-            q_id = str(pmid)
-            p_id = str(label_id)
-            if q_id not in pointwise_top_results:
-                pointwise_top_results[q_id] = {}
-            pointwise_top_results[q_id][p_id] = score
-                
-        return pointwise_top_results
-
-    def create_inputs(self, citation_data_lookup, top_results):
-        inputs = []
+    def predict(self, citation_data_lookup, input_top_results):
         pmid_list = []
         label_id_list = []
-        for q_id in top_results:
+        score_list = []
+        for q_id in input_top_results:
             pmid = int(q_id)
-            data = citation_data_lookup[pmid]
-            for p_id, _ in sorted(top_results[q_id].items(), key=lambda x: x[1], reverse=True)[:self.top_n]:
-                label_id = int(p_id)
-                query = POINTWISE_QUERY_TEMPLATE.format(journal_title=data["journal_title"], title=data["title"], abstract=data["abstract"])
-                passage = self.desc_name_lookup[label_id]
-                inputs.append([[query, passage]])
-                pmid_list.append(pmid)
-                label_id_list.append(label_id)
-        return inputs, pmid_list, label_id_list
+            citation_data = citation_data_lookup[pmid]
+            citation_top_results = input_top_results[q_id]
+            citation_input_data, citation_label_id_list = self._create_input_data(citation_data, citation_top_results)
+            citation_score_list = self._predict_internal(citation_input_data)
+            pmid_list.extend([pmid]*self.top_n)
+            label_id_list.extend(citation_label_id_list)
+            score_list.extend(citation_score_list)
+        output_top_results = self._create_top_results(pmid_list, label_id_list, score_list)
+        return output_top_results
+
+    def _create_input_data(self, citation_data, citation_top_results):
+        inputs = []
+        label_id_list = []
+        for p_id, _ in sorted(citation_top_results.items(), key=lambda x: x[1], reverse=True)[:self.top_n]:
+            label_id = int(p_id)
+            query = POINTWISE_QUERY_TEMPLATE.format(journal_title=citation_data["journal_title"], title=citation_data["title"], abstract=citation_data["abstract"])
+            passage = self.desc_name_lookup[label_id]
+            inputs.append([[query, passage]])
+            label_id_list.append(label_id)
+        input_data = { "inputs": inputs, "parameters": {"max_length": 512, "padding": "max_length", "truncation": "longest_first", "return_all_scores": True, }, }
+        return input_data, label_id_list
+
+    def _create_top_results(self, pmid_list, label_id_list, score_list):
+        top_results = {}
+        result_count = len(score_list)
+        for idx in range(result_count):
+            pmid = pmid_list[idx]
+            label_id = label_id_list[idx]
+            score = score_list[idx]
+            q_id = str(pmid)
+            p_id = str(label_id)
+            if q_id not in top_results:
+                top_results[q_id] = {}
+            top_results[q_id][p_id] = score
+        return top_results
+
+    def _predict_internal(self, input_data):
+        score_list = self.huggingface_predictor.predict(input_data)
+        score_list = [float(label_score["score"]) for label_score_list in score_list for label_score in label_score_list if label_score["label"] == "LABEL_1"]
+        return score_list
 
 
 class ListwiseModelTopNPredictor:
