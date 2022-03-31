@@ -1,5 +1,5 @@
 from mtix_descriptor_prediction_pipeline.pipeline import CitationDataSanitizer, DescriptorPredictionPipeline, MedlineDateParser, MtiJsonResultsFormatter, PubMedXmlInputDataParser
-from mtix_descriptor_prediction_pipeline.predictors import CnnModelTopNPredictor, PointwiseModelTopNPredictor, ListwiseModelTopNPredictor
+from mtix_descriptor_prediction_pipeline.predictors import CnnModelTop100Predictor, PointwiseModelTopNPredictor, ListwiseModelTopNPredictor
 import os.path
 from .test_data import *
 from unittest import skip, TestCase
@@ -146,11 +146,11 @@ class TestDescriptorPredictionPipeline(TestCase):
         input_data_parser = PubMedXmlInputDataParser(medline_date_parser)
         self.sanitizer = CitationDataSanitizer(MAX_YEAR)
         self.sanitizer.sanitize = Mock(wraps=self.sanitizer.sanitize)
-        self.cnn_predictor = CnnModelTopNPredictor(None)
+        self.cnn_predictor = CnnModelTop100Predictor(None)
         self.cnn_predictor.predict = MagicMock(return_value=CNN_RESULTS)
         self.pointwise_predictor = PointwiseModelTopNPredictor(None, {}, 100)
         self.pointwise_predictor.predict = MagicMock(return_value=POINTWISE_RESULTS)
-        self.listwise_predictor = ListwiseModelTopNPredictor({}, 50)
+        self.listwise_predictor = ListwiseModelTopNPredictor(None, {}, 50)
         self.listwise_predictor.predict = MagicMock(return_value=LISTWISE_RESULTS)
         self.results_formatter = MtiJsonResultsFormatter(DESC_NAME_LOOKUP, DUI_LOOKUP, THRESHOLD)
         self.results_formatter.format = Mock(wraps=self.results_formatter.format)

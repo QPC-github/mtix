@@ -1,7 +1,7 @@
 POINTWISE_QUERY_TEMPLATE = "2017-2021|{journal_title}|{title}|{abstract}"
 
 
-class CnnModelTopNPredictor:
+class CnnModelTop100Predictor:
     def __init__(self, tensorflow_predictor):
         self.tensorflow_predictor = tensorflow_predictor
 
@@ -71,10 +71,11 @@ class PointwiseModelTopNPredictor:
 
 
 class ListwiseModelTopNPredictor:
-    def __init__(self, desc_name_lookup, top_n):
+    def __init__(self, huggingface_predictor, desc_name_lookup, top_n):
+        self.huggingface_predictor = huggingface_predictor
         self.desc_name_lookup = desc_name_lookup
         self.top_n = top_n
 
-    def predict(self, citation_data, top_results):
+    def predict(self, citation_data_lookup, input_top_results):
         top_results = None
         return top_results
