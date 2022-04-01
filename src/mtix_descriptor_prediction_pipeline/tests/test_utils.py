@@ -1,6 +1,7 @@
+from .data import *
 from mtix_descriptor_prediction_pipeline.utils import average_top_results, create_lookup, base64_decode, base64_encode
+from nose.plugins.attrib import attr
 from io import StringIO
-from .test_data import LISTWISE_AVG_RESULTS, LISTWISE_RESULTS, POINTWISE_AVG_RESULTS
 from unittest import TestCase
 
 
@@ -32,6 +33,7 @@ EXPECTED_LOOKUP = {
 }
 
 
+@attr(test_type="unit")
 class TestUtils(TestCase):
 
     def test_base64_encode(self):

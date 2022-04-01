@@ -1,17 +1,16 @@
+from .data import *
 from mtix_descriptor_prediction_pipeline.pipeline import CitationDataSanitizer, DescriptorPredictionPipeline, MedlineDateParser, MtiJsonResultsFormatter, PubMedXmlInputDataParser
 from mtix_descriptor_prediction_pipeline.predictors import CnnModelTop100Predictor, PointwiseModelTopNPredictor, ListwiseModelTopNPredictor
-import os.path
-from .test_data import *
+from nose.plugins.attrib import attr
 from unittest import skip, TestCase
 from unittest.mock import MagicMock, Mock
 
-THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_SET_DATA_PATH = os.path.join(THIS_DIR, "data", "test_set_data.json.gz")
-TEST_SET_PREDICTIONS_PATH = os.path.join(THIS_DIR, "data", "test_set_2017-2022_Listwise22Avg_Results.json.gz")
 
 MAX_YEAR = 2021
 THRESHOLD = 0.475
 
+
+@attr(test_type="unit")
 class TestCitationDataSanitizer(TestCase):
 
     def setUp(self):
@@ -139,6 +138,7 @@ class TestCitationDataSanitizer(TestCase):
         self.assertEqual(sanitized_citation_data, expected_citation_data, "Expected null pub year and year completed to be replaced by 2021.")
 
 
+@attr(test_type="unit")
 class TestDescriptorPredictionPipeline(TestCase):
 
     def setUp(self):
@@ -170,6 +170,7 @@ class TestDescriptorPredictionPipeline(TestCase):
         self.results_formatter.format.assert_called_once_with(UNORDERED_LISTWISE_AVG_RESULTS)
 
 
+@attr(test_type="unit")
 class TestMedlineDateParser(TestCase):
 
     def assert_pub_year_extracted_correctly(self, text, expected_pub_year):
@@ -191,6 +192,7 @@ class TestMedlineDateParser(TestCase):
         self.assert_pub_year_extracted_correctly("24th Mar '01", 2001)
 
 
+@attr(test_type="unit")
 class TestMtiJsonResultsFormatter(TestCase):
 
     def setUp(self):
@@ -201,6 +203,7 @@ class TestMtiJsonResultsFormatter(TestCase):
         self.assertEqual(predictions, EXPECTED_PREDICTIONS, "Predictions are not as expected.")
 
 
+@attr(test_type="unit")
 class TestPubMedXmlInputDataParser(TestCase):
 
     def setUp(self):
