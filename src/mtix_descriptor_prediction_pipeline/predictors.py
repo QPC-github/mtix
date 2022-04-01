@@ -95,7 +95,7 @@ class ListwiseModelTopNPredictor:
             top_label_ids.append(citation_top_label_ids)
 
             citation_data = citation_data_lookup[pmid]
-            query = QUERY_TEMPLATE.format(journal_title=citation_data["journal_title"], title=citation_data["title"], abstract=citation_data["abstract"])
+            query = "|" + QUERY_TEMPLATE.format(journal_title=citation_data["journal_title"], title=citation_data["title"], abstract=citation_data["abstract"])
          
             passage = ""
             for label_id in citation_top_label_ids:
