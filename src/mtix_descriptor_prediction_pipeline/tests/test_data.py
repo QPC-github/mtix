@@ -149,92 +149,92 @@ EXPECTED_PREDICTIONS = [
                 "Term": "Humans",
                 "Type": "Descriptor",
                 "ID": "D006801",
-                "IM": None,
-                "Reason": "score: 0.999763221"
+                "IM": "NO",
+                "Reason": "score: 0.9998"
             },
             {
                 "Term": "Heart Rate",
                 "Type": "Descriptor",
                 "ID": "D006339",
-                "IM": None,
-                "Reason": "score: 0.998150781"
+                "IM": "NO",
+                "Reason": "score: 0.9982"
             },
             {
                 "Term": "Exercise Test",
                 "Type": "Descriptor",
                 "ID": "D005080",
-                "IM": None,
-                "Reason": "score: 0.949109524"
+                "IM": "NO",
+                "Reason": "score: 0.9491"
             },
             {
                 "Term": "Electrocardiography",
                 "Type": "Descriptor",
                 "ID": "D004562",
-                "IM": None,
-                "Reason": "score: 0.946922764"
+                "IM": "NO",
+                "Reason": "score: 0.9469"
             },
             {
                 "Term": "Soccer",
                 "Type": "Descriptor",
                 "ID": "D012916",
-                "IM": None,
-                "Reason": "score: 0.887025401"
+                "IM": "NO",
+                "Reason": "score: 0.8870"
             },
             {
                 "Term": "Male",
                 "Type": "Descriptor",
                 "ID": "D008297",
-                "IM": None,
-                "Reason": "score: 0.878887579"
+                "IM": "NO",
+                "Reason": "score: 0.8789"
             },
             {
                 "Term": "Running",
                 "Type": "Descriptor",
                 "ID": "D012420",
-                "IM": None,
-                "Reason": "score: 0.852800131"
+                "IM": "NO",
+                "Reason": "score: 0.8528"
             },
             {
                 "Term": "Young Adult",
                 "Type": "Descriptor",
                 "ID": "D055815",
-                "IM": None,
-                "Reason": "score: 0.827050164"
+                "IM": "NO",
+                "Reason": "score: 0.8271"
             },
             {
                 "Term": "Oxygen Consumption",
                 "Type": "Descriptor",
                 "ID": "D010101",
-                "IM": None,
-                "Reason": "score: 0.675493464"
+                "IM": "NO",
+                "Reason": "score: 0.6755"
             },
             {
                 "Term": "Adolescent",
                 "Type": "Descriptor",
                 "ID": "D000293",
-                "IM": None,
-                "Reason": "score: 0.667961553"
+                "IM": "NO",
+                "Reason": "score: 0.6680"
             },
             {
                 "Term": "Anaerobic Threshold",
                 "Type": "Descriptor",
                 "ID": "D015308",
-                "IM": None,
-                "Reason": "score: 0.663818032"
+                "IM": "NO",
+                "Reason": "score: 0.6638"
             },
             {
                 "Term": "Pulmonary Ventilation",
                 "Type": "Descriptor",
                 "ID": "D012123",
-                "IM": None,
-                "Reason": "score: 0.589728273"
+                "IM": "NO",
+                "Reason": "score: 0.5897"
             },
             {
                 "Term": "Respiration",
                 "Type": "Descriptor",
                 "ID": "D012119",
-                "IM": None,
-                "Reason": "score: 0.580396011"
+                "IM": "NO",
+                "Reason": "score: 0.5804"
             }
         ]
     },
@@ -245,29 +245,29 @@ EXPECTED_PREDICTIONS = [
                 "Term": "Humans",
                 "Type": "Descriptor",
                 "ID": "D006801",
-                "IM": None,
-                "Reason": "score: 0.999432161"
+                "IM": "NO",
+                "Reason": "score: 0.9994"
             },
             {
                 "Term": "Carcinoma, Renal Cell",
                 "Type": "Descriptor",
                 "ID": "D002292",
-                "IM": None,
-                "Reason": "score: 0.997489452"
+                "IM": "NO",
+                "Reason": "score: 0.9975"
             },
             {
                 "Term": "Kidney Neoplasms",
                 "Type": "Descriptor",
                 "ID": "D007680",
-                "IM": None,
-                "Reason": "score: 0.899238542"
+                "IM": "NO",
+                "Reason": "score: 0.8992"
             },
             {
                 "Term": "Molecular Targeted Therapy",
                 "Type": "Descriptor",
                 "ID": "D058990",
-                "IM": None,
-                "Reason": "score: 0.509060144"
+                "IM": "NO",
+                "Reason": "score: 0.5091"
             }
         ]
     },

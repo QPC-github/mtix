@@ -4,7 +4,6 @@ from .utils import average_top_results, base64_decode
 import xml.etree.ElementTree as ET
 
 
-
 class CitationDataSanitizer:
 
     def __init__(self, max_year):
@@ -85,8 +84,8 @@ class MtiJsonResultsFormatter:
                         "Term": name, 
                         "Type": "Descriptor", 
                         "ID": ui, 
-                        "IM": None, 
-                        "Reason": f"score: {score:.9f}"})
+                        "IM": "NO", 
+                        "Reason": f"score: {score:.4f}"})
         return mti_json
 
 
