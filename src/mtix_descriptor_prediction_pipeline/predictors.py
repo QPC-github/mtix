@@ -1,4 +1,4 @@
-POINTWISE_QUERY_TEMPLATE = "2017-2021|{journal_title}|{title}|{abstract}"
+QUERY_TEMPLATE = "2017-2021|{journal_title}|{title}|{abstract}"
 
 
 class CnnModelTop100Predictor:
@@ -43,7 +43,7 @@ class PointwiseModelTopNPredictor:
         label_id_list = []
         for p_id, _ in sorted(citation_top_results.items(), key=lambda x: x[1], reverse=True)[:self.top_n]:
             label_id = int(p_id)
-            query = POINTWISE_QUERY_TEMPLATE.format(journal_title=citation_data["journal_title"], title=citation_data["title"], abstract=citation_data["abstract"])
+            query = QUERY_TEMPLATE.format(journal_title=citation_data["journal_title"], title=citation_data["title"], abstract=citation_data["abstract"])
             passage = self.desc_name_lookup[label_id]
             inputs.append([[query, passage]])
             label_id_list.append(label_id)
@@ -71,11 +71,64 @@ class PointwiseModelTopNPredictor:
 
 
 class ListwiseModelTopNPredictor:
+
     def __init__(self, huggingface_predictor, desc_name_lookup, top_n):
         self.huggingface_predictor = huggingface_predictor
         self.desc_name_lookup = desc_name_lookup
         self.top_n = top_n
 
     def predict(self, citation_data_lookup, input_top_results):
-        top_results = None
+        input_data, pmid_list, top_label_ids = self._create_input_data(citation_data_lookup, input_top_results)
+        score_lookup = self._predict_internal(input_data)
+        output_top_results = self._create_top_results(pmid_list, top_label_ids, score_lookup)
+        return output_top_results
+
+    def _create_input_data(self, citation_data_lookup, input_top_results):
+        input_data = { "inputs": [], "parameters": {}, }
+        pmid_list = []
+        top_label_ids = []
+        for q_id in input_top_results:
+            pmid = int(q_id)
+            pmid_list.append(pmid)
+
+            citation_top_label_ids = [int(p_id) for p_id, _ in sorted(input_top_results[q_id].items(), key=lambda x: x[1], reverse=True)[:self.top_n]]
+            top_label_ids.append(citation_top_label_ids)
+
+            citation_data = citation_data_lookup[pmid]
+            query = QUERY_TEMPLATE.format(journal_title=citation_data["journal_title"], title=citation_data["title"], abstract=citation_data["abstract"])
+         
+            passage = ""
+            for label_id in citation_top_label_ids:
+                desc_name = self.desc_name_lookup[label_id]
+                passage += "|"
+                passage += desc_name
+
+            input_data["inputs"].append([[query, passage]])
+        
+        return input_data, pmid_list, top_label_ids
+
+    def _create_top_results(self, pmid_list, top_label_ids, score_lookup):
+        top_results = {}
+        citation_count = len(pmid_list)
+        for citation_idx in range(citation_count):
+            pmid = pmid_list[citation_idx]
+            q_id = str(pmid)
+            top_results[q_id] = {}
+            for label_idx in range(self.top_n):
+                label_id = top_label_ids[citation_idx][label_idx]
+                score = score_lookup[citation_idx][label_idx]
+                p_id = str(label_id) 
+                top_results[q_id][p_id] = score
         return top_results
+
+    def _predict_internal(self, input_data):
+        predictions = self.huggingface_predictor.predict(input_data)
+        prediction_count = len(predictions)
+        score_lookup = {}
+        for citation_idx in range(prediction_count):
+            score_lookup[citation_idx] = {}
+            for citation_predictions in predictions[citation_idx]:
+                label_idx = citation_predictions["index"]
+                score = citation_predictions["score"]
+                score_lookup[citation_idx][label_idx] = score
+        return score_lookup
