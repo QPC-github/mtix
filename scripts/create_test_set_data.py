@@ -1,9 +1,10 @@
+import base64
 import gzip
 import json
 import os.path
 import requests
 import xml.etree.ElementTree as ET
-from mtix_descriptor_prediction_pipeline.utils import base64_encode
+import zlib
 
 
 ENCODING="utf-8"
@@ -11,6 +12,14 @@ LIMIT = 1000000000
 MAX_RETRYS = 3
 PUBONE_URL = "https://pubmed.ncbi.nlm.nih.gov/api/pubone/pubmed/pubmed_"
 WORKING_DIR="/home/raear/working_dir/mtix/scripts/create_test_set_data"
+
+
+def base64_encode(text, level=-1):
+    text = text.encode(ENCODING)
+    text = zlib.compress(text, level=level)
+    text = base64.b64encode(text) 
+    text = text.decode(ENCODING) 
+    return text
 
 
 def get_pubone_xml(pmid):
