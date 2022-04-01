@@ -23,8 +23,10 @@ class CitationDataSanitizer:
                 pmid_data["year_completed"] = self.max_year
         return citation_data
 
+
 # Note: top results are not always sorted
 class DescriptorPredictionPipeline:
+
     def __init__(self, input_data_parser, citation_data_sanitizer, cnn_model_top_n_predictor, pointwise_model_top_n_predictor, listwise_model_top_n_predictor, results_formatter):
         self.input_data_parser = input_data_parser
         self.citation_data_sanitizer = citation_data_sanitizer

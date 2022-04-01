@@ -1,0 +1,1 @@
+from .sagemaker_factory import create_descriptor_prediction_pipeline
