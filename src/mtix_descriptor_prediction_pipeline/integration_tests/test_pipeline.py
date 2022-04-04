@@ -19,18 +19,18 @@ class TestDescriptorPredictionPipeline(TestCase):
     def setUp(self):
         self.pipeline = create_descriptor_prediction_pipeline(DESC_NAME_LOOKUP_PATH, 
                                                               DUI_LOOKUP_PATH, 
-                                                              "cnn-endpoint-name", 
-                                                              "pointwise-endpoint-name", 
-                                                              "listwise-endpoint-name")
+                                                              "tensorflow-inference-2022-04-01-22-15-17-484", 
+                                                              "huggingface-pytorch-inference-2022-04-01-22-18-14-890", 
+                                                              "huggingface-pytorch-inference-2022-04-01-22-21-50-717")
 
     def test_predict(self):
-        limit = 10
+        limit = 2
         test_set_data = json.load(gzip.open(TEST_SET_DATA_PATH, "rt", encoding="utf-8"))[:limit]
         expected_predictions = json.load(gzip.open(TEST_SET_PREDICTIONS_PATH, "rt", encoding="utf-8"))[:limit]
         
         predictions = []
         for citation_data in test_set_data:
-            citation_descriptors = self.pipeline.predict(citation_data)
+            citation_descriptors = self.pipeline.predict([citation_data])
             predictions.extend(citation_descriptors)
 
         self.assertEqual(predictions, expected_predictions, "Descriptor predictions not as expected.")

@@ -36,6 +36,11 @@ class DescriptorPredictionPipeline:
         self.results_formatter = results_formatter
 
     def predict(self, input_data):
+        if input_data is None:
+            raise ValueError("Input data cannot be None.")
+        elif type(input_data) is not list:
+            raise ValueError("Input data must be a list.")
+
         citation_data = self.input_data_parser.parse(input_data)
         citation_data = self.citation_data_sanitizer.sanitize(citation_data)
         cnn_results = self.cnn_model_top_n_predictor.predict(citation_data)
