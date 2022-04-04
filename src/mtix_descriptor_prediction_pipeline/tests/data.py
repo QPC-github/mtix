@@ -737,6 +737,16 @@ HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_1 = {
             [[ _QUERY_1, "Humans"]],
             [[ _QUERY_1, "Heart Rate"]],
             [[ _QUERY_1, "Soccer"]],
+    ],
+    "parameters": {"max_length": 512,
+                   "padding": "max_length",
+                   "truncation": "longest_first",
+                   "return_all_scores": True, },
+}
+
+
+HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_2 = {
+    "inputs": [
             [[ _QUERY_1, "Exercise Test"]],
             [[ _QUERY_1, "Male"]],
     ],
@@ -750,11 +760,21 @@ HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_1 = {
 _QUERY_2 = "2017-2021|Journal of investigative medicine : the official publication of the American Federation for Clinical Research|Update on the biology and management of renal cell carcinoma.|Renal cell cancer (RCC) (epithelial carcinoma of the kidney) represents 2%-4% of newly diagnosed adult tumors. Over the past 2 decades, RCC has been better characterized clinically and molecularly. It is a heterogeneous disease, with multiple subtypes, each with characteristic histology, genetics, molecular profiles, and biologic behavior. Tremendous heterogeneity has been identified with many distinct subtypes characterized. There are clinical questions to be addressed at every stage of this disease, and new targets being identified for therapeutic development. The unique characteristics of the clinical presentations of RCC have led to both questions and opportunities for improvement in management. Advances in targeted drug development and understanding of immunologic control of RCC are leading to a number of new clinical trials and regimens for advanced disease, with the goal of achieving long-term disease-free survival, as has been achieved in a proportion of such patients historically. RCC management is a promising area of ongoing clinical investigation."
 
 
-HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_2 = {
+HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_3 = {
     "inputs": [
             [[ _QUERY_2, "Humans"]],
             [[ _QUERY_2, "Carcinoma, Renal Cell"]],
             [[ _QUERY_2, "Kidney Neoplasms"]],
+    ],
+    "parameters": {"max_length": 512,
+                   "padding": "max_length",
+                   "truncation": "longest_first",
+                   "return_all_scores": True, },
+}
+
+
+HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_4 = {
+    "inputs": [
             [[ _QUERY_2, "Molecular Targeted Therapy"]],
             [[ _QUERY_2, "Clinical Trials as Topic"]],
     ],
@@ -769,16 +789,26 @@ HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_1 = [
     [{'label': 'LABEL_0', 'score': 0.0003322575648780912}, {'label': 'LABEL_1', 'score': 0.999667763710022}], 
     [{'label': 'LABEL_0', 'score': 0.000692102883476764}, {'label': 'LABEL_1', 'score': 0.9993078708648682}], 
     [{'label': 'LABEL_0', 'score': 0.024880778044462204}, {'label': 'LABEL_1', 'score': 0.9751191735267639}], 
-    [{'label': 'LABEL_0', 'score': 0.05469166859984398}, {'label': 'LABEL_1', 'score': 0.9453083872795105}], 
-    [{'label': 'LABEL_0', 'score': 0.010324337519705296}, {'label': 'LABEL_1', 'score': 0.9896757006645203}]] 
+    ]
 
 
 HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_2 = [
+    [{'label': 'LABEL_0', 'score': 0.05469166859984398}, {'label': 'LABEL_1', 'score': 0.9453083872795105}], 
+    [{'label': 'LABEL_0', 'score': 0.010324337519705296}, {'label': 'LABEL_1', 'score': 0.9896757006645203}],
+    ]
+
+
+HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_3 = [
     [{'label': 'LABEL_0', 'score': 0.00033282057847827673}, {'label': 'LABEL_1', 'score': 0.9996671676635742}], 
     [{'label': 'LABEL_0', 'score': 0.00033223856007680297}, {'label': 'LABEL_1', 'score': 0.999667763710022}], 
     [{'label': 'LABEL_0', 'score': 0.0009819401893764734}, {'label': 'LABEL_1', 'score': 0.9990180730819702}], 
+    ]
+
+
+HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_4 = [
     [{'label': 'LABEL_0', 'score': 0.10123130679130554}, {'label': 'LABEL_1', 'score': 0.8987686634063721}], 
-    [{'label': 'LABEL_0', 'score': 0.22837106883525848}, {'label': 'LABEL_1', 'score': 0.7716289162635803}]]
+    [{'label': 'LABEL_0', 'score': 0.22837106883525848}, {'label': 'LABEL_1', 'score': 0.7716289162635803}],
+]
 
 
 LISTWISE_AVG_RESULTS = {

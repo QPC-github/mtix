@@ -36,6 +36,19 @@ class TestCnnModelTop100Predictor(TestCase):
 @attr(test_type="unit")
 class TestPointwiseModelTopNPredictor(TestCase):
 
+    def test_default_batch_size(self):
+        top_n = 5
+        huggingface_predictor = None
+        pointwise_predictor = PointwiseModelTopNPredictor(huggingface_predictor, DESC_NAME_LOOKUP, top_n)
+        self.assertEqual(pointwise_predictor.batch_size, top_n, "By default the batch size should be set to top_n.")
+
+    def test_set_batch_size(self):
+        top_n = 5
+        batch_size = 64
+        huggingface_predictor = None
+        pointwise_predictor = PointwiseModelTopNPredictor(huggingface_predictor, DESC_NAME_LOOKUP, top_n, batch_size)
+        self.assertEqual(pointwise_predictor.batch_size, batch_size, "Batch size not set correctly.")
+
     def test_predict(self):
         
         def mock_predict(data):
@@ -43,13 +56,18 @@ class TestPointwiseModelTopNPredictor(TestCase):
                 return HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_1
             elif data == HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_2:
                 return HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_2
+            elif data == HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_3:
+                return HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_3
+            elif data == HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_4:
+                return HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_4
             else:
                 raise ValueError("Huggingface predictor: unexpected input data")
         huggingface_predictor = Mock()
         huggingface_predictor.predict = Mock(side_effect=mock_predict)
         
         top_n = 5
-        pointwise_predictor = PointwiseModelTopNPredictor(huggingface_predictor, DESC_NAME_LOOKUP, top_n)
+        batch_size = 3
+        pointwise_predictor = PointwiseModelTopNPredictor(huggingface_predictor, DESC_NAME_LOOKUP, top_n, batch_size)
         top_results = pointwise_predictor.predict(EXPECTED_CITATION_DATA, CNN_RESULTS_SHUFFLED)
 
         top_results = round_top_results(top_results, 6)
@@ -59,7 +77,11 @@ class TestPointwiseModelTopNPredictor(TestCase):
         self.assertEqual(len(top_results["32770536"]), top_n, f"Expected {top_n} top results for each pmid.")
         self.assertEqual(len(top_results["30455223"]), top_n, f"Expected {top_n} top results for each pmid.")
         
-        huggingface_predictor.predict.assert_has_calls([call(HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_1), call(HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_2)], any_order=True)
+        huggingface_predictor.predict.assert_has_calls([call(HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_1), 
+                                                        call(HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_2),
+                                                        call(HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_3),
+                                                        call(HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_4),],
+                                                        any_order=True)
 
 
 @attr(test_type="unit")

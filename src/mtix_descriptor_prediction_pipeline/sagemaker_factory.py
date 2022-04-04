@@ -5,7 +5,7 @@ from sagemaker.tensorflow import TensorFlowPredictor
 from .utils import create_lookup
 
 
-def create_descriptor_prediction_pipeline(desc_name_lookup_path, dui_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name):
+def create_descriptor_prediction_pipeline(desc_name_lookup_path, dui_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name, pointwise_batch_size=None):
     max_year = 2021
     listwise_top_n = 50
     pointwise_top_n = 100
@@ -21,7 +21,7 @@ def create_descriptor_prediction_pipeline(desc_name_lookup_path, dui_lookup_path
 
     desc_name_lookup = create_lookup(desc_name_lookup_path)
     pointwise_hugginface_predictor = HuggingFacePredictor(pointwise_endpoint_name)
-    pointwise_model_top100_predictor = PointwiseModelTopNPredictor(pointwise_hugginface_predictor, desc_name_lookup, pointwise_top_n)
+    pointwise_model_top100_predictor = PointwiseModelTopNPredictor(pointwise_hugginface_predictor, desc_name_lookup, pointwise_top_n, pointwise_batch_size)
 
     listwise_hugginface_predictor = HuggingFacePredictor(listwise_endpoint_name)
     listwise_model_top50_predictor = ListwiseModelTopNPredictor(listwise_hugginface_predictor, desc_name_lookup, listwise_top_n)

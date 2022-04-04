@@ -21,7 +21,8 @@ class TestDescriptorPredictionPipeline(TestCase):
                                                               DUI_LOOKUP_PATH, 
                                                               "tensorflow-inference-2022-04-01-22-15-17-484", 
                                                               "huggingface-pytorch-inference-2022-04-01-22-18-14-890", 
-                                                              "huggingface-pytorch-inference-2022-04-01-22-21-50-717")
+                                                              "huggingface-pytorch-inference-2022-04-01-22-21-50-717",
+                                                              pointwise_batch_size=8)
 
     def test_predict(self):
         limit = 2
