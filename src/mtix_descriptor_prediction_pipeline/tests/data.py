@@ -786,28 +786,28 @@ HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_4 = {
 
 
 HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_1 = [
-    [{'label': 'LABEL_0', 'score': 0.0003322575648780912}, {'label': 'LABEL_1', 'score': 0.999667763710022}], 
-    [{'label': 'LABEL_0', 'score': 0.000692102883476764}, {'label': 'LABEL_1', 'score': 0.9993078708648682}], 
-    [{'label': 'LABEL_0', 'score': 0.024880778044462204}, {'label': 'LABEL_1', 'score': 0.9751191735267639}], 
+    [{'label': 'LABEL_0', 'score': 0.00033223628997802734}, {'label': 'LABEL_1', 'score': 0.999667763710022}],
+    [{'label': 'LABEL_0', 'score': 0.0006921291351318359}, {'label': 'LABEL_1', 'score': 0.9993078708648682}],
+    [{'label': 'LABEL_0', 'score': 0.024880826473236084}, {'label': 'LABEL_1', 'score': 0.9751191735267639}],
     ]
 
 
 HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_2 = [
-    [{'label': 'LABEL_0', 'score': 0.05469166859984398}, {'label': 'LABEL_1', 'score': 0.9453083872795105}], 
-    [{'label': 'LABEL_0', 'score': 0.010324337519705296}, {'label': 'LABEL_1', 'score': 0.9896757006645203}],
+    [{'label': 'LABEL_0', 'score': 0.0546916127204895}, {'label': 'LABEL_1', 'score': 0.9453083872795105}],
+    [{'label': 'LABEL_0', 'score': 0.010324299335479736}, {'label': 'LABEL_1', 'score': 0.9896757006645203}],
     ]
 
 
 HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_3 = [
-    [{'label': 'LABEL_0', 'score': 0.00033282057847827673}, {'label': 'LABEL_1', 'score': 0.9996671676635742}], 
-    [{'label': 'LABEL_0', 'score': 0.00033223856007680297}, {'label': 'LABEL_1', 'score': 0.999667763710022}], 
-    [{'label': 'LABEL_0', 'score': 0.0009819401893764734}, {'label': 'LABEL_1', 'score': 0.9990180730819702}], 
+    [{'label': 'LABEL_0', 'score': 0.00033283233642578125}, {'label': 'LABEL_1', 'score': 0.9996671676635742}],
+    [{'label': 'LABEL_0', 'score': 0.00033223628997802734}, {'label': 'LABEL_1', 'score': 0.999667763710022}],
+    [{'label': 'LABEL_0', 'score': 0.0009819269180297852}, {'label': 'LABEL_1', 'score': 0.9990180730819702}],
     ]
 
 
 HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_4 = [
-    [{'label': 'LABEL_0', 'score': 0.10123130679130554}, {'label': 'LABEL_1', 'score': 0.8987686634063721}], 
-    [{'label': 'LABEL_0', 'score': 0.22837106883525848}, {'label': 'LABEL_1', 'score': 0.7716289162635803}],
+    [{'label': 'LABEL_0', 'score': 0.10123133659362793}, {'label': 'LABEL_1', 'score': 0.8987686634063721}],
+    [{'label': 'LABEL_0', 'score': 0.22837108373641968}, {'label': 'LABEL_1', 'score': 0.7716289162635803}],
 ]
 
 
