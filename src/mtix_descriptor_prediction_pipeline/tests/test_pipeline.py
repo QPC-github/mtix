@@ -169,18 +169,6 @@ class TestDescriptorPredictionPipeline(TestCase):
         self.listwise_predictor.predict.assert_called_once_with(EXPECTED_CITATION_DATA, POINTWISE_AVG_RESULTS)
         self.results_formatter.format.assert_called_once_with(UNORDERED_LISTWISE_AVG_RESULTS)
 
-    def test_exception_if_input_data_is_none(self):
-        input_data = None
-        with self.assertRaises(ValueError) as context:
-            self.pipeline.predict(input_data)
-        self.assertTrue('Input data cannot be None.', str(context.exception))
-
-    def test_exception_if_input_data_is_not_list(self):
-        input_data = PUBMED_XML_INPUT_DATA[0]
-        with self.assertRaises(ValueError) as context:
-            self.pipeline.predict(input_data)
-        self.assertEqual('Input data must be a list.', str(context.exception))
-
 
 @attr(test_type="unit")
 class TestMedlineDateParser(TestCase):
@@ -222,6 +210,18 @@ class TestPubMedXmlInputDataParser(TestCase):
         self.medline_date_parser = MedlineDateParser()
         self.medline_date_parser.extract_pub_year = MagicMock(return_value=2021)
         self.parser = PubMedXmlInputDataParser(self.medline_date_parser)
+
+    def test_exception_if_input_data_is_none(self):
+        input_data = None
+        with self.assertRaises(ValueError) as context:
+            self.parser.parse(input_data)
+        self.assertTrue('Input data cannot be None.', str(context.exception))
+
+    def test_exception_if_input_data_is_not_list(self):
+        input_data = PUBMED_XML_INPUT_DATA[0]
+        with self.assertRaises(ValueError) as context:
+            self.parser.parse(input_data)
+        self.assertEqual('Input data must be a list.', str(context.exception))
     
     def test_parse_no_citations(self):
         input_data = []
