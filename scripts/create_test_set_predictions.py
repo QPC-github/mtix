@@ -40,7 +40,7 @@ def main():
                     "Type": "Descriptor", 
                     "ID": ui, 
                     "IM": "NO", 
-                    "Reason": f"score: {score:.4f}"})
+                    "Reason": f"score: {score:.3f}"})
 
     json.dump(mti_json, open(predictions_path, "wt"), ensure_ascii=False, indent=4)
 

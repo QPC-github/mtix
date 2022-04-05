@@ -92,7 +92,7 @@ class MtiJsonResultsFormatter:
                         "Type": "Descriptor", 
                         "ID": ui, 
                         "IM": "NO", 
-                        "Reason": f"score: {score:.4f}"})
+                        "Reason": f"score: {score:.3f}"})
         return mti_json
 
 
