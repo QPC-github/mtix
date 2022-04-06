@@ -150,7 +150,7 @@ class TestDescriptorPredictionPipeline(TestCase):
         self.cnn_predictor.predict = MagicMock(return_value=CNN_RESULTS)
         self.pointwise_predictor = PointwiseModelTopNPredictor(None, {}, 100)
         self.pointwise_predictor.predict = MagicMock(return_value=POINTWISE_RESULTS)
-        self.listwise_predictor = ListwiseModelTopNPredictor(None, {}, 50)
+        self.listwise_predictor = ListwiseModelTopNPredictor(None, {}, 50, 128)
         self.listwise_predictor.predict = MagicMock(return_value=LISTWISE_RESULTS)
         self.results_formatter = MtiJsonResultsFormatter(DESC_NAME_LOOKUP, DUI_LOOKUP, THRESHOLD)
         self.results_formatter.format = Mock(wraps=self.results_formatter.format)

@@ -93,7 +93,8 @@ class TestListwiseModelTopNPredictor(TestCase):
         huggingface_predictor.predict = MagicMock(return_value=HUGGINGFACE_PREDICTOR_LISTWISE_RESULTS)
         
         top_n = 50
-        listwise_predictor = ListwiseModelTopNPredictor(huggingface_predictor, DESC_NAME_LOOKUP, top_n)
+        batch_size = 128
+        listwise_predictor = ListwiseModelTopNPredictor(huggingface_predictor, DESC_NAME_LOOKUP, top_n, batch_size)
         pointwise_avg_results_shuffled = shuffle_top_results(POINTWISE_AVG_RESULTS)
         top_results = listwise_predictor.predict(EXPECTED_CITATION_DATA, pointwise_avg_results_shuffled)
 

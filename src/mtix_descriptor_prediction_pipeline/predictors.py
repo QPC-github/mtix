@@ -77,7 +77,7 @@ class PointwiseModelTopNPredictor:
             batch_start = idx * self.batch_size
             batch_end = (idx + 1) * self.batch_size
             batch_inputs = input_list[batch_start:batch_end]
-            batch_input_data = { "inputs": batch_inputs, "parameters": {"max_length": 512, "padding": "max_length", "truncation": "longest_first", "return_all_scores": True, }, }
+            batch_input_data = { "inputs": batch_inputs, "parameters": {"max_length": 512, "padding": "max_length", "truncation": "longest_first", "return_all_scores": True, "batch_size": self.batch_size }, }
             batch_score_list = self.huggingface_predictor.predict(batch_input_data)
             batch_score_list = [float(label_score["score"]) for label_score_list in batch_score_list for label_score in label_score_list if label_score["label"] == "LABEL_1"]
             score_list.extend(batch_score_list)
@@ -86,10 +86,11 @@ class PointwiseModelTopNPredictor:
 
 class ListwiseModelTopNPredictor:
 
-    def __init__(self, huggingface_predictor, desc_name_lookup, top_n):
+    def __init__(self, huggingface_predictor, desc_name_lookup, top_n, batch_size):
         self.huggingface_predictor = huggingface_predictor
         self.desc_name_lookup = desc_name_lookup
         self.top_n = top_n
+        self.batch_size = batch_size
 
     def predict(self, citation_data_lookup, input_top_results):
         input_data, pmid_list, top_label_ids = self._create_input_data(citation_data_lookup, input_top_results)
@@ -98,7 +99,7 @@ class ListwiseModelTopNPredictor:
         return output_top_results
 
     def _create_input_data(self, citation_data_lookup, input_top_results):
-        input_data = { "inputs": [], "parameters": {}, }
+        input_data = { "inputs": [], "parameters": { "batch_size": self.batch_size}, }
         pmid_list = []
         top_label_ids = []
         for q_id in input_top_results:

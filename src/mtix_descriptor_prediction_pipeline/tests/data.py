@@ -719,7 +719,7 @@ HUGGINGFACE_PREDICTOR_EXPECTED_LISTWISE_INPUT_DATA = {
                         "|Humans|Carcinoma, Renal Cell|Kidney Neoplasms|Molecular Targeted Therapy|Disease Management|Antineoplastic Agents|Clinical Trials as Topic|Disease-Free Survival|Immunotherapy|Animals|Neoplasm Staging|Biomarkers, Tumor|Prognosis|Adult|Nephrectomy|Kidney|Combined Modality Therapy|Treatment Outcome|Mutation|Signal Transduction|Neoplasm Metastasis|Disease Progression|Female|Gene Expression Regulation, Neoplastic|Male|Drug Development|Protein Kinase Inhibitors|Antineoplastic Combined Chemotherapy Protocols|Tumor Microenvironment|Genetic Predisposition to Disease|Drug Discovery|Neoplasm Grading|Immunomodulation|Disease Susceptibility|Phenylurea Compounds|Survival Analysis|Immune Checkpoint Inhibitors|Phenotype|Risk Factors|Antineoplastic Agents, Immunological|Medical Oncology|Survival Rate|Angiogenesis Inhibitors|Antibodies, Monoclonal|Immunologic Factors|Genomics|Practice Guidelines as Topic|Progression-Free Survival|Neoplasm Recurrence, Local|Biomarkers"
                     ]],
                 ],
-        "parameters": {},
+        "parameters": { "batch_size": 128},
     }
 
 
@@ -741,7 +741,8 @@ HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_1 = {
     "parameters": {"max_length": 512,
                    "padding": "max_length",
                    "truncation": "longest_first",
-                   "return_all_scores": True, },
+                   "return_all_scores": True,
+                   "batch_size": 3,  },
 }
 
 
@@ -753,7 +754,8 @@ HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_2 = {
     "parameters": {"max_length": 512,
                    "padding": "max_length",
                    "truncation": "longest_first",
-                   "return_all_scores": True, },
+                   "return_all_scores": True,
+                   "batch_size": 3, },
 }
 
 
@@ -769,7 +771,8 @@ HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_3 = {
     "parameters": {"max_length": 512,
                    "padding": "max_length",
                    "truncation": "longest_first",
-                   "return_all_scores": True, },
+                   "return_all_scores": True,
+                   "batch_size": 3,  },
 }
 
 
@@ -781,7 +784,8 @@ HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_4 = {
     "parameters": {"max_length": 512,
                    "padding": "max_length",
                    "truncation": "longest_first",
-                   "return_all_scores": True, },
+                   "return_all_scores": True,
+                   "batch_size": 3,  },
 }
 
 
