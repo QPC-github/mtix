@@ -1,5 +1,6 @@
 import gzip
 import json
+import math
 from mtix_descriptor_prediction_pipeline import create_descriptor_prediction_pipeline
 from nose.plugins.attrib import attr
 import os.path
@@ -25,13 +26,21 @@ class TestDescriptorPredictionPipeline(TestCase):
                                                               pointwise_batch_size=8)
 
     def test_predict(self):
-        limit = 2
+        limit = 40000
+        batch_size = 128
+
         test_set_data = json.load(gzip.open(TEST_SET_DATA_PATH, "rt", encoding="utf-8"))[:limit]
         expected_predictions = json.load(gzip.open(TEST_SET_PREDICTIONS_PATH, "rt", encoding="utf-8"))[:limit]
-        
-        predictions = []
-        for citation_data in test_set_data:
-            citation_descriptors = self.pipeline.predict([citation_data])
-            predictions.extend(citation_descriptors)
 
+        citation_count = len(test_set_data)
+        num_batches = int(math.ceil(citation_count / batch_size))
+
+        predictions = []
+        for idx in range(num_batches):
+            batch_start = idx * batch_size
+            batch_end = (idx + 1) * batch_size
+            batch_inputs = test_set_data[batch_start:batch_end]
+            batch_predictions = self.pipeline.predict(batch_inputs)
+            predictions.extend(batch_predictions)
+        
         self.assertEqual(predictions, expected_predictions, "Descriptor predictions not as expected.")
