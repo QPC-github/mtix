@@ -1,6 +1,6 @@
 from .data import *
 from mtix_descriptor_prediction_pipeline.predictors import CnnModelTop100Predictor, ListwiseModelTopNPredictor, PointwiseModelTopNPredictor
-from nose.plugins.attrib import attr
+import pytest
 import random
 from unittest import TestCase
 from unittest.mock import call, MagicMock, Mock
@@ -16,7 +16,7 @@ def shuffle_top_results(top_results):
     return top_results
 
 
-@attr(test_type="unit")
+@pytest.mark.unit
 class TestCnnModelTop100Predictor(TestCase):
 
     def test_predict(self):
@@ -33,7 +33,7 @@ class TestCnnModelTop100Predictor(TestCase):
             TENSORFLOW_PREDICTOR_EXPECTED_INPUT_DATA)
 
 
-@attr(test_type="unit")
+@pytest.mark.unit
 class TestPointwiseModelTopNPredictor(TestCase):
 
     def test_default_batch_size(self):
@@ -84,7 +84,7 @@ class TestPointwiseModelTopNPredictor(TestCase):
                                                         any_order=True)
 
 
-@attr(test_type="unit")
+@pytest.mark.unit
 class TestListwiseModelTopNPredictor(TestCase):
 
     def test_predict(self):

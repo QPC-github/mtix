@@ -2,8 +2,8 @@ import gzip
 import json
 import math
 from mtix_descriptor_prediction_pipeline import create_descriptor_prediction_pipeline
-from nose.plugins.attrib import attr
 import os.path
+import pytest
 from unittest import skip, TestCase
 
 
@@ -14,7 +14,7 @@ TEST_SET_DATA_PATH = os.path.join(THIS_DIR, "data", "test_set_data.json.gz")
 TEST_SET_PREDICTIONS_PATH = os.path.join(THIS_DIR, "data", "test_set_2017-2022_Listwise22Avg_Results.json.gz")
 
 
-@attr(test_type="integration")
+@pytest.mark.integration
 class TestDescriptorPredictionPipeline(TestCase):
 
     def setUp(self):

@@ -10,10 +10,12 @@ pip install .
 ```
 3. Upload the CNN, Pointwise, and Listwise model files to an AWS S3 bucket.
 4. Deploy the SageMaker endpoints using the script provided in the git repository (./scripts/create_sagemaker_endpoints.py). Deployment settings (e.g. S3 bucket name) can be modified at the top of the script. The script prints endpoint names for the deployed models.
-5. Validate the installation by running the unit and integration tests. The integration test checks predictions for 40k citations, and it may therefore take a long time to run.
+
+## Test
+Automated unit and integration tests can be run using pytest. The integration test checks predictions for 40k citations, and it may therefore take a long time to run.
 ```
-nosetests -a test_type="unit"
-nosetests -a test_type="integration"
+pytest -m unit
+pytest -m integration
 ```
 
 ## Usage
