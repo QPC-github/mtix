@@ -12,7 +12,7 @@ pip install .
 4. Deploy the SageMaker endpoints using the script provided in the git repository (./scripts/create_sagemaker_endpoints.py). Deployment settings (e.g. S3 bucket name) can be modified at the top of the script. The script prints endpoint names for the deployed models.
 
 ## Test
-Automated unit and integration tests can be run using pytest. The integration test checks predictions for 40k citations, and it may therefore take a long time to run.
+Automated unit and integration tests can be run using pytest. To run the integration tests you will need to update the SageMaker endpoint names in the integration test code. The integration test checks predictions for 40k citations, and it may therefore take a long time to run.
 ```
 pytest -m unit
 pytest -m integration
