@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name="mtix_descriptor_prediction_pipeline",
-      version="0.1",
+      version="1.0.1",
       description="MTIX MeSH Descriptor prediction pipeline.",
       long_description=readme(),
       url="https://github.com/ncbi/mtix/",
@@ -14,7 +14,7 @@ setup(name="mtix_descriptor_prediction_pipeline",
       license="",
       packages=["mtix_descriptor_prediction_pipeline"],
       package_dir={"":"src"},
-      python_requires=">=3.10",
+      python_requires=">=3.9",
       install_requires=[
           "pandas==1.4.1",
           "python-dateutil==2.8.2",
