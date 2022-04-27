@@ -2,7 +2,7 @@
 
 ## Installation
 
-1. Create a Python 3.10 virtual environment. 
+1. Create a Python 3.9 virtual environment. 
 2. Install the package:
 
 ```

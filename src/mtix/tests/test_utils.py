@@ -1,5 +1,5 @@
 from .data import *
-from mtix_descriptor_prediction_pipeline.utils import average_top_results, create_lookup, base64_decode, base64_encode
+from mtix.utils import average_top_results, create_lookup, base64_decode, base64_encode
 import pytest
 from io import StringIO
 from unittest import TestCase

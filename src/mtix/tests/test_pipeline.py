@@ -1,6 +1,6 @@
 from .data import *
-from mtix_descriptor_prediction_pipeline.pipeline import CitationDataSanitizer, DescriptorPredictionPipeline, MedlineDateParser, MtiJsonResultsFormatter, PubMedXmlInputDataParser
-from mtix_descriptor_prediction_pipeline.predictors import CnnModelTop100Predictor, PointwiseModelTopNPredictor, ListwiseModelTopNPredictor
+from mtix.pipeline import CitationDataSanitizer, DescriptorPredictionPipeline, MedlineDateParser, MtiJsonResultsFormatter, PubMedXmlInputDataParser
+from mtix.predictors import CnnModelTop100Predictor, PointwiseModelTopNPredictor, ListwiseModelTopNPredictor
 import pytest
 from unittest import skip, TestCase
 from unittest.mock import MagicMock, Mock

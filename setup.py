@@ -4,7 +4,7 @@ def readme():
     with open("README.md") as f:
         return f.read()
 
-setup(name="mtix_descriptor_prediction_pipeline",
+setup(name="mtix",
       version="1.0.1",
       description="MTIX MeSH Descriptor prediction pipeline.",
       long_description=readme(),
@@ -12,7 +12,7 @@ setup(name="mtix_descriptor_prediction_pipeline",
       author="Alastair Rae",
       author_email="",
       license="",
-      packages=["mtix_descriptor_prediction_pipeline"],
+      packages=["mtix"],
       package_dir={"":"src"},
       python_requires=">=3.9",
       install_requires=[

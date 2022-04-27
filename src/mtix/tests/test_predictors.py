@@ -1,5 +1,5 @@
 from .data import *
-from mtix_descriptor_prediction_pipeline.predictors import CnnModelTop100Predictor, ListwiseModelTopNPredictor, PointwiseModelTopNPredictor
+from mtix.predictors import CnnModelTop100Predictor, ListwiseModelTopNPredictor, PointwiseModelTopNPredictor
 import pytest
 import random
 from unittest import TestCase
