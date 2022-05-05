@@ -1,7 +1,7 @@
 import gzip
 import json
 import math
-from mtix_descriptor_prediction_pipeline import create_descriptor_prediction_pipeline
+from mtix import create_descriptor_prediction_pipeline
 import os.path
 import pytest
 from unittest import skip, TestCase
