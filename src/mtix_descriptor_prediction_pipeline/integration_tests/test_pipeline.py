@@ -20,9 +20,9 @@ class TestDescriptorPredictionPipeline(TestCase):
     def setUp(self):
         self.pipeline = create_descriptor_prediction_pipeline(DESC_NAME_LOOKUP_PATH, 
                                                               DUI_LOOKUP_PATH, 
-                                                              "tensorflow-inference-2022-04-01-22-15-17-484", 
-                                                              "huggingface-pytorch-inference-2022-04-01-22-18-14-890", 
-                                                              "huggingface-pytorch-inference-2022-04-01-22-21-50-717",
+                                                              "tensorflow-inference-2022-05-05-18-33-15-831", 
+                                                              "huggingface-pytorch-inference-2022-05-05-18-33-20-573", 
+                                                              "huggingface-pytorch-inference-2022-05-05-18-33-26-279",
                                                               pointwise_batch_size=8)
 
     def test_predict(self):
@@ -43,4 +43,14 @@ class TestDescriptorPredictionPipeline(TestCase):
             batch_predictions = self.pipeline.predict(batch_inputs)
             predictions.extend(batch_predictions)
         
-        self.assertEqual(predictions, expected_predictions, "Descriptor predictions not as expected.")
+        predicted_term_names = self._extract_term_names(predictions)
+        expected_term_names  = self._extract_term_names(expected_predictions)
+        self.assertEqual(predicted_term_names, expected_term_names, "Descriptor predictions not as expected.")
+
+    def _extract_term_names(self, prediction_list):
+        term_name_dict = {}
+        for prediction in prediction_list:
+            pmid = prediction["PMID"]
+            term_names = { term_data["Term"] for term_data in prediction["Indexing"] }
+            term_name_dict[pmid] = term_names
+        return term_name_dict
