@@ -20,13 +20,13 @@ class TestDescriptorPredictionPipeline(TestCase):
     def setUp(self):
         self.pipeline = create_descriptor_prediction_pipeline(DESC_NAME_LOOKUP_PATH, 
                                                               DUI_LOOKUP_PATH, 
-                                                              "tensorflow-inference-2022-05-05-18-33-15-831", 
-                                                              "huggingface-pytorch-inference-2022-05-05-18-33-20-573", 
-                                                              "huggingface-pytorch-inference-2022-05-05-18-33-26-279",
-                                                              pointwise_batch_size=8)
+                                                              "raear-cnn-endpoint-2022-v1", 
+                                                              "raear-pointwise-endpoint-2022-v2", 
+                                                              "raear-listwise-endpoint-2022-v2",
+                                                              pointwise_batch_size=128)
 
     def test_predict(self):
-        limit = 40000
+        limit = 5
         batch_size = 128
 
         test_set_data = json.load(gzip.open(TEST_SET_DATA_PATH, "rt", encoding="utf-8"))[:limit]
@@ -43,9 +43,7 @@ class TestDescriptorPredictionPipeline(TestCase):
             batch_predictions = self.pipeline.predict(batch_inputs)
             predictions.extend(batch_predictions)
         
-        predicted_term_names = self._extract_term_names(predictions)
-        expected_term_names  = self._extract_term_names(expected_predictions)
-        self.assertEqual(predicted_term_names, expected_term_names, "Descriptor predictions not as expected.")
+        self.assertEqual(predictions, expected_predictions, "Descriptor predictions not as expected.")
 
     def _extract_term_names(self, prediction_list):
         term_name_dict = {}
