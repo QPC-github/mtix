@@ -719,7 +719,7 @@ HUGGINGFACE_PREDICTOR_EXPECTED_LISTWISE_INPUT_DATA = {
                         "|Humans|Carcinoma, Renal Cell|Kidney Neoplasms|Molecular Targeted Therapy|Disease Management|Antineoplastic Agents|Clinical Trials as Topic|Disease-Free Survival|Immunotherapy|Animals|Neoplasm Staging|Biomarkers, Tumor|Prognosis|Adult|Nephrectomy|Kidney|Combined Modality Therapy|Treatment Outcome|Mutation|Signal Transduction|Neoplasm Metastasis|Disease Progression|Female|Gene Expression Regulation, Neoplastic|Male|Drug Development|Protein Kinase Inhibitors|Antineoplastic Combined Chemotherapy Protocols|Tumor Microenvironment|Genetic Predisposition to Disease|Drug Discovery|Neoplasm Grading|Immunomodulation|Disease Susceptibility|Phenylurea Compounds|Survival Analysis|Immune Checkpoint Inhibitors|Phenotype|Risk Factors|Antineoplastic Agents, Immunological|Medical Oncology|Survival Rate|Angiogenesis Inhibitors|Antibodies, Monoclonal|Immunologic Factors|Genomics|Practice Guidelines as Topic|Progression-Free Survival|Neoplasm Recurrence, Local|Biomarkers"
                     ]],
                 ],
-        "parameters": {},
+        "parameters": { "batch_size": 2 },
     }
 
 
@@ -730,6 +730,7 @@ HUGGINGFACE_PREDICTOR_LISTWISE_RESULTS = [
 
 
 _QUERY_1 = "2017-2021|International journal of sports medicine|Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.|Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT2). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ2 was individually calculated using the deflection point of ventilatory equivalents. In addition, VT2 was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT2, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η2=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT2. Similarly, Bland Altman analysis showed a considerable agreement between VT2 vs. ECG-derived respiration (mean difference of -0.06\u2009km·h-1, 95% CL: ±0.40) and VT2 vs. high frequency product (mean difference of 0.02\u2009km·h-1, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT2 in a field shuttle run test."
+_QUERY_2 = "2017-2021|Journal of investigative medicine : the official publication of the American Federation for Clinical Research|Update on the biology and management of renal cell carcinoma.|Renal cell cancer (RCC) (epithelial carcinoma of the kidney) represents 2%-4% of newly diagnosed adult tumors. Over the past 2 decades, RCC has been better characterized clinically and molecularly. It is a heterogeneous disease, with multiple subtypes, each with characteristic histology, genetics, molecular profiles, and biologic behavior. Tremendous heterogeneity has been identified with many distinct subtypes characterized. There are clinical questions to be addressed at every stage of this disease, and new targets being identified for therapeutic development. The unique characteristics of the clinical presentations of RCC have led to both questions and opportunities for improvement in management. Advances in targeted drug development and understanding of immunologic control of RCC are leading to a number of new clinical trials and regimens for advanced disease, with the goal of achieving long-term disease-free survival, as has been achieved in a proportion of such patients historically. RCC management is a promising area of ongoing clinical investigation."
 
 
 HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_1 = {
@@ -741,7 +742,8 @@ HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_1 = {
     "parameters": {"max_length": 512,
                    "padding": "max_length",
                    "truncation": "longest_first",
-                   "return_all_scores": True, },
+                   "return_all_scores": True,
+                   "batch_size": 3 },
 }
 
 
@@ -749,39 +751,39 @@ HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_2 = {
     "inputs": [
             [[ _QUERY_1, "Exercise Test"]],
             [[ _QUERY_1, "Male"]],
+            [[ _QUERY_2, "Humans"]],
     ],
     "parameters": {"max_length": 512,
                    "padding": "max_length",
                    "truncation": "longest_first",
-                   "return_all_scores": True, },
+                   "return_all_scores": True, 
+                   "batch_size": 3 },
 }
-
-
-_QUERY_2 = "2017-2021|Journal of investigative medicine : the official publication of the American Federation for Clinical Research|Update on the biology and management of renal cell carcinoma.|Renal cell cancer (RCC) (epithelial carcinoma of the kidney) represents 2%-4% of newly diagnosed adult tumors. Over the past 2 decades, RCC has been better characterized clinically and molecularly. It is a heterogeneous disease, with multiple subtypes, each with characteristic histology, genetics, molecular profiles, and biologic behavior. Tremendous heterogeneity has been identified with many distinct subtypes characterized. There are clinical questions to be addressed at every stage of this disease, and new targets being identified for therapeutic development. The unique characteristics of the clinical presentations of RCC have led to both questions and opportunities for improvement in management. Advances in targeted drug development and understanding of immunologic control of RCC are leading to a number of new clinical trials and regimens for advanced disease, with the goal of achieving long-term disease-free survival, as has been achieved in a proportion of such patients historically. RCC management is a promising area of ongoing clinical investigation."
 
 
 HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_3 = {
     "inputs": [
-            [[ _QUERY_2, "Humans"]],
             [[ _QUERY_2, "Carcinoma, Renal Cell"]],
             [[ _QUERY_2, "Kidney Neoplasms"]],
+            [[ _QUERY_2, "Molecular Targeted Therapy"]],
     ],
     "parameters": {"max_length": 512,
                    "padding": "max_length",
                    "truncation": "longest_first",
-                   "return_all_scores": True, },
+                   "return_all_scores": True, 
+                   "batch_size": 3 },
 }
 
 
 HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_4 = {
     "inputs": [
-            [[ _QUERY_2, "Molecular Targeted Therapy"]],
             [[ _QUERY_2, "Clinical Trials as Topic"]],
     ],
     "parameters": {"max_length": 512,
                    "padding": "max_length",
                    "truncation": "longest_first",
-                   "return_all_scores": True, },
+                   "return_all_scores": True, 
+                   "batch_size": 3 },
 }
 
 
@@ -795,18 +797,18 @@ HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_1 = [
 HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_2 = [
     [{'label': 'LABEL_0', 'score': 0.0546916127204895}, {'label': 'LABEL_1', 'score': 0.9453083872795105}],
     [{'label': 'LABEL_0', 'score': 0.010324299335479736}, {'label': 'LABEL_1', 'score': 0.9896757006645203}],
+    [{'label': 'LABEL_0', 'score': 0.00033283233642578125}, {'label': 'LABEL_1', 'score': 0.9996671676635742}],
     ]
 
 
 HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_3 = [
-    [{'label': 'LABEL_0', 'score': 0.00033283233642578125}, {'label': 'LABEL_1', 'score': 0.9996671676635742}],
     [{'label': 'LABEL_0', 'score': 0.00033223628997802734}, {'label': 'LABEL_1', 'score': 0.999667763710022}],
     [{'label': 'LABEL_0', 'score': 0.0009819269180297852}, {'label': 'LABEL_1', 'score': 0.9990180730819702}],
+    [{'label': 'LABEL_0', 'score': 0.10123133659362793}, {'label': 'LABEL_1', 'score': 0.8987686634063721}],
     ]
 
 
 HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_4 = [
-    [{'label': 'LABEL_0', 'score': 0.10123133659362793}, {'label': 'LABEL_1', 'score': 0.8987686634063721}],
     [{'label': 'LABEL_0', 'score': 0.22837108373641968}, {'label': 'LABEL_1', 'score': 0.7716289162635803}],
 ]
 

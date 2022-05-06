@@ -34,7 +34,7 @@ class TestDescriptorPredictionPipeline(TestCase):
         self.assertEqual(predictions, expected_predictions, "MTI JSON output not as expected.")
 
     def test_performance(self):
-        delta = 0.001
+        delta = 0.01
         limit = 40000
 
         ground_truth = json.load(gzip.open(TEST_SET_GROUND_TRUTH_PATH, "rt", encoding="utf-8"))
