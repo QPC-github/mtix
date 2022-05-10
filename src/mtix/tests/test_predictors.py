@@ -19,6 +19,10 @@ def shuffle_top_results(top_results):
 @pytest.mark.unit
 class TestCnnModelTop100Predictor(TestCase):
 
+    def test_replace_brackets(self):
+        results = CnnModelTop100Predictor.replace_brackets(REPLACE_BRACKETS_INPUT)
+        self.assertEqual(results, REPLACE_BRACKETS_OUTPUT)
+
     def test_predict(self):
         tensorflow_predictor = Mock()
         tensorflow_predictor.predict = MagicMock(

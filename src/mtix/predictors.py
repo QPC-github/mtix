@@ -1,4 +1,5 @@
-import math
+import re
+from copy import deepcopy
 
 
 QUERY_TEMPLATE = "2017-2021|{journal_title}|{title}|{abstract}"
@@ -8,8 +9,26 @@ class CnnModelTop100Predictor:
     def __init__(self, tensorflow_predictor):
         self.tensorflow_predictor = tensorflow_predictor
 
+    @staticmethod
+    def replace_brackets(citation_data_list):
+        # Currently there is a bug with the SageMaker API that throws an error 
+        # when the input data includes a pattern like "] [". If this pattern 
+        # is found in the abstract, make the substitutions [ -> ( and ] -> ).
+        for citation_data in citation_data_list:
+            for key in ["title", "abstract"]:
+                if key in citation_data:
+                    if re.search(r'\]\s*\[', citation_data[key]):
+                        citation_data[key] = re.sub(r'\[', '(', citation_data[key])
+                        citation_data[key] = re.sub(r'\]', ')', citation_data[key])
+
+        return citation_data_list
+
     def predict(self, citation_data_lookup):
-        citation_data_list = list(citation_data_lookup.values())
+        # Copy the citation data to avoid modifying the input data for other models.
+        citation_data_copy = deepcopy(citation_data_lookup)
+        citation_data_list = list(citation_data_copy.values())
+        citation_data_list = CnnModelTop100Predictor.replace_brackets(citation_data_list)
+
         data = { "instances": [{ key: value for key, value in citation_data.items() if key not in ["pmid", "journal_title"] } for citation_data in citation_data_list] }
         response = self.tensorflow_predictor.predict(data)
         predictions = response["predictions"]

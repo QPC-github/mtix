@@ -5,6 +5,7 @@ from mtix import create_descriptor_prediction_pipeline
 import os.path
 import pytest
 from unittest import skip, TestCase
+from .data import *
 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -21,9 +22,9 @@ class TestDescriptorPredictionPipeline(TestCase):
     def setUp(self):
         self.pipeline = create_descriptor_prediction_pipeline(DESC_NAME_LOOKUP_PATH, 
                                                               DUI_LOOKUP_PATH, 
-                                                              "raear-cnn-endpoint-2022-v1", 
-                                                              "raear-pointwise-endpoint-2022-v2", 
-                                                              "raear-listwise-endpoint-2022-v2",
+                                                              "dev-cnn-model-2022-v1", 
+                                                              "dev-pointwise-model-2022-v2", 
+                                                              "dev-listwise-model-2022-v2",
                                                               pointwise_batch_size=128)
         self.test_set_data = json.load(gzip.open(TEST_SET_DATA_PATH, "rt", encoding="utf-8"))
 
@@ -87,3 +88,7 @@ class TestDescriptorPredictionPipeline(TestCase):
             batch_predictions = self.pipeline.predict(batch_inputs)
             predictions.extend(batch_predictions)
         return predictions
+
+    def test_replace_brackets(self):
+        # PMID 33998125 contains an abstract with the pattern "] [".
+        self.pipeline.predict(ARTICLE_33998125)
