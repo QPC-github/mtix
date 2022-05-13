@@ -90,7 +90,8 @@ class AsyncEndpoint:
         num_batches = int(math.ceil(input_count/self.batch_size))
 
         response_list = []
-        key_list = []
+        input_key_lookup = {}
+        output_key_lookup = {}
         for idx in range(num_batches):
             batch_start = idx * self.batch_size
             batch_end = (idx + 1) * self.batch_size
@@ -98,13 +99,13 @@ class AsyncEndpoint:
             batch_data = self.helper.construct_batch_data(batch_inputs, parameters)
             batch_uuid = str(uuid.uuid4())
             batch_input_key = os.path.join(self.temp_dir, self.endpoint_name, "inputs", batch_uuid)
-            key_list.append(batch_input_key)
+            input_key_lookup[idx] = batch_input_key
             batch_input_path = os.path.join(f"s3://{self.bucket_name}", batch_input_key)
             batch_response = self.sagemaker_async_endpoint.predict_async(data=batch_data, input_path=batch_input_path)
             response_list.append(batch_response)
             batch_output_file = os.path.basename(batch_response.output_path)
             output_key = os.path.join(self.temp_dir, self.endpoint_name, "outputs", batch_output_file)
-            key_list.append(output_key)
+            output_key_lookup[idx] = output_key
 
         result_lookup = {}
         while len(result_lookup) < num_batches:
@@ -115,6 +116,8 @@ class AsyncEndpoint:
                         batch_response = response_list[idx]
                         batch_result = batch_response.get_result()
                         result_lookup[idx] = batch_result
+                        self.try_delete(input_key_lookup[idx])
+                        self.try_delete(output_key_lookup[idx])
                     except ObjectNotExistedError:
                         continue
   
@@ -126,16 +129,13 @@ class AsyncEndpoint:
 
         predictions = self.helper.construct_output(result_list)
 
-        self.clean_up(key_list)
-
         return predictions
 
-    def clean_up(self, key_list):
-        for key in key_list:
-            try:
-                self.s3.delete_object(Bucket=self.bucket_name, Key=key)
-            except:
-                pass
+    def try_delete(self, key):
+        try:
+            self.s3.delete_object(Bucket=self.bucket_name, Key=key)
+        except:
+            pass
         
 
 class HuggingFaceRealTimeEndpoint(RealTimeEndpoint):
