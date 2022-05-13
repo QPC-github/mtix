@@ -1,12 +1,20 @@
+import boto3
+import botocore
+import math
+import os.path
 import re
+from sagemaker.exceptions import ObjectNotExistedError
+import time
+from copy import deepcopy
+import uuid
 
 
 QUERY_TEMPLATE = "2017-2021|{journal_title}|{title}|{abstract}"
 
 
 class CnnModelTop100Predictor:
-    def __init__(self, tensorflow_endpoint):
-        self.tensorflow_endpoint = tensorflow_endpoint
+    def __init__(self, tensorflow_predictor):
+        self.tensorflow_predictor = tensorflow_predictor
 
     @staticmethod
     def replace_brackets(citation_data_list):
@@ -19,15 +27,17 @@ class CnnModelTop100Predictor:
                     if re.search(r'\]\s*\[', citation_data[key]):
                         citation_data[key] = re.sub(r'\[', '(', citation_data[key])
                         citation_data[key] = re.sub(r'\]', ')', citation_data[key])
-                        
+
         return citation_data_list
 
     def predict(self, citation_data_lookup):
-        citation_data_list = list(citation_data_lookup.values())
-        instances = [{ key: value for key, value in citation_data.items() if key not in ["pmid", "journal_title"] } for citation_data in citation_data_list]
-        instances = CnnModelTop100Predictor.replace_brackets(instances)
-        data = { "instances": instances }
-        response = self.tensorflow_endpoint.predict(data)
+        # Copy the citation data to avoid modifying the input data for other models.
+        citation_data_copy = deepcopy(citation_data_lookup)
+        citation_data_list = list(citation_data_copy.values())
+        citation_data_list = CnnModelTop100Predictor.replace_brackets(citation_data_list)
+
+        data = { "instances": [{ key: value for key, value in citation_data.items() if key not in ["pmid", "journal_title"] } for citation_data in citation_data_list] }
+        response = self.tensorflow_predictor.predict(data)
         predictions = response["predictions"]
         pmids = [citation_data["pmid"] for citation_data in citation_data_list]
         top_results = { str(pmid): { str(int(desc_id)): float(score) for desc_id, score in citation_top_results} for pmid, citation_top_results in zip(pmids, predictions)}
@@ -36,11 +46,16 @@ class CnnModelTop100Predictor:
 
 class PointwiseModelTopNPredictor:
 
-    def __init__(self, huggingface_endpoint, desc_name_lookup, top_n):
-        self.huggingface_endpoint = huggingface_endpoint
+    def __init__(self, huggingface_predictor, desc_name_lookup, top_n, batch_size=None):
+        self.huggingface_predictor = huggingface_predictor
         self.desc_name_lookup = desc_name_lookup
         self.top_n = top_n
- 
+        if batch_size is None:
+            self.batch_size = top_n
+        else:
+            self.batch_size = batch_size
+        self.s3 = boto3.client("s3")
+
     def predict(self, citation_data_lookup, input_top_results):
         pmid_list, label_id_list, input_list = self._create_inputs(citation_data_lookup, input_top_results)
         score_list = self._predict_internal(input_list)
@@ -87,16 +102,59 @@ class PointwiseModelTopNPredictor:
         return top_results
 
     def _predict_internal(self, input_list):
-        input_data = { "inputs": input_list, "parameters": { "max_length": 512, "padding": "max_length", "truncation": "longest_first", "return_all_scores": True }, }
-        score_list = self.huggingface_endpoint.predict(input_data)
-        score_list = [float(label_score["score"]) for label_score_list in score_list for label_score in label_score_list if label_score["label"] == "LABEL_1"]
-        return score_list
+        bucket_name = "ncbi-aws-pmdm-ingest"
+        
+        example_count = len(input_list)
+        num_batches = int(math.ceil(example_count / self.batch_size))
 
+        resp_list = []
+        key_list = []
+        for idx in range(num_batches):
+            batch_start = idx * self.batch_size
+            batch_end = (idx + 1) * self.batch_size
+            batch_inputs = input_list[batch_start:batch_end]
+            
+            input_key = f"async_inference/raear-pointwise-endpoint-2022-v2-x4async/inputs/{str(uuid.uuid4())}"
+            key_list.append(input_key)
+            input_path = f"s3://{bucket_name}/{input_key}"
+
+            data = { "inputs": batch_inputs, "parameters": {"max_length": 512, "padding": "max_length", "truncation": "longest_first", "return_all_scores": True, "batch_size": self.batch_size }, }
+            resp = self.huggingface_predictor.predict_async(data=data, input_path=input_path)
+            resp_list.append(resp)
+
+            output_file = os.path.basename(resp.output_path)
+            output_key = f"async_inference/raear-pointwise-endpoint-2022-v2-x4async/outputs/{output_file}"
+            key_list.append(output_key)
+
+        score_lookup = {}
+        while len(score_lookup) < num_batches:
+            time.sleep(0.1)
+            for idx in range(num_batches):
+                if idx not in score_lookup:
+                    try:
+                        resp = resp_list[idx]
+                        batch_score_list = resp.get_result()
+                        batch_score_list = [float(label_score["score"]) for label_score_list in batch_score_list for label_score in label_score_list if label_score["label"] == "LABEL_1"]
+                        score_lookup[idx] = batch_score_list
+                    except ObjectNotExistedError:
+                        continue
+  
+        score_list = []
+        for idx in range(num_batches):
+            score_list.extend(score_lookup[idx])
+
+        for key in key_list:
+            try:
+              self.s3.delete_object(Bucket=bucket_name, Key=key)
+            except:
+                pass
+
+        return score_list
 
 class ListwiseModelTopNPredictor:
 
-    def __init__(self, huggingface_endpoint, desc_name_lookup, top_n):
-        self.huggingface_endpoint = huggingface_endpoint
+    def __init__(self, huggingface_predictor, desc_name_lookup, top_n):
+        self.huggingface_predictor = huggingface_predictor
         self.desc_name_lookup = desc_name_lookup
         self.top_n = top_n
 
@@ -107,7 +165,7 @@ class ListwiseModelTopNPredictor:
         return output_top_results
 
     def _create_input_data(self, citation_data_lookup, input_top_results):
-        input_data = { "inputs": [], "parameters": {} }
+        input_data = { "inputs": [], "parameters": { "batch_size": len(citation_data_lookup)}, }
         pmid_list = []
         top_label_ids = []
         for q_id in input_top_results:
@@ -145,7 +203,7 @@ class ListwiseModelTopNPredictor:
         return top_results
 
     def _predict_internal(self, input_data):
-        predictions = self.huggingface_endpoint.predict(input_data)
+        predictions = self.huggingface_predictor.predict(input_data)
         prediction_count = len(predictions)
         score_lookup = {}
         for citation_idx in range(prediction_count):

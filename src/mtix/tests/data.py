@@ -708,7 +708,7 @@ EXPECTED_PREDICTIONS = [
 ]
 
 
-HUGGINGFACE_PREDICTOR_EXPECTED_LISTWISE_INPUT_DATA = {
+HUGGINGFACE_ENDPOINT_EXPECTED_LISTWISE_INPUT_DATA = {
         "inputs": [
                     [[
                         "|2017-2021|International journal of sports medicine|Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.|Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT2). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ2 was individually calculated using the deflection point of ventilatory equivalents. In addition, VT2 was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT2, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η2=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT2. Similarly, Bland Altman analysis showed a considerable agreement between VT2 vs. ECG-derived respiration (mean difference of -0.06\u2009km·h-1, 95% CL: ±0.40) and VT2 vs. high frequency product (mean difference of 0.02\u2009km·h-1, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT2 in a field shuttle run test.",
@@ -719,11 +719,11 @@ HUGGINGFACE_PREDICTOR_EXPECTED_LISTWISE_INPUT_DATA = {
                         "|Humans|Carcinoma, Renal Cell|Kidney Neoplasms|Molecular Targeted Therapy|Disease Management|Antineoplastic Agents|Clinical Trials as Topic|Disease-Free Survival|Immunotherapy|Animals|Neoplasm Staging|Biomarkers, Tumor|Prognosis|Adult|Nephrectomy|Kidney|Combined Modality Therapy|Treatment Outcome|Mutation|Signal Transduction|Neoplasm Metastasis|Disease Progression|Female|Gene Expression Regulation, Neoplastic|Male|Drug Development|Protein Kinase Inhibitors|Antineoplastic Combined Chemotherapy Protocols|Tumor Microenvironment|Genetic Predisposition to Disease|Drug Discovery|Neoplasm Grading|Immunomodulation|Disease Susceptibility|Phenylurea Compounds|Survival Analysis|Immune Checkpoint Inhibitors|Phenotype|Risk Factors|Antineoplastic Agents, Immunological|Medical Oncology|Survival Rate|Angiogenesis Inhibitors|Antibodies, Monoclonal|Immunologic Factors|Genomics|Practice Guidelines as Topic|Progression-Free Survival|Neoplasm Recurrence, Local|Biomarkers"
                     ]],
                 ],
-        "parameters": { "batch_size": 2 },
+        "parameters": {},
     }
 
 
-HUGGINGFACE_PREDICTOR_LISTWISE_RESULTS = [
+HUGGINGFACE_ENDPOINT_LISTWISE_RESULTS = [
     [{'index': 0, 'score': 0.9997355341911316}, {'index': 1, 'score': 0.9982964396476746}, {'index': 2, 'score': 0.7955935597419739}, {'index': 3, 'score': 0.8125096559524536}, {'index': 4, 'score': 0.9643720984458923}, {'index': 5, 'score': 0.9706421494483948}, {'index': 6, 'score': 0.852420449256897}, {'index': 7, 'score': 0.8315696716308594}, {'index': 8, 'score': 0.5114960670471191}, {'index': 9, 'score': 0.5496633052825928}, {'index': 10, 'score': 0.6221471428871155}, {'index': 11, 'score': 0.486363023519516}, {'index': 12, 'score': 0.5544146299362183}, {'index': 13, 'score': 0.07359953969717026}, {'index': 14, 'score': 0.10571973025798798}, {'index': 15, 'score': 0.1415220946073532}, {'index': 16, 'score': 0.07260718941688538}, {'index': 17, 'score': 0.27509382367134094}, {'index': 18, 'score': 0.17700448632240295}, {'index': 19, 'score': 0.16926616430282593}, {'index': 20, 'score': 0.06295997649431229}, {'index': 21, 'score': 0.017262902110815048}, {'index': 22, 'score': 0.02871265634894371}, {'index': 23, 'score': 0.07878343015909195}, {'index': 24, 'score': 0.09748038649559021}, {'index': 25, 'score': 0.02253129705786705}, {'index': 26, 'score': 0.03524332866072655}, {'index': 27, 'score': 0.07606266438961029}, {'index': 28, 'score': 0.05195155367255211}, {'index': 29, 'score': 0.05508872866630554}, {'index': 30, 'score': 0.027734147384762764}, {'index': 31, 'score': 0.003567112609744072}, {'index': 32, 'score': 0.011007178574800491}, {'index': 33, 'score': 0.04350952059030533}, {'index': 34, 'score': 0.02417898178100586}, {'index': 35, 'score': 0.011301886290311813}, {'index': 36, 'score': 0.018665509298443794}, {'index': 37, 'score': 0.037304580211639404}, {'index': 38, 'score': 0.012973170727491379}, {'index': 39, 'score': 0.0018599815666675568}, {'index': 40, 'score': 0.014018462039530277}, {'index': 41, 'score': 0.01983262039721012}, {'index': 42, 'score': 0.006920020096004009}, {'index': 43, 'score': 0.021402597427368164}, {'index': 44, 'score': 0.014872994273900986}, {'index': 45, 'score': 0.011125239543616772}, {'index': 46, 'score': 0.0037491361144930124}, {'index': 47, 'score': 0.006842309609055519}, {'index': 48, 'score': 0.010896108113229275}, {'index': 49, 'score': 0.007938760332763195}],
     [{'index': 0, 'score': 0.9994300007820129}, {'index': 1, 'score': 0.9989159107208252}, {'index': 2, 'score': 0.8412796258926392}, {'index': 3, 'score': 0.3219943344593048}, {'index': 4, 'score': 0.1959581971168518}, {'index': 5, 'score': 0.09714453667402267}, {'index': 6, 'score': 0.2619189918041229}, {'index': 7, 'score': 0.12978792190551758}, {'index': 8, 'score': 0.06807825714349747}, {'index': 9, 'score': 0.11485883593559265}, {'index': 10, 'score': 0.13706806302070618}, {'index': 11, 'score': 0.13066621124744415}, {'index': 12, 'score': 0.08873981982469559}, {'index': 13, 'score': 0.04421916976571083}, {'index': 14, 'score': 0.01969616673886776}, {'index': 15, 'score': 0.011100400239229202}, {'index': 16, 'score': 0.05385619029402733}, {'index': 17, 'score': 0.04900601506233215}, {'index': 18, 'score': 0.05310337245464325}, {'index': 19, 'score': 0.03952186927199364}, {'index': 20, 'score': 0.10456740856170654}, {'index': 21, 'score': 0.03344599902629852}, {'index': 22, 'score': 0.016307173296809196}, {'index': 23, 'score': 0.016591450199484825}, {'index': 24, 'score': 0.014104798436164856}, {'index': 25, 'score': 0.021324438974261284}, {'index': 26, 'score': 0.009944542311131954}, {'index': 27, 'score': 0.018231892958283424}, {'index': 28, 'score': 0.029865480959415436}, {'index': 29, 'score': 0.02430783212184906}, {'index': 30, 'score': 0.005804094020277262}, {'index': 31, 'score': 0.026966147124767303}, {'index': 32, 'score': 0.011150605045258999}, {'index': 33, 'score': 0.012099126353859901}, {'index': 34, 'score': 0.003990033641457558}, {'index': 35, 'score': 0.009143604896962643}, {'index': 36, 'score': 0.010201395489275455}, {'index': 37, 'score': 0.0382697768509388}, {'index': 38, 'score': 0.03529610112309456}, {'index': 39, 'score': 0.013955854810774326}, {'index': 40, 'score': 0.007065223064273596}, {'index': 41, 'score': 0.004575944971293211}, {'index': 42, 'score': 0.010310640558600426}, {'index': 43, 'score': 0.006782346870750189}, {'index': 44, 'score': 0.0119926230981946}, {'index': 45, 'score': 0.01950244791805744}, {'index': 46, 'score': 0.012750128284096718}, {'index': 47, 'score': 0.005581812467426062}, {'index': 48, 'score': 0.013546676374971867}, {'index': 49, 'score': 0.008801227435469627}],
     ]
@@ -733,84 +733,38 @@ _QUERY_1 = "2017-2021|International journal of sports medicine|Second Ventilator
 _QUERY_2 = "2017-2021|Journal of investigative medicine : the official publication of the American Federation for Clinical Research|Update on the biology and management of renal cell carcinoma.|Renal cell cancer (RCC) (epithelial carcinoma of the kidney) represents 2%-4% of newly diagnosed adult tumors. Over the past 2 decades, RCC has been better characterized clinically and molecularly. It is a heterogeneous disease, with multiple subtypes, each with characteristic histology, genetics, molecular profiles, and biologic behavior. Tremendous heterogeneity has been identified with many distinct subtypes characterized. There are clinical questions to be addressed at every stage of this disease, and new targets being identified for therapeutic development. The unique characteristics of the clinical presentations of RCC have led to both questions and opportunities for improvement in management. Advances in targeted drug development and understanding of immunologic control of RCC are leading to a number of new clinical trials and regimens for advanced disease, with the goal of achieving long-term disease-free survival, as has been achieved in a proportion of such patients historically. RCC management is a promising area of ongoing clinical investigation."
 
 
-HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_1 = {
+HUGGINGFACE_ENDPOINT_EXPECTED_POINTWISE_INPUT_DATA = {
     "inputs": [
             [[ _QUERY_1, "Humans"]],
             [[ _QUERY_1, "Heart Rate"]],
             [[ _QUERY_1, "Soccer"]],
-    ],
-    "parameters": {"max_length": 512,
-                   "padding": "max_length",
-                   "truncation": "longest_first",
-                   "return_all_scores": True,
-                   "batch_size": 3 },
-}
-
-
-HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_2 = {
-    "inputs": [
             [[ _QUERY_1, "Exercise Test"]],
             [[ _QUERY_1, "Male"]],
             [[ _QUERY_2, "Humans"]],
-    ],
-    "parameters": {"max_length": 512,
-                   "padding": "max_length",
-                   "truncation": "longest_first",
-                   "return_all_scores": True, 
-                   "batch_size": 3 },
-}
-
-
-HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_3 = {
-    "inputs": [
             [[ _QUERY_2, "Carcinoma, Renal Cell"]],
             [[ _QUERY_2, "Kidney Neoplasms"]],
             [[ _QUERY_2, "Molecular Targeted Therapy"]],
-    ],
-    "parameters": {"max_length": 512,
-                   "padding": "max_length",
-                   "truncation": "longest_first",
-                   "return_all_scores": True, 
-                   "batch_size": 3 },
-}
-
-
-HUGGINGFACE_PREDICTOR_EXPECTED_POINTWISE_INPUT_DATA_4 = {
-    "inputs": [
             [[ _QUERY_2, "Clinical Trials as Topic"]],
     ],
     "parameters": {"max_length": 512,
                    "padding": "max_length",
                    "truncation": "longest_first",
-                   "return_all_scores": True, 
-                   "batch_size": 3 },
+                   "return_all_scores": True,},
 }
 
 
-HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_1 = [
+HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS = [
     [{'label': 'LABEL_0', 'score': 0.00033223628997802734}, {'label': 'LABEL_1', 'score': 0.999667763710022}],
     [{'label': 'LABEL_0', 'score': 0.0006921291351318359}, {'label': 'LABEL_1', 'score': 0.9993078708648682}],
     [{'label': 'LABEL_0', 'score': 0.024880826473236084}, {'label': 'LABEL_1', 'score': 0.9751191735267639}],
-    ]
-
-
-HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_2 = [
     [{'label': 'LABEL_0', 'score': 0.0546916127204895}, {'label': 'LABEL_1', 'score': 0.9453083872795105}],
     [{'label': 'LABEL_0', 'score': 0.010324299335479736}, {'label': 'LABEL_1', 'score': 0.9896757006645203}],
     [{'label': 'LABEL_0', 'score': 0.00033283233642578125}, {'label': 'LABEL_1', 'score': 0.9996671676635742}],
-    ]
-
-
-HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_3 = [
     [{'label': 'LABEL_0', 'score': 0.00033223628997802734}, {'label': 'LABEL_1', 'score': 0.999667763710022}],
     [{'label': 'LABEL_0', 'score': 0.0009819269180297852}, {'label': 'LABEL_1', 'score': 0.9990180730819702}],
     [{'label': 'LABEL_0', 'score': 0.10123133659362793}, {'label': 'LABEL_1', 'score': 0.8987686634063721}],
-    ]
-
-
-HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS_4 = [
     [{'label': 'LABEL_0', 'score': 0.22837108373641968}, {'label': 'LABEL_1', 'score': 0.7716289162635803}],
-]
+    ]
 
 
 LISTWISE_AVG_RESULTS = {
@@ -1478,7 +1432,7 @@ PUBMED_XML_INPUT_DATA = [
 ]
 
 
-TENSORFLOW_PREDICTOR_EXPECTED_INPUT_DATA = {
+TENSORFLOW_ENDPOINT_EXPECTED_INPUT_DATA = {
     "instances":
     [
         {
@@ -1499,7 +1453,7 @@ TENSORFLOW_PREDICTOR_EXPECTED_INPUT_DATA = {
 }
 
 
-TENSORFLOW_PREDICTOR_RESULT = {'predictions': [[[9291.0, 0.99991405], [8857.0, 0.996702492], [15149.0, 0.981794238], [7653.0, 0.909845233], [10719.0, 0.900856435], [7160.0, 0.86951232], [14670.0, 0.855143487], [3075.0, 0.744284689], [17432.0, 0.69153434], [27783.0, 0.668486893], [12453.0, 0.563120902], [27868.0, 0.541304171], [14390.0, 0.492241621], [27896.0, 0.430962443], [13943.0, 0.332509339], [14386.0, 0.315851], [3109.0, 0.243542165], [7828.0, 0.211396158], [1058.0, 0.150405943], [17338.0, 0.150172412], [27389.0, 0.104654014], [8839.0, 0.0997826159], [13133.0, 0.0561132431], [6074.0, 0.0504376888], [14396.0, 0.0449917316], [29719.0, 0.0399412811], [7794.0, 0.0353198946], [13740.0, 0.0283615291], [15372.0, 0.0258080065], [4651.0, 0.0241023], [7655.0, 0.0221712589], [14288.0, 0.021931529], [18833.0, 0.019269973], [29829.0, 0.0188019276], [16178.0, 0.0182481706], [5322.0, 0.0169704854], [16185.0, 0.0166066289], [3465.0, 0.0160861909], [11385.0, 0.0146306157], [17544.0, 0.0132394433], [13135.0, 0.0126036704], [559.0, 0.0118727684], [17955.0, 0.0117587447], [14922.0, 0.00959321856], [3007.0, 0.00951391459], [15050.0, 0.009254843], [12452.0, 0.00909403], [13190.0, 0.00903201103], [13548.0, 0.00823283195], [17678.0, 0.00785788894], [16970.0, 0.00770181417], [20215.0, 0.00707453489], [20262.0, 0.00680217147], [15401.0, 0.00607246161], [17947.0, 0.0059620142], [20752.0, 0.00549894571], [7809.0, 0.0051753521], [12444.0, 0.00512072444], [4933.0, 0.00474593043], [8153.0, 0.0046531558], [17719.0, 0.00450500846], [14410.0, 0.00415948033], [8400.0, 0.00411593914], [14412.0, 0.00405237079], [8847.0, 0.00398141146], [9466.0, 0.00376901031], [5820.0, 0.00363495946], [15849.0, 0.00353822112], [16184.0, 0.00353240967], [8852.0, 0.00347149372], [17452.0, 0.00342169404], [18156.0, 0.00332269073], [29299.0, 0.00325256586], [10595.0, 0.0032376647], [17930.0, 0.00284031034], [7326.0, 0.00280490518], [7021.0, 0.00248488784], [17520.0, 0.00240907073], [4626.0, 0.00240838528], [8870.0, 0.00223615766], [10567.0, 0.00219872594], [25026.0, 0.00218445063], [14316.0, 0.00212264061], [17107.0, 0.00210899115], [3883.0, 0.00202342868], [14408.0, 0.00193503499], [5006.0, 0.00192338228], [10864.0, 0.00190702081], [18374.0, 0.00190156698], [4540.0, 0.00185212493], [8095.0, 0.00177639723], [27196.0, 0.00177267194], [15402.0, 0.00176078081], [29387.0, 0.00174471736], [4072.0, 0.00171655416], [15888.0, 0.00169724226], [4358.0, 0.00165808201], [4505.0, 0.00165367126], [3640.0, 0.00150859356], [3239.0, 0.00146594644]], [[9291.0, 0.999201417], [4978.0, 0.992458224], [10133.0, 0.915374041], [28767.0, 0.493483245], [5649.0, 0.298031092], [3718.0, 0.264089227], [9643.0, 0.214085281], [20100.0, 0.204979181], [3575.0, 0.202000886], [20854.0, 0.201139838], [18671.0, 0.152674764], [1930.0, 0.14245829], [11742.0, 0.106658608], [17505.0, 0.0968137681], [16588.0, 0.0740844309], [13680.0, 0.0597955585], [3719.0, 0.0585802197], [17952.0, 0.0561129451], [5789.0, 0.0561043024], [17965.0, 0.0530118942], [10122.0, 0.0496570468], [10908.0, 0.0450125337], [17911.0, 0.0423626602], [1347.0, 0.0420189798], [28183.0, 0.03696087], [17934.0, 0.0349369943], [19990.0, 0.0329229832], [18791.0, 0.0302933455], [25251.0, 0.0299238861], [28791.0, 0.0292186439], [11737.0, 0.0287246406], [14561.0, 0.0273156464], [3660.0, 0.025931567], [9631.0, 0.0244135559], [18332.0, 0.0216622055], [19045.0, 0.0213854909], [11767.0, 0.0208264291], [3109.0, 0.0192547739], [10719.0, 0.0181569159], [29131.0, 0.0173778236], [21306.0, 0.0162630677], [2344.0, 0.0162172914], [7828.0, 0.0160495639], [11539.0, 0.0158000886], [19115.0, 0.0151584744], [28240.0, 0.0149931312], [12976.0, 0.0146569312], [29181.0, 0.0143497288], [28571.0, 0.0137678981], [27776.0, 0.0132320821], [20468.0, 0.0128287077], [3148.0, 0.0127493143], [21590.0, 0.0123948157], [11349.0, 0.0123589635], [28811.0, 0.0113763511], [27380.0, 0.0110508204], [1634.0, 0.0110328794], [3239.0, 0.0107408464], [11738.0, 0.0104124546], [20106.0, 0.0102720559], [11276.0, 0.00983896852], [29157.0, 0.0093164444], [6958.0, 0.00860962272], [20728.0, 0.00844031572], [22300.0, 0.00820374489], [20098.0, 0.00805518], [19041.0, 0.00746485591], [14025.0, 0.00746440887], [9642.0, 0.00726684928], [14375.0, 0.00722879171], [26604.0, 0.00705805421], [27451.0, 0.00705367327], [17520.0, 0.00700184703], [28010.0, 0.00699970126], [18093.0, 0.00679349899], [9585.0, 0.00664955378], [17439.0, 0.00660660863], [16185.0, 0.00643864274], [4418.0, 0.00642257929], [11739.0, 0.00641462207], [29576.0, 0.00639393926], [21749.0, 0.00608295202], [18823.0, 0.00600987673], [29943.0, 0.00591516495], [75.0, 0.00577512383], [6807.0, 0.00566065311], [25455.0, 0.00543773174], [29869.0, 0.00515505672], [23963.0, 0.00513395667], [6810.0, 0.00504913926], [4400.0, 0.00479242206], [22308.0, 0.00465458632], [14374.0, 0.00453996658], [3149.0, 0.00449174643], [1250.0, 0.00448903441], [6338.0, 0.00444173813], [13006.0, 0.00433811545], [26132.0, 0.00425082445], [15806.0, 0.00415796041], [10129.0, 0.00400665402]]]}
+TENSORFLOW_ENDPOINT_RESULTS = {'predictions': [[[9291.0, 0.99991405], [8857.0, 0.996702492], [15149.0, 0.981794238], [7653.0, 0.909845233], [10719.0, 0.900856435], [7160.0, 0.86951232], [14670.0, 0.855143487], [3075.0, 0.744284689], [17432.0, 0.69153434], [27783.0, 0.668486893], [12453.0, 0.563120902], [27868.0, 0.541304171], [14390.0, 0.492241621], [27896.0, 0.430962443], [13943.0, 0.332509339], [14386.0, 0.315851], [3109.0, 0.243542165], [7828.0, 0.211396158], [1058.0, 0.150405943], [17338.0, 0.150172412], [27389.0, 0.104654014], [8839.0, 0.0997826159], [13133.0, 0.0561132431], [6074.0, 0.0504376888], [14396.0, 0.0449917316], [29719.0, 0.0399412811], [7794.0, 0.0353198946], [13740.0, 0.0283615291], [15372.0, 0.0258080065], [4651.0, 0.0241023], [7655.0, 0.0221712589], [14288.0, 0.021931529], [18833.0, 0.019269973], [29829.0, 0.0188019276], [16178.0, 0.0182481706], [5322.0, 0.0169704854], [16185.0, 0.0166066289], [3465.0, 0.0160861909], [11385.0, 0.0146306157], [17544.0, 0.0132394433], [13135.0, 0.0126036704], [559.0, 0.0118727684], [17955.0, 0.0117587447], [14922.0, 0.00959321856], [3007.0, 0.00951391459], [15050.0, 0.009254843], [12452.0, 0.00909403], [13190.0, 0.00903201103], [13548.0, 0.00823283195], [17678.0, 0.00785788894], [16970.0, 0.00770181417], [20215.0, 0.00707453489], [20262.0, 0.00680217147], [15401.0, 0.00607246161], [17947.0, 0.0059620142], [20752.0, 0.00549894571], [7809.0, 0.0051753521], [12444.0, 0.00512072444], [4933.0, 0.00474593043], [8153.0, 0.0046531558], [17719.0, 0.00450500846], [14410.0, 0.00415948033], [8400.0, 0.00411593914], [14412.0, 0.00405237079], [8847.0, 0.00398141146], [9466.0, 0.00376901031], [5820.0, 0.00363495946], [15849.0, 0.00353822112], [16184.0, 0.00353240967], [8852.0, 0.00347149372], [17452.0, 0.00342169404], [18156.0, 0.00332269073], [29299.0, 0.00325256586], [10595.0, 0.0032376647], [17930.0, 0.00284031034], [7326.0, 0.00280490518], [7021.0, 0.00248488784], [17520.0, 0.00240907073], [4626.0, 0.00240838528], [8870.0, 0.00223615766], [10567.0, 0.00219872594], [25026.0, 0.00218445063], [14316.0, 0.00212264061], [17107.0, 0.00210899115], [3883.0, 0.00202342868], [14408.0, 0.00193503499], [5006.0, 0.00192338228], [10864.0, 0.00190702081], [18374.0, 0.00190156698], [4540.0, 0.00185212493], [8095.0, 0.00177639723], [27196.0, 0.00177267194], [15402.0, 0.00176078081], [29387.0, 0.00174471736], [4072.0, 0.00171655416], [15888.0, 0.00169724226], [4358.0, 0.00165808201], [4505.0, 0.00165367126], [3640.0, 0.00150859356], [3239.0, 0.00146594644]], [[9291.0, 0.999201417], [4978.0, 0.992458224], [10133.0, 0.915374041], [28767.0, 0.493483245], [5649.0, 0.298031092], [3718.0, 0.264089227], [9643.0, 0.214085281], [20100.0, 0.204979181], [3575.0, 0.202000886], [20854.0, 0.201139838], [18671.0, 0.152674764], [1930.0, 0.14245829], [11742.0, 0.106658608], [17505.0, 0.0968137681], [16588.0, 0.0740844309], [13680.0, 0.0597955585], [3719.0, 0.0585802197], [17952.0, 0.0561129451], [5789.0, 0.0561043024], [17965.0, 0.0530118942], [10122.0, 0.0496570468], [10908.0, 0.0450125337], [17911.0, 0.0423626602], [1347.0, 0.0420189798], [28183.0, 0.03696087], [17934.0, 0.0349369943], [19990.0, 0.0329229832], [18791.0, 0.0302933455], [25251.0, 0.0299238861], [28791.0, 0.0292186439], [11737.0, 0.0287246406], [14561.0, 0.0273156464], [3660.0, 0.025931567], [9631.0, 0.0244135559], [18332.0, 0.0216622055], [19045.0, 0.0213854909], [11767.0, 0.0208264291], [3109.0, 0.0192547739], [10719.0, 0.0181569159], [29131.0, 0.0173778236], [21306.0, 0.0162630677], [2344.0, 0.0162172914], [7828.0, 0.0160495639], [11539.0, 0.0158000886], [19115.0, 0.0151584744], [28240.0, 0.0149931312], [12976.0, 0.0146569312], [29181.0, 0.0143497288], [28571.0, 0.0137678981], [27776.0, 0.0132320821], [20468.0, 0.0128287077], [3148.0, 0.0127493143], [21590.0, 0.0123948157], [11349.0, 0.0123589635], [28811.0, 0.0113763511], [27380.0, 0.0110508204], [1634.0, 0.0110328794], [3239.0, 0.0107408464], [11738.0, 0.0104124546], [20106.0, 0.0102720559], [11276.0, 0.00983896852], [29157.0, 0.0093164444], [6958.0, 0.00860962272], [20728.0, 0.00844031572], [22300.0, 0.00820374489], [20098.0, 0.00805518], [19041.0, 0.00746485591], [14025.0, 0.00746440887], [9642.0, 0.00726684928], [14375.0, 0.00722879171], [26604.0, 0.00705805421], [27451.0, 0.00705367327], [17520.0, 0.00700184703], [28010.0, 0.00699970126], [18093.0, 0.00679349899], [9585.0, 0.00664955378], [17439.0, 0.00660660863], [16185.0, 0.00643864274], [4418.0, 0.00642257929], [11739.0, 0.00641462207], [29576.0, 0.00639393926], [21749.0, 0.00608295202], [18823.0, 0.00600987673], [29943.0, 0.00591516495], [75.0, 0.00577512383], [6807.0, 0.00566065311], [25455.0, 0.00543773174], [29869.0, 0.00515505672], [23963.0, 0.00513395667], [6810.0, 0.00504913926], [4400.0, 0.00479242206], [22308.0, 0.00465458632], [14374.0, 0.00453996658], [3149.0, 0.00449174643], [1250.0, 0.00448903441], [6338.0, 0.00444173813], [13006.0, 0.00433811545], [26132.0, 0.00425082445], [15806.0, 0.00415796041], [10129.0, 0.00400665402]]]}
 
 REPLACE_BRACKETS_INPUT = [
     {
