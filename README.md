@@ -19,7 +19,7 @@ s3://ncbi-aws-pmdm-ingest/async_inference/listwise_endpoint/inputs/<br>
 s3://ncbi-aws-pmdm-ingest/async_inference/listwise_endpoint/outputs/<br>
 
 ## Test
-Automated unit and integration tests can be run using pytest. To run the integration test you may need to update the SageMaker endpoint names in the integration test code. The integration tests checks predictions for 40k citations, and they may therefore take a long time to run.
+Automated unit and integration tests can be run using pytest. To run the integration test you may need to update the SageMaker endpoint names in the integration test code. The integration tests check predictions for 40k citations, and they may therefore take a long time to run.
 ```
 pytest -m unit
 pytest -m integration
