@@ -1,8 +1,7 @@
 import boto3
 import math
 import os.path
-from sagemaker.exceptions import ObjectNotExistedError
-import time
+from sagemaker.async_inference.waiter_config import WaiterConfig
 import uuid
 
 
@@ -73,14 +72,14 @@ class RealTimeEndpoint:
 
 class AsyncEndpoint:
 
-    def __init__(self, endpoint_helper, sagemaker_async_endpoint, endpoint_name, bucket_name, temp_dir, batch_size, wait_time):
+    def __init__(self, endpoint_helper, sagemaker_async_endpoint, endpoint_name, bucket_name, prefix, batch_size, wait_delay, wait_max_attempts):
         self.helper = endpoint_helper
         self.sagemaker_async_endpoint = sagemaker_async_endpoint
         self.endpoint_name = endpoint_name
         self.bucket_name = bucket_name
-        self.temp_dir = temp_dir
+        self.prefix = prefix
         self.batch_size = batch_size
-        self.wait_time = wait_time
+        self.wait_config = WaiterConfig(delay=wait_delay, max_attempts=wait_max_attempts)
         self.s3 = boto3.client("s3")
 
     def predict(self, request):
@@ -90,53 +89,47 @@ class AsyncEndpoint:
         num_batches = int(math.ceil(input_count/self.batch_size))
 
         response_list = []
-        input_key_lookup = {}
-        output_key_lookup = {}
-        for idx in range(num_batches):
-            batch_start = idx * self.batch_size
-            batch_end = (idx + 1) * self.batch_size
-            batch_inputs = inputs[batch_start:batch_end]
-            batch_data = self.helper.construct_batch_data(batch_inputs, parameters)
-            batch_uuid = str(uuid.uuid4())
-            batch_input_key = os.path.join(self.temp_dir, self.endpoint_name, "inputs", batch_uuid)
-            input_key_lookup[idx] = batch_input_key
-            batch_input_path = os.path.join(f"s3://{self.bucket_name}", batch_input_key)
-            batch_response = self.sagemaker_async_endpoint.predict_async(data=batch_data, input_path=batch_input_path)
-            response_list.append(batch_response)
-            batch_output_file = os.path.basename(batch_response.output_path)
-            output_key = os.path.join(self.temp_dir, self.endpoint_name, "outputs", batch_output_file)
-            output_key_lookup[idx] = output_key
-
-        result_lookup = {}
-        while len(result_lookup) < num_batches:
-            time.sleep(self.wait_time)
+        input_key_list = []
+        output_key_list = []
+        try: 
             for idx in range(num_batches):
-                if idx not in result_lookup:
-                    try:
-                        batch_response = response_list[idx]
-                        batch_result = batch_response.get_result()
-                        result_lookup[idx] = batch_result
-                        self.try_delete(input_key_lookup[idx])
-                        self.try_delete(output_key_lookup[idx])
-                    except ObjectNotExistedError:
-                        continue
-  
-        result_list = []
-        for idx in range(num_batches):
-            result = result_lookup[idx]
-            result = self.helper.process_response(result)
-            result_list.extend(result)
+                batch_start = idx * self.batch_size
+                batch_end = (idx + 1) * self.batch_size
+                batch_inputs = inputs[batch_start:batch_end]
+                batch_data = self.helper.construct_batch_data(batch_inputs, parameters)
+                batch_uuid = str(uuid.uuid4())
+                batch_input_file = batch_uuid + ".in"
+                batch_input_key = os.path.join(self.prefix, self.endpoint_name, "inputs", batch_input_file)
+                input_key_list.append(batch_input_key)
+                batch_input_path = os.path.join(f"s3://{self.bucket_name}", batch_input_key)
+                batch_response = self.sagemaker_async_endpoint.predict_async(data=batch_data, input_path=batch_input_path)
+                response_list.append(batch_response)
+                batch_output_file = os.path.basename(batch_response.output_path)
+                batch_output_key = os.path.join(self.prefix, self.endpoint_name, "outputs", batch_output_file)
+                output_key_list.append(batch_output_key)
+
+            result_list = []
+            for batch_response, batch_input_key, batch_output_key in zip(response_list, input_key_list, output_key_list):
+                batch_result = batch_response.get_result(self.wait_config)
+                batch_result = self.helper.process_response(batch_result)
+                result_list.extend(batch_result)
+        finally:
+            self.clean_up(input_key_list, output_key_list)
 
         predictions = self.helper.construct_output(result_list)
-
         return predictions
+
+    def clean_up(self, input_key_list, output_key_list):
+        for batch_input_key, batch_output_key in zip(input_key_list, output_key_list):
+            self.try_delete(batch_input_key)
+            self.try_delete(batch_output_key)
 
     def try_delete(self, key):
         try:
             self.s3.delete_object(Bucket=self.bucket_name, Key=key)
         except:
             pass
-        
+
 
 class HuggingFaceRealTimeEndpoint(RealTimeEndpoint):
     def __init__(self, sagemaker_rt_hf_endpoint, batch_size=128):
@@ -149,10 +142,10 @@ class TensorflowRealTimeEndpoint(RealTimeEndpoint):
 
 
 class HuggingFaceAsyncEndpoint(AsyncEndpoint):
-    def __init__(self, sagemaker_async_hf_endpoint, endpoint_name, bucket_name, temp_dir="async_inference", batch_size=128, wait_time=0.01):
-        super().__init__(HuggingFaceEndpointHelper(), sagemaker_async_hf_endpoint, endpoint_name, bucket_name, temp_dir, batch_size, wait_time)
+    def __init__(self, sagemaker_hf_async_endpoint, endpoint_name, bucket_name, prefix, batch_size, wait_delay, wait_max_attempts):
+        super().__init__(HuggingFaceEndpointHelper(), sagemaker_hf_async_endpoint, endpoint_name, bucket_name, prefix, batch_size, wait_delay, wait_max_attempts)
 
 
 class TensorflowAsyncEndpoint(AsyncEndpoint):
-    def __init__(self, sagemaker_async_tf_endpoint, endpoint_name, bucket_name, temp_dir="async_inference", batch_size=128, wait_time=0.01):
-        super().__init__(TensorflowEndpointHelper(), sagemaker_async_tf_endpoint, endpoint_name, bucket_name, temp_dir, batch_size, wait_time)
+    def __init__(self, sagemaker_tf_async_endpoint, endpoint_name, bucket_name, prefix, batch_size, wait_delay, wait_max_attempts):
+        super().__init__(TensorflowEndpointHelper(), sagemaker_tf_async_endpoint, endpoint_name, bucket_name, prefix, batch_size, wait_delay, wait_max_attempts)

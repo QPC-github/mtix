@@ -25,6 +25,7 @@ class TestDescriptorPredictionPipeline(TestCase):
                                                               "raear-pointwise-endpoint-2022-v2-async", 
                                                               "raear-listwise-endpoint-2022-v2-async",
                                                               "ncbi-aws-pmdm-ingest",
+                                                              "async_inference",
                                                               cnn_batch_size=128,
                                                               pointwise_batch_size=128,
                                                               listwise_batch_size=128)
