@@ -1,7 +1,7 @@
 import gzip
 import json
 import math
-from mtix import create_descriptor_prediction_pipeline
+from mtix import create_async_pipeline
 import os.path
 import pytest
 from unittest import skip, TestCase
@@ -20,16 +20,16 @@ TEST_SET_GROUND_TRUTH_PATH = os.path.join(THIS_DIR, "data", "test_set_2017-2022_
 class TestDescriptorPredictionPipeline(TestCase):
 
     def setUp(self):
-        self.pipeline = create_descriptor_prediction_pipeline(DESC_NAME_LOOKUP_PATH, 
-                                                              DUI_LOOKUP_PATH, 
-                                                              "raear-cnn-endpoint-2022-v1-async", 
-                                                              "raear-pointwise-endpoint-2022-v2-async", 
-                                                              "raear-listwise-endpoint-2022-v2-async",
-                                                              "ncbi-aws-pmdm-ingest",
-                                                              "async_inference",
-                                                              cnn_batch_size=128,
-                                                              pointwise_batch_size=128,
-                                                              listwise_batch_size=128)
+        self.pipeline = create_async_pipeline(DESC_NAME_LOOKUP_PATH, 
+                                            DUI_LOOKUP_PATH, 
+                                            "raear-cnn-endpoint-2022-v1-async", 
+                                            "raear-pointwise-endpoint-2022-v2-async", 
+                                            "raear-listwise-endpoint-2022-v2-async",
+                                            "ncbi-aws-pmdm-ingest",
+                                            "async_inference",
+                                            cnn_batch_size=128,
+                                            pointwise_batch_size=128,
+                                            listwise_batch_size=128)
         self.test_set_data = json.load(gzip.open(TEST_SET_DATA_PATH, "rt", encoding="utf-8"))
 
     def test_output_for_first_five_articles(self):

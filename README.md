@@ -27,7 +27,7 @@ pytest -m integration
 
 ## Usage
 
-The pipeline is constructed with 7 input parameters:
+The pipeline is constructed with the following input parameters:
 
 1. Path to the Descriptor name lookup file. This file maps internal Descriptor ids to Descriptor names.
 2. Path to Desciptor unique identifier file. This file maps internal Descriptor ids to NLM DUIs.
@@ -36,17 +36,42 @@ The pipeline is constructed with 7 input parameters:
 5. Sagemaker endpoint name for Listwise model.
 6. The s3 bucket name (for async prediction temporary data).
 7. The s3 prefix (for async prediction temporary data).
+8. The cnn model batch size.
+9. The pointwise model batch size.
+10. The listwise model batch size.
+
+Example usage for async endpoints:
 
 ```
-from mtix_descriptor_prediction_pipeline import create_descriptor_prediction_pipeline
+from mtix import create_async_pipeline
 
-pipeline = create_descriptor_prediction_pipeline("path/to/main_heading_names.tsv", 
-                                                 "path/to/main_heading.tsv, 
-                                                 "tensorflow-inference-2022-04-01-22-15-17-484", 
-                                                 "huggingface-pytorch-inference-2022-04-01-22-18-14-890", 
-                                                 "huggingface-pytorch-inference-2022-04-01-22-21-50-717",
-                                                 "ncbi-aws-pmdm-ingest",
-                                                 "async_inference")
+pipeline = create_async_pipeline("path/to/main_heading_names.tsv", 
+                                "path/to/main_heading.tsv, 
+                                "dev-cnn-model-2022-v1-async", 
+                                "dev-pointwise-model-2022-v2-async", 
+                                "dev-listwise-model-2022-v2-async",
+                                "ncbi-aws-pmdm-ingest",
+                                "async_inference",
+                                cnn_batch_size=128,
+                                pointwise_batch_size=128,
+                                listwise_batch_size=128)
+
+desc_predictions = pipeline.predict(input_data)
+```
+
+Example usage for real-time endpoints:
+
+```
+from mtix import create_real_time_pipeline
+
+pipeline = create_real_time_pipeline("path/to/main_heading_names.tsv", 
+                                "path/to/main_heading.tsv, 
+                                "dev-cnn-model-2022-v1", 
+                                "dev-pointwise-model-2022-v2", 
+                                "dev-listwise-model-2022-v2",
+                                cnn_batch_size=128,
+                                pointwise_batch_size=128,
+                                listwise_batch_size=128)
 
 desc_predictions = pipeline.predict(input_data)
 ```
