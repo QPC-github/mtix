@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name="mtix",
-      version="1.0.1",
+      version="1.1.0",
       description="MTIX MeSH Descriptor prediction pipeline.",
       long_description=readme(),
       url="https://github.com/ncbi/mtix/",

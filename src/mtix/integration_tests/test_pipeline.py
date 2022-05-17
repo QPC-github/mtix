@@ -1,5 +1,6 @@
 import gzip
 import json
+import math
 from mtix import create_descriptor_prediction_pipeline
 import os.path
 import pytest
@@ -78,9 +79,18 @@ class TestDescriptorPredictionPipeline(TestCase):
             term_name_dict[pmid] = term_names
         return term_name_dict
 
-    def _predict(self, limit):
+    def _predict(self, limit, batch_size=512):
         test_data = self.test_set_data[:limit]
-        predictions = self.pipeline.predict(test_data)
+        citation_count = len(test_data)
+        num_batches = int(math.ceil(citation_count / batch_size))
+
+        predictions = []
+        for idx in range(num_batches):
+            batch_start = idx * batch_size
+            batch_end = (idx + 1) * batch_size
+            batch_inputs = test_data[batch_start:batch_end]
+            batch_predictions = self.pipeline.predict(batch_inputs)
+            predictions.extend(batch_predictions)
         return predictions
 
     def test_replace_brackets(self):
