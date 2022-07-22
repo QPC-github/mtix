@@ -1,3 +1,4 @@
+import copy
 import re
 
 
@@ -155,3 +156,60 @@ class ListwiseModelTopNPredictor:
                 score = citation_predictions["score"]
                 score_lookup[citation_idx][label_idx] = score
         return score_lookup
+
+
+class SubheadingPredictor:
+    def __init__(self, subheading_endpoint, subheading_name_lookup):
+        self.subheading_endpoint = subheading_endpoint
+        self.subheading_name_lookup = subheading_name_lookup
+
+    def predict(self, citation_data_lookup, citation_prediction_list):
+        data = self._create_input_data(citation_data_lookup, citation_prediction_list)
+        response = self.subheading_endpoint.predict(data)
+        result_lookup = self._create_result_lookup(response)
+        predictions = self._attach_subheadings(result_lookup, citation_prediction_list)
+        return predictions
+
+    def _attach_subheadings(self, result_lookup, citation_prediction_list):
+        citation_prediction_list_copy = copy.deepcopy(citation_prediction_list)
+        for citation_prediction in citation_prediction_list_copy:
+            pmid = citation_prediction["PMID"]
+            for descriptor_prediction in citation_prediction["Indexing"]:
+                dui = descriptor_prediction["ID"]
+                subheading_list = []
+                descriptor_prediction["Subheadings"] = subheading_list
+                for qui in result_lookup[pmid][dui]:
+                    score = result_lookup[pmid][dui][qui]
+                    subheading_list.append({
+                        "ID": qui,
+                        "IM": "NO",
+                        "Name": self.subheading_name_lookup[qui],
+                        "Reason": f"score: {score:.3f}"
+                        })
+        return citation_prediction_list_copy
+
+    def _create_input_data(self, citation_data_lookup, citation_prediction_list):
+        instances = []
+        for citation_prediction in citation_prediction_list:
+            pmid = citation_prediction["PMID"]
+            citation_data = { key: value for key, value in citation_data_lookup[pmid].items() if key not in ["journal_title"] }
+            citation_data["pmid"] = str(pmid)
+            for descriptor_prediction in citation_prediction["Indexing"]:
+                citation_data_copy = copy.deepcopy(citation_data)
+                citation_data_copy["main_heading_ui"] = descriptor_prediction["ID"]
+                instances.append(citation_data_copy)
+        instances = CnnModelTop100Predictor.replace_brackets(instances)
+        data = { "instances": instances }
+        return data
+
+    def _create_result_lookup(self, response):
+        result_lookup = {}
+        for pmid, dui, qui, score in response["predictions"]:
+            pmid = int(pmid)
+            if pmid not in result_lookup:
+                result_lookup[pmid] = {}
+            if dui not in result_lookup[pmid]:
+                result_lookup[pmid][dui] = {}
+            if len(qui.strip()) > 0:
+                result_lookup[pmid][dui][qui] = float(score)
+        return result_lookup

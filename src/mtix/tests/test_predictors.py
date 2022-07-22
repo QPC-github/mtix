@@ -1,7 +1,8 @@
 from .data import *
-from mtix.predictors import CnnModelTop100Predictor, ListwiseModelTopNPredictor, PointwiseModelTopNPredictor
+from mtix.predictors import CnnModelTop100Predictor, ListwiseModelTopNPredictor, PointwiseModelTopNPredictor, SubheadingPredictor
 import pytest
 import random
+from .subheading_data import EXPECTED_PREDICTIONS_WITH_SUBHEADINGS, SUBHEADING_ENDPOINT_EXPECTED_INPUT_DATA, SUBHEADING_ENDPOINT_RESULTS, SUBHEADING_NAME_LOOKUP
 from unittest import TestCase
 from unittest.mock import call, MagicMock, Mock
 
@@ -76,3 +77,16 @@ class TestListwiseModelTopNPredictor(TestCase):
         self.assertEqual(len(top_results["30455223"]), top_n, f"Expected {top_n} top results for each pmid.")
         
         huggingface_endpoint.predict.assert_called_once_with(HUGGINGFACE_ENDPOINT_EXPECTED_LISTWISE_INPUT_DATA)
+
+
+@pytest.mark.unit
+class TestSubheadingPredictor(TestCase):
+
+    def test_predict(self):
+        subheading_endpoint = Mock()
+        subheading_endpoint.predict = MagicMock(return_value=SUBHEADING_ENDPOINT_RESULTS)
+        subheading_predictor = SubheadingPredictor(subheading_endpoint, SUBHEADING_NAME_LOOKUP)
+        predictions = subheading_predictor.predict(EXPECTED_CITATION_DATA, EXPECTED_PREDICTIONS)
+     
+        self.assertEqual(predictions, EXPECTED_PREDICTIONS_WITH_SUBHEADINGS, "subheading predictions not as expected.")
+        subheading_endpoint.predict.assert_called_once_with(SUBHEADING_ENDPOINT_EXPECTED_INPUT_DATA)
