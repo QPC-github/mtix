@@ -1,5 +1,5 @@
 from .data import *
-from mtix.pipeline import CitationDataSanitizer, DescriptorPredictionPipeline, MedlineDateParser, MtiJsonResultsFormatter, PubMedXmlInputDataParser
+from mtix.pipeline import CitationDataSanitizer, DescriptorPredictionPipeline, MedlineDateParser, MtiJsonResultsFormatter, PubMedXmlInputDataParser, SubheadingAttachmentPipeline
 from mtix.predictors import CnnModelTop100Predictor, PointwiseModelTopNPredictor, ListwiseModelTopNPredictor, SubheadingPredictor
 import pytest
 from .subheading_data import EXPECTED_PREDICTIONS_WITH_SUBHEADINGS
@@ -155,22 +155,36 @@ class TestDescriptorPredictionPipeline(TestCase):
         self.listwise_predictor.predict = MagicMock(return_value=LISTWISE_RESULTS)
         self.results_formatter = MtiJsonResultsFormatter(DESC_NAME_LOOKUP, DUI_LOOKUP, THRESHOLD)
         self.results_formatter.format = Mock(wraps=self.results_formatter.format)
-        self.subheading_predictor = SubheadingPredictor(None, None)
-        self.subheading_predictor.predict = MagicMock(return_value=EXPECTED_PREDICTIONS_WITH_SUBHEADINGS)
-        self.pipeline = DescriptorPredictionPipeline(input_data_parser, self.sanitizer, self.cnn_predictor, self.pointwise_predictor, self.listwise_predictor, self.results_formatter, self.subheading_predictor)
+        self.pipeline = DescriptorPredictionPipeline(input_data_parser, self.sanitizer, self.cnn_predictor, self.pointwise_predictor, self.listwise_predictor, self.results_formatter)
 
     def test_predict(self):
-        input_data = PUBMED_XML_INPUT_DATA
-        expected_predictions = EXPECTED_PREDICTIONS_WITH_SUBHEADINGS
+        predictions = self.pipeline.predict(PUBMED_XML_INPUT_DATA)
         
-        predictions = self.pipeline.predict(input_data)
-        
-        self.assertEqual(predictions, expected_predictions, "Predictions do not match expected result.")
+        self.assertEqual(predictions, EXPECTED_PREDICTIONS, "Predictions do not match expected result.")
         self.sanitizer.sanitize.assert_called_once_with(EXPECTED_CITATION_DATA)
         self.cnn_predictor.predict.assert_called_once_with(EXPECTED_CITATION_DATA)
         self.pointwise_predictor.predict.assert_called_once_with(EXPECTED_CITATION_DATA, CNN_RESULTS)
         self.listwise_predictor.predict.assert_called_once_with(EXPECTED_CITATION_DATA, POINTWISE_AVG_RESULTS)
         self.results_formatter.format.assert_called_once_with(UNORDERED_LISTWISE_AVG_RESULTS)
+
+
+@pytest.mark.unit
+class TestSubheadingAttachmentPipeline(TestCase):
+
+    def setUp(self):
+        medline_date_parser = MedlineDateParser()
+        input_data_parser = PubMedXmlInputDataParser(medline_date_parser)
+        self.sanitizer = CitationDataSanitizer(MAX_YEAR)
+        self.sanitizer.sanitize = Mock(wraps=self.sanitizer.sanitize)
+        self.subheading_predictor = SubheadingPredictor(None, None)
+        self.subheading_predictor.predict = MagicMock(return_value=EXPECTED_PREDICTIONS_WITH_SUBHEADINGS)
+        self.pipeline = SubheadingAttachmentPipeline(input_data_parser, self.sanitizer, self.subheading_predictor)
+
+    def test_predict(self):        
+        predictions = self.pipeline.predict(PUBMED_XML_INPUT_DATA, EXPECTED_PREDICTIONS)
+        
+        self.assertEqual(predictions, EXPECTED_PREDICTIONS_WITH_SUBHEADINGS, "Predictions do not match expected result.")
+        self.sanitizer.sanitize.assert_called_once_with(EXPECTED_CITATION_DATA)
         self.subheading_predictor.predict.assert_called_once_with(EXPECTED_CITATION_DATA, EXPECTED_PREDICTIONS)
 
 
