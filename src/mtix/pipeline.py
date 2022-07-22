@@ -27,13 +27,14 @@ class CitationDataSanitizer:
 # Note: top results are not always sorted
 class DescriptorPredictionPipeline:
 
-    def __init__(self, input_data_parser, citation_data_sanitizer, cnn_model_top_n_predictor, pointwise_model_top_n_predictor, listwise_model_top_n_predictor, results_formatter):
+    def __init__(self, input_data_parser, citation_data_sanitizer, cnn_model_top_n_predictor, pointwise_model_top_n_predictor, listwise_model_top_n_predictor, results_formatter, subheading_predictor):
         self.input_data_parser = input_data_parser
         self.citation_data_sanitizer = citation_data_sanitizer
         self.cnn_model_top_n_predictor = cnn_model_top_n_predictor
         self.pointwise_model_top_n_predictor = pointwise_model_top_n_predictor
         self.listwise_model_top_n_predictor = listwise_model_top_n_predictor
         self.results_formatter = results_formatter
+        self.subheading_predictor = subheading_predictor
 
     def predict(self, input_data):
         citation_data = self.input_data_parser.parse(input_data)
@@ -44,6 +45,7 @@ class DescriptorPredictionPipeline:
         listwise_results = self.listwise_model_top_n_predictor.predict(citation_data, pointwsie_avg_results)
         listwise_avg_results = average_top_results(pointwsie_avg_results, listwise_results)
         predictions = self.results_formatter.format(listwise_avg_results)
+        predictions = self.subheading_predictor.predict(citation_data, predictions)
         return predictions
 
 
