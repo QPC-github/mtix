@@ -1,6 +1,7 @@
 from .endpoints import HuggingFaceAsyncEndpoint, HuggingFaceRealTimeEndpoint, TensorflowAsyncEndpoint, TensorflowRealTimeEndpoint
-from .pipeline import CitationDataSanitizer, DescriptorPredictionPipeline, MedlineDateParser, MtiJsonResultsFormatter, PubMedXmlInputDataParser, SubheadingAttachmentPipeline
+from .pipeline import DescriptorPredictionPipeline, IndexingPipeline, MtiJsonResultsFormatter
 from .predictors import CnnModelTop100Predictor, ListwiseModelTopNPredictor, PointwiseModelTopNPredictor, SubheadingPredictor
+from .utils import CitationDataSanitizer, PubMedXmlInputDataParser
 from sagemaker.huggingface import HuggingFacePredictor
 from sagemaker.predictor_async import AsyncPredictor
 from sagemaker.tensorflow import TensorFlowPredictor
@@ -29,8 +30,7 @@ def create_descriptor_prediction_pipeline(desc_name_lookup_path, dui_lookup_path
     pointwise_top_n = 100
     threshold = 0.475
 
-    medline_date_parser = MedlineDateParser()
-    input_data_parser = PubMedXmlInputDataParser(medline_date_parser)
+    input_data_parser = PubMedXmlInputDataParser()
     
     sanitizer = CitationDataSanitizer(max_year)
 
@@ -69,25 +69,22 @@ def create_descriptor_prediction_pipeline(desc_name_lookup_path, dui_lookup_path
     return pipeline
 
 
-def create_subheading_attachment_pipeline(subheading_name_lookup_path, subheading_endpoint_name, async_bucket_name, async_prefix, batch_size=128):
-    is_async = (async_bucket_name is not None) and (async_prefix is not None)
-    concurrent_batches = CONCURRENT_BATCHES
-    max_year = MAX_YEAR
-
-    medline_date_parser = MedlineDateParser()
-    input_data_parser = PubMedXmlInputDataParser(medline_date_parser)
-    sanitizer = CitationDataSanitizer(max_year)
-
-    sagemaker_subheading_endpoint = TensorFlowPredictor(subheading_endpoint_name)
-    if is_async:
-        sagemaker_async_subheading_endpoint = AsyncPredictor(sagemaker_subheading_endpoint)
-        async_subheading_endpoint = TensorflowAsyncEndpoint(sagemaker_async_subheading_endpoint, "subheading_endpoint", async_bucket_name, async_prefix, batch_size, wait_delay=1, wait_max_attempts=900)
-        subheading_endpoint = TensorflowRealTimeEndpoint(async_subheading_endpoint, batch_size=concurrent_batches*batch_size)
-    else:
-        subheading_endpoint = TensorflowRealTimeEndpoint(sagemaker_subheading_endpoint, batch_size=batch_size)
+# def create_indexing_pipeline(desc_name_lookup_path, dui_lookup_path, subheading_name_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name, subheading_endpoint_name, async_bucket_name, async_prefix, cnn_batch_size=128, pointwise_batch_size=128, listwise_batch_size=128, subheading_batch_size=128):
+#     descriptor_prediction_pipeline = create_descriptor_prediction_pipeline(desc_name_lookup_path, dui_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name, async_bucket_name, async_prefix, cnn_batch_size, pointwise_batch_size, listwise_batch_size)
     
-    subheading_name_lookup = create_lookup(subheading_name_lookup_path)
-    subheading_predictor = SubheadingPredictor(subheading_endpoint, subheading_name_lookup)
+#     is_async = (async_bucket_name is not None) and (async_prefix is not None)
+#     concurrent_batches = CONCURRENT_BATCHES
 
-    pipeline = SubheadingAttachmentPipeline(input_data_parser, sanitizer, subheading_predictor)
-    return pipeline
+#     sagemaker_subheading_endpoint = TensorFlowPredictor(subheading_endpoint_name)
+#     if is_async:
+#         sagemaker_async_subheading_endpoint = AsyncPredictor(sagemaker_subheading_endpoint)
+#         async_subheading_endpoint = TensorflowAsyncEndpoint(sagemaker_async_subheading_endpoint, "subheading_endpoint", async_bucket_name, async_prefix, subheading_batch_size, wait_delay=1, wait_max_attempts=900)
+#         subheading_endpoint = TensorflowRealTimeEndpoint(async_subheading_endpoint, batch_size=concurrent_batches*subheading_batch_size)
+#     else:
+#         subheading_endpoint = TensorflowRealTimeEndpoint(sagemaker_subheading_endpoint, batch_size=subheading_batch_size)
+    
+#     subheading_name_lookup = create_lookup(subheading_name_lookup_path)
+#     subheading_predictor = SubheadingPredictor(subheading_endpoint, subheading_name_lookup)
+
+#     pipeline = IndexingPipeline(descriptor_prediction_pipeline, subheading_predictor)
+#     return pipeline

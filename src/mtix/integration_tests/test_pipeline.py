@@ -1,7 +1,7 @@
 import gzip
 import json
 import math
-from mtix import create_async_descriptor_prediction_pipeline, create_subheading_attachment_pipeline
+from mtix import create_async_descriptor_prediction_pipeline
 import os.path
 import pytest
 from unittest import skip, TestCase
@@ -99,35 +99,35 @@ class TestDescriptorPredictionPipeline(TestCase):
         self.pipeline.predict(ARTICLE_33998125)
 
 
-@pytest.mark.integration
-class TestSubheadingAttachmentPipeline(TestCase):
+# @pytest.mark.integration
+# class TestSubheadingAttachmentPipeline(TestCase):
 
-    def setUp(self):
-        self.pipeline = create_subheading_attachment_pipeline(SUBHEADING_NAME_LOOKUP_PATH, 
-                                                            "raear-all-subheading-cnn-endpoint-2022-v1", 
-                                                            None,
-                                                            None,
-                                                            batch_size=128)
-        self.test_set_data = json.load(gzip.open(TEST_SET_DATA_PATH, "rt", encoding="utf-8"))
+#     def setUp(self):
+#         self.pipeline = create_subheading_attachment_pipeline(SUBHEADING_NAME_LOOKUP_PATH, 
+#                                                             "raear-all-subheading-cnn-endpoint-2022-v1", 
+#                                                             None,
+#                                                             None,
+#                                                             batch_size=128)
+#         self.test_set_data = json.load(gzip.open(TEST_SET_DATA_PATH, "rt", encoding="utf-8"))
 
-    def test_output_for_first_five_articles(self):
-        limit = 5
-        descriptor_predictions = json.load(gzip.open(TEST_SET_EXPECTED_PREDICTIONS_PATH, "rt", encoding="utf-8"))[:limit]
-        expected_predictions = json.load(gzip.open(TEST_SET_EXPECTED_PREDICTIONS_PATH, "rt", encoding="utf-8"))[:limit]
-        predictions = self._predict(descriptor_predictions, limit)
-        self.assertEqual(predictions, expected_predictions, "MTI JSON output not as expected.")
+#     def test_output_for_first_five_articles(self):
+#         limit = 5
+#         descriptor_predictions = json.load(gzip.open(TEST_SET_EXPECTED_PREDICTIONS_PATH, "rt", encoding="utf-8"))[:limit]
+#         expected_predictions = json.load(gzip.open(TEST_SET_EXPECTED_PREDICTIONS_PATH, "rt", encoding="utf-8"))[:limit]
+#         predictions = self._predict(descriptor_predictions, limit)
+#         self.assertEqual(predictions, expected_predictions, "MTI JSON output not as expected.")
 
-    def _predict(self, descriptor_predictions, limit, batch_size=512):
-        test_data = self.test_set_data[:limit]
-        citation_count = len(test_data)
-        num_batches = int(math.ceil(citation_count / batch_size))
+#     def _predict(self, descriptor_predictions, limit, batch_size=512):
+#         test_data = self.test_set_data[:limit]
+#         citation_count = len(test_data)
+#         num_batches = int(math.ceil(citation_count / batch_size))
 
-        predictions = []
-        for idx in range(num_batches):
-            batch_start = idx * batch_size
-            batch_end = (idx + 1) * batch_size
-            batch_inputs = test_data[batch_start:batch_end]
-            batch_descriptor_predictions = descriptor_predictions[batch_start:batch_end]
-            batch_predictions = self.pipeline.predict(batch_inputs, batch_descriptor_predictions)
-            predictions.extend(batch_predictions)
-        return predictions
+#         predictions = []
+#         for idx in range(num_batches):
+#             batch_start = idx * batch_size
+#             batch_end = (idx + 1) * batch_size
+#             batch_inputs = test_data[batch_start:batch_end]
+#             batch_descriptor_predictions = descriptor_predictions[batch_start:batch_end]
+#             batch_predictions = self.pipeline.predict(batch_inputs, batch_descriptor_predictions)
+#             predictions.extend(batch_predictions)
+#         return predictions

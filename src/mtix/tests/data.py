@@ -1,3 +1,26 @@
+CITATION_XML_WITH_MEDLINE_DATE = '<MedlineCitation Owner="NLM" Status="MEDLINE"><PMID Version="1">33449580</PMID><DateCompleted><Year>2021</Year><Month>08</Month><Day>16</Day></DateCompleted><DateRevised><Year>2022</Year><Month>02</Month><Day>09</Day></DateRevised><Article PubModel="Print"><Journal><ISSN IssnType="Electronic">1552-6917</ISSN><JournalIssue CitedMedium="Internet"><Volume>32</Volume><Issue>2</Issue><PubDate><MedlineDate>2021 Mar-Apr 01</MedlineDate></PubDate></JournalIssue><Title>The Journal of the Association of Nurses in AIDS Care : JANAC</Title><ISOAbbreviation>J Assoc Nurses AIDS Care</ISOAbbreviation></Journal><ArticleTitle>"HIV and Aging in Special Populations: From the Mitochondria to the Metropolis"-Proceedings From the 2019 Conference.</ArticleTitle><Pagination><StartPage>214</StartPage><EndPage>221</EndPage><MedlinePgn>214-221</MedlinePgn></Pagination><ELocationID EIdType="doi" ValidYN="Y">10.1097/JNC.0000000000000236</ELocationID><AuthorList CompleteYN="Y"><Author ValidYN="Y"><LastName>Nguyen</LastName><ForeName>Annie</ForeName><Initials>A</Initials><AffiliationInfo><Affiliation>Annie Nguyen, PhD, MPH, is an Assistant Professor, Department of Family Medicine, Keck School of Medicine, University of Southern California, San Diego, California, USA. Stefano Rinaldi, PhD, is a Postdoctoral Fellow, Department of Microbiology and Immunology, University of Miami Miller School of Medicine, Miami, Florida, USA. Claudia Martinez, MD, is an Associate Professor of Clinical Medicine, Department of Medicine, Division of Cardiology, University of Miami Miller School of Medicine, Miami, Florida, USA. Molly Perkins, PhD, is an Associate Professor, Emory University School of Medicine; a Member of the Graduate Faculty, Emory Department of Sociology and the Atlanta Site Lead (joint appointment with the Atlanta VA Medical Center), Birmingham/Atlanta Geriatric Research, Education, and Clinical Center (GRECC); and Co-chair, Scientific Working Group on HIV and Aging, Center for AIDS Research at Emory University, Atlanta, Georgia, USA. Marcia McDonnell Holstad, PhD, FNP-BC, FAANP, FAAN, is Research Professor, Professor Emerita, and Marcia Stanhope Professor in Public Health, Nell Hodgson Woodruff School of Nursing; and Co-chair, Scientific Working Group on HIV and Aging, Center for AIDS Research at Emory University, Atlanta, Georgia, USA.</Affiliation></AffiliationInfo></Author><Author ValidYN="Y"><LastName>Rinaldi</LastName><ForeName>Stefano</ForeName><Initials>S</Initials></Author><Author ValidYN="Y"><LastName>Martinez</LastName><ForeName>Claudia</ForeName><Initials>C</Initials></Author><Author ValidYN="Y"><LastName>Perkins</LastName><ForeName>Molly</ForeName><Initials>M</Initials></Author><Author ValidYN="Y"><LastName>Holstad</LastName><ForeName>Marcia McDonnell</ForeName><Initials>MM</Initials></Author></AuthorList><Language>eng</Language><GrantList CompleteYN="Y"><Grant><GrantID>R13 AG047064</GrantID><Acronym>AG</Acronym><Agency>NIA NIH HHS</Agency><Country>United States</Country></Grant><Grant><GrantID>P30 AI050409</GrantID><Acronym>AI</Acronym><Agency>NIAID NIH HHS</Agency><Country>United States</Country></Grant></GrantList><PublicationTypeList><PublicationType UI="D016428">Journal Article</PublicationType><PublicationType UI="D052061">Research Support, N.I.H., Extramural</PublicationType><PublicationType UI="D013485">Research Support, Non-U.S. Gov\'t</PublicationType></PublicationTypeList></Article><MedlineJournalInfo><Country>United States</Country><MedlineTA>J Assoc Nurses AIDS Care</MedlineTA><NlmUniqueID>9111870</NlmUniqueID><ISSNLinking>1055-3290</ISSNLinking></MedlineJournalInfo><CitationSubset>IM</CitationSubset><MeshHeadingList><MeshHeading><DescriptorName MajorTopicYN="N" UI="D000375">Aging</DescriptorName><QualifierName MajorTopicYN="Y" UI="Q000502">physiology</QualifierName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="N" UI="D003071">Cognition</DescriptorName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="N" UI="D003226">Congresses as Topic</DescriptorName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="Y" UI="D055030">Drug Users</DescriptorName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="N" UI="D015658">HIV Infections</DescriptorName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="N" UI="D006801">Humans</DescriptorName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="Y" UI="D000072339">Sexual and Gender Minorities</DescriptorName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="Y" UI="D014930">Women</DescriptorName></MeshHeading></MeshHeadingList></MedlineCitation>'
+MEDLINE_DATE_EXPECTED_CITATION_DATA = {
+    "pmid": 33449580,
+    "title": "\"HIV and Aging in Special Populations: From the Mitochondria to the Metropolis\"-Proceedings From the 2019 Conference.",
+    "abstract": "",
+    "journal_nlmid": "9111870",
+    "journal_title": "The Journal of the Association of Nurses in AIDS Care : JANAC",
+    "pub_year": 2021,
+    "year_completed": 2021,
+}
+
+CITATION_XML_WITH_PUB_DATE = '<MedlineCitation Owner="NLM" Status="MEDLINE"><PMID Version="1">32770536</PMID><DateCompleted><Year>2021</Year><Month>04</Month><Day>20</Day></DateCompleted><DateRevised><Year>2021</Year><Month>04</Month><Day>20</Day></DateRevised><Article PubModel="Print-Electronic"><Journal><ISSN IssnType="Electronic">1439-3964</ISSN><JournalIssue CitedMedium="Internet"><Volume>42</Volume><Issue>1</Issue><PubDate><Year>2021</Year><Month>Jan</Month></PubDate></JournalIssue><Title>International journal of sports medicine</Title><ISOAbbreviation>Int J Sports Med</ISOAbbreviation></Journal><ArticleTitle>Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.</ArticleTitle><Pagination><StartPage>48</StartPage><EndPage>55</EndPage><MedlinePgn>48-55</MedlinePgn></Pagination><ELocationID EIdType="doi" ValidYN="Y">10.1055/a-1214-6309</ELocationID><Abstract><AbstractText>Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT<sub>2</sub>). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ<sub>2</sub> was individually calculated using the deflection point of ventilatory equivalents. In addition, VT<sub>2</sub> was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT<sub>2</sub>, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η<sup>2</sup>=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT<sub>2</sub>. Similarly, Bland Altman analysis showed a considerable agreement between VT<sub>2</sub> vs. ECG-derived respiration (mean difference of -0.06\u2009km·h<sup>-1</sup>, 95% CL: ±0.40) and VT<sub>2</sub> vs. high frequency product (mean difference of 0.02\u2009km·h<sup>-1</sup>, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT<sub>2</sub> in a field shuttle run test.</AbstractText><CopyrightInformation>Thieme. All rights reserved.</CopyrightInformation></Abstract><AuthorList CompleteYN="Y"><Author ValidYN="Y"><LastName>Stergiopoulos</LastName><ForeName>Dimitrios C</ForeName><Initials>DC</Initials><Identifier Source="ORCID">0000-0002-3222-3693</Identifier><AffiliationInfo><Affiliation>School of Physical Education and Sports Science, National and Kapodistrian University of Athens, Athinon, Greece.</Affiliation></AffiliationInfo></Author><Author ValidYN="Y"><LastName>Kounalakis</LastName><ForeName>Stylianos N</ForeName><Initials>SN</Initials><AffiliationInfo><Affiliation>Faculty of Physical and Cultural Education, Evelpidon Military Academy, Vari, Greece.</Affiliation></AffiliationInfo></Author><Author ValidYN="Y"><LastName>Miliotis</LastName><ForeName>Panagiotis G</ForeName><Initials>PG</Initials><AffiliationInfo><Affiliation>School of Physical Education and Sports Science, National and Kapodistrian University of Athens, Athinon, Greece.</Affiliation></AffiliationInfo></Author><Author ValidYN="Y"><LastName>Geladas</LastName><ForeName>Nikolaos D</ForeName><Initials>ND</Initials><AffiliationInfo><Affiliation>School of Physical Education and Sports Science, National and Kapodistrian University of Athens, Athinon, Greece.</Affiliation></AffiliationInfo></Author></AuthorList><Language>eng</Language><PublicationTypeList><PublicationType UI="D016428">Journal Article</PublicationType></PublicationTypeList><ArticleDate DateType="Electronic"><Year>2020</Year><Month>08</Month><Day>07</Day></ArticleDate></Article><MedlineJournalInfo><Country>Germany</Country><MedlineTA>Int J Sports Med</MedlineTA><NlmUniqueID>8008349</NlmUniqueID><ISSNLinking>0172-4622</ISSNLinking></MedlineJournalInfo><CitationSubset>IM</CitationSubset><MeshHeadingList><MeshHeading><DescriptorName MajorTopicYN="Y" UI="D015308">Anaerobic Threshold</DescriptorName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="N" UI="D004562">Electrocardiography</DescriptorName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="N" UI="D005080">Exercise Test</DescriptorName><QualifierName MajorTopicYN="Y" UI="Q000379">methods</QualifierName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="Y" UI="D006339">Heart Rate</DescriptorName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="N" UI="D006801">Humans</DescriptorName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="N" UI="D010275">Parasympathetic Nervous System</DescriptorName><QualifierName MajorTopicYN="N" UI="Q000502">physiology</QualifierName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="Y" UI="D011659">Pulmonary Gas Exchange</DescriptorName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="N" UI="D012420">Running</DescriptorName><QualifierName MajorTopicYN="Y" UI="Q000502">physiology</QualifierName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="N" UI="D012916">Soccer</DescriptorName><QualifierName MajorTopicYN="N" UI="Q000502">physiology</QualifierName></MeshHeading><MeshHeading><DescriptorName MajorTopicYN="N" UI="D013564">Sympathetic Nervous System</DescriptorName><QualifierName MajorTopicYN="N" UI="Q000502">physiology</QualifierName></MeshHeading></MeshHeadingList><CoiStatement>The authors declare that they have no conflict of interest.</CoiStatement></MedlineCitation>'
+PUB_DATE_EXPECTED_CITATION_DATA = {
+    "pmid": 32770536,
+    "title": "Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.",
+    "abstract": "Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT2). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ2 was individually calculated using the deflection point of ventilatory equivalents. In addition, VT2 was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT2, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η2=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT2. Similarly, Bland Altman analysis showed a considerable agreement between VT2 vs. ECG-derived respiration (mean difference of -0.06 km·h-1, 95% CL: ±0.40) and VT2 vs. high frequency product (mean difference of 0.02 km·h-1, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT2 in a field shuttle run test.",
+    "journal_nlmid": "8008349",
+    "journal_title": "International journal of sports medicine",
+    "pub_year": 2021,
+    "year_completed": 2021,
+}
+
+
 CNN_RESULTS = {
     "32770536": {
         "9291": 0.9999140501022339,
@@ -535,7 +558,7 @@ DUI_LOOKUP = {
 }
 
 
-EXPECTED_CITATION_DATA = {
+EXPECTED_CITATION_DATA_LOOKUP = {
     32770536: {
         "pmid": 32770536,
         "title": "Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.",
@@ -557,27 +580,10 @@ EXPECTED_CITATION_DATA = {
 }
 
 
-EXPECTED_POINTWISE_TOP_5_RESULTS = {
-    "32770536": {
-        "9291": 0.999667763710022,
-        "8857": 0.9993078708648682,
-        "15149": 0.9751192927360535,
-        "7653": 0.9453081488609314,
-        "10719": 0.9896757006645203,
-    },
-    "30455223": {
-        "9291": 0.9996671676635742,
-        "4978": 0.999667763710022,
-        "10133": 0.9990180730819702,
-        "28767": 0.8987686038017273,
-        "5649": 0.7716287970542908,
-    }
-}
-
-
-EXPECTED_PREDICTIONS = [
+EXPECTED_DESCRIPTOR_PREDICTIONS = [
     {
         "PMID": 32770536,
+        "text-gz-64": "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",
         "Indexing": [
             {
                 "Term": "Humans",
@@ -674,6 +680,7 @@ EXPECTED_PREDICTIONS = [
     },
     {
         "PMID": 30455223,
+        "text-gz-64": "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",
         "Indexing": [
             {
                 "Term": "Humans",
@@ -708,6 +715,251 @@ EXPECTED_PREDICTIONS = [
 ]
 
 
+EXPECTED_DESCRIPTOR_PREDICTIONS_WITH_SUBHEADINGS = [
+    {
+        "PMID": 32770536,
+        "text-gz-64": "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",
+        "Indexing": [
+            {
+                "Term": "Humans",
+                "Type": "Descriptor",
+                "ID": "D006801",
+                "IM": "NO",
+                "Reason": "score: 1.000",
+                "Subheadings": []
+            },
+            {
+                "Term": "Heart Rate",
+                "Type": "Descriptor",
+                "ID": "D006339",
+                "IM": "NO",
+                "Reason": "score: 0.998",
+                "Subheadings": [
+                    {
+                        "ID": "Q000502",
+                        "IM": "NO",
+                        "Name": "physiology",
+                        "Reason": "score: 0.565"
+                    },
+                ]
+            },
+            {
+                "Term": "Exercise Test",
+                "Type": "Descriptor",
+                "ID": "D005080",
+                "IM": "NO",
+                "Reason": "score: 0.949",
+                "Subheadings": [
+                    {
+                        "ID": "Q000379",
+                        "IM": "NO",
+                        "Name": "methods",
+                        "Reason": "score: 0.572"
+                    },
+                ]
+            },
+            {
+                "Term": "Electrocardiography",
+                "Type": "Descriptor",
+                "ID": "D004562",
+                "IM": "NO",
+                "Reason": "score: 0.947",
+                "Subheadings": []
+            },
+            {
+                "Term": "Soccer",
+                "Type": "Descriptor",
+                "ID": "D012916",
+                "IM": "NO",
+                "Reason": "score: 0.887",
+                "Subheadings": [
+                    {
+                        "ID": "Q000502",
+                        "IM": "NO",
+                        "Name": "physiology",
+                        "Reason": "score: 0.925"
+                    },
+                ]
+            },
+            {
+                "Term": "Male",
+                "Type": "Descriptor",
+                "ID": "D008297",
+                "IM": "NO",
+                "Reason": "score: 0.879",
+                "Subheadings": []
+            },
+            {
+                "Term": "Running",
+                "Type": "Descriptor",
+                "ID": "D012420",
+                "IM": "NO",
+                "Reason": "score: 0.853",
+                "Subheadings": [
+                    {
+                        "ID": "Q000502",
+                        "IM": "NO",
+                        "Name": "physiology",
+                        "Reason": "score: 0.949"
+                    },
+                ]
+            },
+            {
+                "Term": "Young Adult",
+                "Type": "Descriptor",
+                "ID": "D055815",
+                "IM": "NO",
+                "Reason": "score: 0.827",
+                "Subheadings": []
+            },
+            {
+                "Term": "Oxygen Consumption",
+                "Type": "Descriptor",
+                "ID": "D010101",
+                "IM": "NO",
+                "Reason": "score: 0.675",
+                "Subheadings": [
+                    {
+                        "ID": "Q000502",
+                        "IM": "NO",
+                        "Name": "physiology",
+                        "Reason": "score: 0.391"
+                    },
+                ]
+            },
+            {
+                "Term": "Adolescent",
+                "Type": "Descriptor",
+                "ID": "D000293",
+                "IM": "NO",
+                "Reason": "score: 0.668",
+                "Subheadings": []
+            },
+            {
+                "Term": "Anaerobic Threshold",
+                "Type": "Descriptor",
+                "ID": "D015308",
+                "IM": "NO",
+                "Reason": "score: 0.664",
+                "Subheadings": [
+                    {
+                        "ID": "Q000502",
+                        "IM": "NO",
+                        "Name": "physiology",
+                        "Reason": "score: 0.652"
+                    },
+                ]
+            },
+            {
+                "Term": "Pulmonary Ventilation",
+                "Type": "Descriptor",
+                "ID": "D012123",
+                "IM": "NO",
+                "Reason": "score: 0.590",
+                "Subheadings": [
+                    {
+                        "ID": "Q000502",
+                        "IM": "NO",
+                        "Name": "physiology",
+                        "Reason": "score: 0.408"
+                    },
+                ]
+            },
+            {
+                "Term": "Respiration",
+                "Type": "Descriptor",
+                "ID": "D012119",
+                "IM": "NO",
+                "Reason": "score: 0.580",
+                "Subheadings": []
+            }
+        ]
+    },
+    {
+        "PMID": 30455223,
+        "text-gz-64": "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",
+        "Indexing": [
+            {
+                "Term": "Humans",
+                "Type": "Descriptor",
+                "ID": "D006801",
+                "IM": "NO",
+                "Reason": "score: 0.999",
+                "Subheadings": []
+            },
+            {
+                "Term": "Carcinoma, Renal Cell",
+                "Type": "Descriptor",
+                "ID": "D002292",
+                "IM": "NO",
+                "Reason": "score: 0.997",
+                "Subheadings": [
+                    {
+                        "ID": "Q000473",
+                        "IM": "NO",
+                        "Name": "pathology",
+                        "Reason": "score: 0.594"
+                    },
+                    {
+                        "ID": "Q000628",
+                        "IM": "NO",
+                        "Name": "therapy",
+                        "Reason": "score: 0.692"
+                    }
+                ]
+            },
+            {
+                "Term": "Kidney Neoplasms",
+                "Type": "Descriptor",
+                "ID": "D007680",
+                "IM": "NO",
+                "Reason": "score: 0.899",
+                "Subheadings": [
+                    {
+                        "ID": "Q000473",
+                        "IM": "NO",
+                        "Name": "pathology",
+                        "Reason": "score: 0.598"
+                    },
+                    {
+                        "ID": "Q000628",
+                        "IM": "NO",
+                        "Name": "therapy",
+                        "Reason": "score: 0.605"
+                    }
+                ]
+            },
+            {
+                "Term": "Molecular Targeted Therapy",
+                "Type": "Descriptor",
+                "ID": "D058990",
+                "IM": "NO",
+                "Reason": "score: 0.509",
+                "Subheadings": [],
+            }
+        ]
+    },
+]
+
+
+EXPECTED_POINTWISE_TOP_5_RESULTS = {
+    "32770536": {
+        "9291": 0.999667763710022,
+        "8857": 0.9993078708648682,
+        "15149": 0.9751192927360535,
+        "7653": 0.9453081488609314,
+        "10719": 0.9896757006645203,
+    },
+    "30455223": {
+        "9291": 0.9996671676635742,
+        "4978": 0.999667763710022,
+        "10133": 0.9990180730819702,
+        "28767": 0.8987686038017273,
+        "5649": 0.7716287970542908,
+    }
+}
+
+
 HUGGINGFACE_ENDPOINT_EXPECTED_LISTWISE_INPUT_DATA = {
         "inputs": [
                     [[
@@ -721,12 +973,6 @@ HUGGINGFACE_ENDPOINT_EXPECTED_LISTWISE_INPUT_DATA = {
                 ],
         "parameters": {},
     }
-
-
-HUGGINGFACE_ENDPOINT_LISTWISE_RESULTS = [
-    [{'index': 0, 'score': 0.9997355341911316}, {'index': 1, 'score': 0.9982964396476746}, {'index': 2, 'score': 0.7955935597419739}, {'index': 3, 'score': 0.8125096559524536}, {'index': 4, 'score': 0.9643720984458923}, {'index': 5, 'score': 0.9706421494483948}, {'index': 6, 'score': 0.852420449256897}, {'index': 7, 'score': 0.8315696716308594}, {'index': 8, 'score': 0.5114960670471191}, {'index': 9, 'score': 0.5496633052825928}, {'index': 10, 'score': 0.6221471428871155}, {'index': 11, 'score': 0.486363023519516}, {'index': 12, 'score': 0.5544146299362183}, {'index': 13, 'score': 0.07359953969717026}, {'index': 14, 'score': 0.10571973025798798}, {'index': 15, 'score': 0.1415220946073532}, {'index': 16, 'score': 0.07260718941688538}, {'index': 17, 'score': 0.27509382367134094}, {'index': 18, 'score': 0.17700448632240295}, {'index': 19, 'score': 0.16926616430282593}, {'index': 20, 'score': 0.06295997649431229}, {'index': 21, 'score': 0.017262902110815048}, {'index': 22, 'score': 0.02871265634894371}, {'index': 23, 'score': 0.07878343015909195}, {'index': 24, 'score': 0.09748038649559021}, {'index': 25, 'score': 0.02253129705786705}, {'index': 26, 'score': 0.03524332866072655}, {'index': 27, 'score': 0.07606266438961029}, {'index': 28, 'score': 0.05195155367255211}, {'index': 29, 'score': 0.05508872866630554}, {'index': 30, 'score': 0.027734147384762764}, {'index': 31, 'score': 0.003567112609744072}, {'index': 32, 'score': 0.011007178574800491}, {'index': 33, 'score': 0.04350952059030533}, {'index': 34, 'score': 0.02417898178100586}, {'index': 35, 'score': 0.011301886290311813}, {'index': 36, 'score': 0.018665509298443794}, {'index': 37, 'score': 0.037304580211639404}, {'index': 38, 'score': 0.012973170727491379}, {'index': 39, 'score': 0.0018599815666675568}, {'index': 40, 'score': 0.014018462039530277}, {'index': 41, 'score': 0.01983262039721012}, {'index': 42, 'score': 0.006920020096004009}, {'index': 43, 'score': 0.021402597427368164}, {'index': 44, 'score': 0.014872994273900986}, {'index': 45, 'score': 0.011125239543616772}, {'index': 46, 'score': 0.0037491361144930124}, {'index': 47, 'score': 0.006842309609055519}, {'index': 48, 'score': 0.010896108113229275}, {'index': 49, 'score': 0.007938760332763195}],
-    [{'index': 0, 'score': 0.9994300007820129}, {'index': 1, 'score': 0.9989159107208252}, {'index': 2, 'score': 0.8412796258926392}, {'index': 3, 'score': 0.3219943344593048}, {'index': 4, 'score': 0.1959581971168518}, {'index': 5, 'score': 0.09714453667402267}, {'index': 6, 'score': 0.2619189918041229}, {'index': 7, 'score': 0.12978792190551758}, {'index': 8, 'score': 0.06807825714349747}, {'index': 9, 'score': 0.11485883593559265}, {'index': 10, 'score': 0.13706806302070618}, {'index': 11, 'score': 0.13066621124744415}, {'index': 12, 'score': 0.08873981982469559}, {'index': 13, 'score': 0.04421916976571083}, {'index': 14, 'score': 0.01969616673886776}, {'index': 15, 'score': 0.011100400239229202}, {'index': 16, 'score': 0.05385619029402733}, {'index': 17, 'score': 0.04900601506233215}, {'index': 18, 'score': 0.05310337245464325}, {'index': 19, 'score': 0.03952186927199364}, {'index': 20, 'score': 0.10456740856170654}, {'index': 21, 'score': 0.03344599902629852}, {'index': 22, 'score': 0.016307173296809196}, {'index': 23, 'score': 0.016591450199484825}, {'index': 24, 'score': 0.014104798436164856}, {'index': 25, 'score': 0.021324438974261284}, {'index': 26, 'score': 0.009944542311131954}, {'index': 27, 'score': 0.018231892958283424}, {'index': 28, 'score': 0.029865480959415436}, {'index': 29, 'score': 0.02430783212184906}, {'index': 30, 'score': 0.005804094020277262}, {'index': 31, 'score': 0.026966147124767303}, {'index': 32, 'score': 0.011150605045258999}, {'index': 33, 'score': 0.012099126353859901}, {'index': 34, 'score': 0.003990033641457558}, {'index': 35, 'score': 0.009143604896962643}, {'index': 36, 'score': 0.010201395489275455}, {'index': 37, 'score': 0.0382697768509388}, {'index': 38, 'score': 0.03529610112309456}, {'index': 39, 'score': 0.013955854810774326}, {'index': 40, 'score': 0.007065223064273596}, {'index': 41, 'score': 0.004575944971293211}, {'index': 42, 'score': 0.010310640558600426}, {'index': 43, 'score': 0.006782346870750189}, {'index': 44, 'score': 0.0119926230981946}, {'index': 45, 'score': 0.01950244791805744}, {'index': 46, 'score': 0.012750128284096718}, {'index': 47, 'score': 0.005581812467426062}, {'index': 48, 'score': 0.013546676374971867}, {'index': 49, 'score': 0.008801227435469627}],
-    ]
 
 
 _QUERY_1 = "2017-2021|International journal of sports medicine|Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.|Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT2). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ2 was individually calculated using the deflection point of ventilatory equivalents. In addition, VT2 was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT2, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η2=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT2. Similarly, Bland Altman analysis showed a considerable agreement between VT2 vs. ECG-derived respiration (mean difference of -0.06\u2009km·h-1, 95% CL: ±0.40) and VT2 vs. high frequency product (mean difference of 0.02\u2009km·h-1, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT2 in a field shuttle run test."
@@ -751,6 +997,12 @@ HUGGINGFACE_ENDPOINT_EXPECTED_POINTWISE_INPUT_DATA = {
                    "truncation": "longest_first",
                    "return_all_scores": True,},
 }
+
+
+HUGGINGFACE_ENDPOINT_LISTWISE_RESULTS = [
+    [{'index': 0, 'score': 0.9997355341911316}, {'index': 1, 'score': 0.9982964396476746}, {'index': 2, 'score': 0.7955935597419739}, {'index': 3, 'score': 0.8125096559524536}, {'index': 4, 'score': 0.9643720984458923}, {'index': 5, 'score': 0.9706421494483948}, {'index': 6, 'score': 0.852420449256897}, {'index': 7, 'score': 0.8315696716308594}, {'index': 8, 'score': 0.5114960670471191}, {'index': 9, 'score': 0.5496633052825928}, {'index': 10, 'score': 0.6221471428871155}, {'index': 11, 'score': 0.486363023519516}, {'index': 12, 'score': 0.5544146299362183}, {'index': 13, 'score': 0.07359953969717026}, {'index': 14, 'score': 0.10571973025798798}, {'index': 15, 'score': 0.1415220946073532}, {'index': 16, 'score': 0.07260718941688538}, {'index': 17, 'score': 0.27509382367134094}, {'index': 18, 'score': 0.17700448632240295}, {'index': 19, 'score': 0.16926616430282593}, {'index': 20, 'score': 0.06295997649431229}, {'index': 21, 'score': 0.017262902110815048}, {'index': 22, 'score': 0.02871265634894371}, {'index': 23, 'score': 0.07878343015909195}, {'index': 24, 'score': 0.09748038649559021}, {'index': 25, 'score': 0.02253129705786705}, {'index': 26, 'score': 0.03524332866072655}, {'index': 27, 'score': 0.07606266438961029}, {'index': 28, 'score': 0.05195155367255211}, {'index': 29, 'score': 0.05508872866630554}, {'index': 30, 'score': 0.027734147384762764}, {'index': 31, 'score': 0.003567112609744072}, {'index': 32, 'score': 0.011007178574800491}, {'index': 33, 'score': 0.04350952059030533}, {'index': 34, 'score': 0.02417898178100586}, {'index': 35, 'score': 0.011301886290311813}, {'index': 36, 'score': 0.018665509298443794}, {'index': 37, 'score': 0.037304580211639404}, {'index': 38, 'score': 0.012973170727491379}, {'index': 39, 'score': 0.0018599815666675568}, {'index': 40, 'score': 0.014018462039530277}, {'index': 41, 'score': 0.01983262039721012}, {'index': 42, 'score': 0.006920020096004009}, {'index': 43, 'score': 0.021402597427368164}, {'index': 44, 'score': 0.014872994273900986}, {'index': 45, 'score': 0.011125239543616772}, {'index': 46, 'score': 0.0037491361144930124}, {'index': 47, 'score': 0.006842309609055519}, {'index': 48, 'score': 0.010896108113229275}, {'index': 49, 'score': 0.007938760332763195}],
+    [{'index': 0, 'score': 0.9994300007820129}, {'index': 1, 'score': 0.9989159107208252}, {'index': 2, 'score': 0.8412796258926392}, {'index': 3, 'score': 0.3219943344593048}, {'index': 4, 'score': 0.1959581971168518}, {'index': 5, 'score': 0.09714453667402267}, {'index': 6, 'score': 0.2619189918041229}, {'index': 7, 'score': 0.12978792190551758}, {'index': 8, 'score': 0.06807825714349747}, {'index': 9, 'score': 0.11485883593559265}, {'index': 10, 'score': 0.13706806302070618}, {'index': 11, 'score': 0.13066621124744415}, {'index': 12, 'score': 0.08873981982469559}, {'index': 13, 'score': 0.04421916976571083}, {'index': 14, 'score': 0.01969616673886776}, {'index': 15, 'score': 0.011100400239229202}, {'index': 16, 'score': 0.05385619029402733}, {'index': 17, 'score': 0.04900601506233215}, {'index': 18, 'score': 0.05310337245464325}, {'index': 19, 'score': 0.03952186927199364}, {'index': 20, 'score': 0.10456740856170654}, {'index': 21, 'score': 0.03344599902629852}, {'index': 22, 'score': 0.016307173296809196}, {'index': 23, 'score': 0.016591450199484825}, {'index': 24, 'score': 0.014104798436164856}, {'index': 25, 'score': 0.021324438974261284}, {'index': 26, 'score': 0.009944542311131954}, {'index': 27, 'score': 0.018231892958283424}, {'index': 28, 'score': 0.029865480959415436}, {'index': 29, 'score': 0.02430783212184906}, {'index': 30, 'score': 0.005804094020277262}, {'index': 31, 'score': 0.026966147124767303}, {'index': 32, 'score': 0.011150605045258999}, {'index': 33, 'score': 0.012099126353859901}, {'index': 34, 'score': 0.003990033641457558}, {'index': 35, 'score': 0.009143604896962643}, {'index': 36, 'score': 0.010201395489275455}, {'index': 37, 'score': 0.0382697768509388}, {'index': 38, 'score': 0.03529610112309456}, {'index': 39, 'score': 0.013955854810774326}, {'index': 40, 'score': 0.007065223064273596}, {'index': 41, 'score': 0.004575944971293211}, {'index': 42, 'score': 0.010310640558600426}, {'index': 43, 'score': 0.006782346870750189}, {'index': 44, 'score': 0.0119926230981946}, {'index': 45, 'score': 0.01950244791805744}, {'index': 46, 'score': 0.012750128284096718}, {'index': 47, 'score': 0.005581812467426062}, {'index': 48, 'score': 0.013546676374971867}, {'index': 49, 'score': 0.008801227435469627}],
+    ]
 
 
 HUGGINGFACE_PREDICTOR_POINTWISE_RESULTS = [
@@ -981,27 +1233,6 @@ LISTWISE_RESULTS = {
         "13006": 0.003990041557699442
     }
 }
-
-
-MEDLINEDATE_EXPECTED_CITATION_DATA = {
-    33449580: {
-        "pmid": 33449580,
-        "title": "\"HIV and Aging in Special Populations: From the Mitochondria to the Metropolis\"-Proceedings From the 2019 Conference.",
-        "abstract": "",
-        "journal_nlmid": "9111870",
-        "journal_title": "The Journal of the Association of Nurses in AIDS Care : JANAC",
-        "pub_year": 2021,
-        "year_completed": 2021,
-    },
-}
-
-
-MEDLINEDATE_PUBMED_XML_INPUT_DATA = [
-    {
-        "uid": 33449580,
-        "data": "eJzFWFtz2jgU/isav2w7Q7C5JaE1nnGBBGcDpXGSTh4dW4BaW2JluS376/eTL2AS7/Yy6WwesHSkc9G5fDqKPadRzDgdMxUoJjh5/5VTOTIW13OD+KBl6ciYTyfX3mJqOPZy7k3IPZUpto6MjuH0ev3+cHBu2aZecuxJoOhYJNuYKho59gMNpNO1uh3bzIf2XHC1caxz2yxGYNg5nVPb1F/9e8Supzf0C0vrsrpPZHWPZFnDuqw9sysVC2NKltnjXEQ0HhlLybjCka5EJnkQO7bn+wvipSm/3W3pyJjGNFRScBYaTmcw6J6cDjtntql37ZmwO6MEvqMR/MiyZGR4XFHJqZZ8L+IsoU4PBpZDO2dwQCgGNszRZuIsRRjyifYXmQfyxN1KYsF19UU4uuIx61Y49i1TMXVuN5SUdCJWRGHqpqkIWRFekBaZTGlKGCeuN/HJOJCUvCFX7sId22YhBL547z4+SngvZ3OuCiEV755R++N4596qvc8LkcbMuycBj4i7ZnyttftbCqtishTbLM6Z0zfkQookN3rOlAg3gkeSBUSJgkYRkK2IWWqcLKUIKXzO1+mBqWt1hmQs+IpKykPats0jG+xlAOWlnUhuqUCAvzt92zxM7SmPCrpO22pSRWi55prhJF+s0RCXmvDptQjzIcpl6kVFRkWCGeQ+iFn0sBgZD0grq92xhmfm1WLctup/3R4qoiYDvszURshrlipS1UcppFw6EmxfB6laBMi4xTrbUW6be4J9ISTNRy7nDAHcz22PM4WApI6LsFZj212tWFwE1+MrcUQoZJBCSYssN5MWmS9nLcJSxFrnDAwOuCKI1ooig2SLTOgWnk4oqEjGiyBh8Y7o6gnhyRb5k4afiY/Iizx/Dwt3nH3RwKN2mu4LnBqFhiyM2UpIzoIW8aFzwuhatI7Id77bBpbRVcAFuUGM4oiVxmo7kYCpikSohEQ2XtA4Fl+fmjlnoRSPTMRivcuz2EuSjOfTp5bNGY6E3zimsvEg+YYWuYiFZFFl3jgOsgiZjrJX2PU3tk1qbszrlx7cqCWOkXoshMkH0U+MPtAZYLAsf5RtxF7Q8rmIEcAllZ8ZT2tubbS7RaaJkLu64ueK3iImc5o8Ulkh2KUMokwLugjCLFa7SszxeX1oO0QoRz4VI/sC4gOhyTUNIvLqkwDsk2C71d+c8ytTm6Pd925hClw7phrOX7fIOyYTYM0mSMxq2yUFNCnJQnJDU1xI4QZmRVlRs63chn2ICjnk1eXNdDx+/bZYFCfhJmDwiR8yrLMVRH0U2o9rnFhkW4KIHcFmqxKE1C5AuFJNAvXMta3qRC3YKuR6XwtIslDnWjgRnCPfyUzEqNOojN7FYnnyboyv6y6WxScP6V5XLZyHjJwm8IfWpa0tNQBU+UZs64kL4McFFuOoMxrECj5bFBZE6xTH/ShEJLPVqpYW+s7B2f9np+EqqeHe0ayARbPA4e/gcQk/jYBcQlQjJPt1SP4xVRWUNOoq8aZR1/jndZXl36gqB4hGRfOfV1RmarOiJ2ndrLNZqXm4YLU2vs70pU/5WmsqZzZgiKvGOzhfKT+4rm86PeJeWv0z6xStRUW1XVwifJc47iX0lWPbXaNV2TkLzyULb0ZmM4S6pNljkXEldw7SEy1m3o9TOLkil6KfqV/2LCS6NbD6uht+rt5rVI9W5ZcNMPeuyXtalHdeGbrvaSSSO29kTKzOab97bjhVv1o2a3mLW9/9b+yDrnWKN8i+nP0MsC4VIKXttWdtwPE3JYMkw73+wzI7vf75oFGm4Cd3bb9NLsWXP1SDvKeU4uBVB7pvIKumPQeN7/m35Ll1/6MDP+yxF3ECSX9lFOEedjqd8zM8zOrE/JFzzbiGS7Sfg8FJrzu0ildNRd5LPLa0fCD62WNKleOhjJ6QYGy6Aajrnrw4e42AxxlNQ8m26LJ0ReKG+CTkrdiyUNfQwijdb1m9M7g/B2484Y54HPtDpts6RptEPBQiPkDEwOoaznazS4t2wDaP+PID1gz7FSt71hkSbyzWGkkEf27pC6jodk+1Cr6WuDkR8iAl+baXU/ZQKRsMcCLDmchsTe5SXIS/4UCdwekAta6vZmQU3tb6wfc7HHd6biE2sywJXlL+wyFDrbNurzc0HJ9+Q17ljcYl5RE6jDnjaI0Vo79Dcac/1EH6KBL63YQzn9Wi+eQfPc4/r5Ap+g=="
-    },
-]
 
 
 POINTWISE_AVG_RESULTS = {
@@ -1432,29 +1663,6 @@ PUBMED_XML_INPUT_DATA = [
 ]
 
 
-TENSORFLOW_ENDPOINT_EXPECTED_INPUT_DATA = {
-    "instances":
-    [
-        {
-            "title": "Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.",
-            "abstract": "Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT2). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ2 was individually calculated using the deflection point of ventilatory equivalents. In addition, VT2 was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT2, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η2=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT2. Similarly, Bland Altman analysis showed a considerable agreement between VT2 vs. ECG-derived respiration (mean difference of -0.06 km·h-1, 95% CL: ±0.40) and VT2 vs. high frequency product (mean difference of 0.02 km·h-1, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT2 in a field shuttle run test.",
-            "journal_nlmid": "8008349",
-            "pub_year": 2021,
-            "year_completed": 2021,
-        },
-        {
-            "title": "Update on the biology and management of renal cell carcinoma.",
-            "abstract": "Renal cell cancer (RCC) (epithelial carcinoma of the kidney) represents 2%-4% of newly diagnosed adult tumors. Over the past 2 decades, RCC has been better characterized clinically and molecularly. It is a heterogeneous disease, with multiple subtypes, each with characteristic histology, genetics, molecular profiles, and biologic behavior. Tremendous heterogeneity has been identified with many distinct subtypes characterized. There are clinical questions to be addressed at every stage of this disease, and new targets being identified for therapeutic development. The unique characteristics of the clinical presentations of RCC have led to both questions and opportunities for improvement in management. Advances in targeted drug development and understanding of immunologic control of RCC are leading to a number of new clinical trials and regimens for advanced disease, with the goal of achieving long-term disease-free survival, as has been achieved in a proportion of such patients historically. RCC management is a promising area of ongoing clinical investigation.",
-            "journal_nlmid": "9501229",
-            "pub_year": 2019,
-            "year_completed": 2020,
-        },
-    ]
-}
-
-
-TENSORFLOW_ENDPOINT_RESULTS = {'predictions': [[[9291.0, 0.99991405], [8857.0, 0.996702492], [15149.0, 0.981794238], [7653.0, 0.909845233], [10719.0, 0.900856435], [7160.0, 0.86951232], [14670.0, 0.855143487], [3075.0, 0.744284689], [17432.0, 0.69153434], [27783.0, 0.668486893], [12453.0, 0.563120902], [27868.0, 0.541304171], [14390.0, 0.492241621], [27896.0, 0.430962443], [13943.0, 0.332509339], [14386.0, 0.315851], [3109.0, 0.243542165], [7828.0, 0.211396158], [1058.0, 0.150405943], [17338.0, 0.150172412], [27389.0, 0.104654014], [8839.0, 0.0997826159], [13133.0, 0.0561132431], [6074.0, 0.0504376888], [14396.0, 0.0449917316], [29719.0, 0.0399412811], [7794.0, 0.0353198946], [13740.0, 0.0283615291], [15372.0, 0.0258080065], [4651.0, 0.0241023], [7655.0, 0.0221712589], [14288.0, 0.021931529], [18833.0, 0.019269973], [29829.0, 0.0188019276], [16178.0, 0.0182481706], [5322.0, 0.0169704854], [16185.0, 0.0166066289], [3465.0, 0.0160861909], [11385.0, 0.0146306157], [17544.0, 0.0132394433], [13135.0, 0.0126036704], [559.0, 0.0118727684], [17955.0, 0.0117587447], [14922.0, 0.00959321856], [3007.0, 0.00951391459], [15050.0, 0.009254843], [12452.0, 0.00909403], [13190.0, 0.00903201103], [13548.0, 0.00823283195], [17678.0, 0.00785788894], [16970.0, 0.00770181417], [20215.0, 0.00707453489], [20262.0, 0.00680217147], [15401.0, 0.00607246161], [17947.0, 0.0059620142], [20752.0, 0.00549894571], [7809.0, 0.0051753521], [12444.0, 0.00512072444], [4933.0, 0.00474593043], [8153.0, 0.0046531558], [17719.0, 0.00450500846], [14410.0, 0.00415948033], [8400.0, 0.00411593914], [14412.0, 0.00405237079], [8847.0, 0.00398141146], [9466.0, 0.00376901031], [5820.0, 0.00363495946], [15849.0, 0.00353822112], [16184.0, 0.00353240967], [8852.0, 0.00347149372], [17452.0, 0.00342169404], [18156.0, 0.00332269073], [29299.0, 0.00325256586], [10595.0, 0.0032376647], [17930.0, 0.00284031034], [7326.0, 0.00280490518], [7021.0, 0.00248488784], [17520.0, 0.00240907073], [4626.0, 0.00240838528], [8870.0, 0.00223615766], [10567.0, 0.00219872594], [25026.0, 0.00218445063], [14316.0, 0.00212264061], [17107.0, 0.00210899115], [3883.0, 0.00202342868], [14408.0, 0.00193503499], [5006.0, 0.00192338228], [10864.0, 0.00190702081], [18374.0, 0.00190156698], [4540.0, 0.00185212493], [8095.0, 0.00177639723], [27196.0, 0.00177267194], [15402.0, 0.00176078081], [29387.0, 0.00174471736], [4072.0, 0.00171655416], [15888.0, 0.00169724226], [4358.0, 0.00165808201], [4505.0, 0.00165367126], [3640.0, 0.00150859356], [3239.0, 0.00146594644]], [[9291.0, 0.999201417], [4978.0, 0.992458224], [10133.0, 0.915374041], [28767.0, 0.493483245], [5649.0, 0.298031092], [3718.0, 0.264089227], [9643.0, 0.214085281], [20100.0, 0.204979181], [3575.0, 0.202000886], [20854.0, 0.201139838], [18671.0, 0.152674764], [1930.0, 0.14245829], [11742.0, 0.106658608], [17505.0, 0.0968137681], [16588.0, 0.0740844309], [13680.0, 0.0597955585], [3719.0, 0.0585802197], [17952.0, 0.0561129451], [5789.0, 0.0561043024], [17965.0, 0.0530118942], [10122.0, 0.0496570468], [10908.0, 0.0450125337], [17911.0, 0.0423626602], [1347.0, 0.0420189798], [28183.0, 0.03696087], [17934.0, 0.0349369943], [19990.0, 0.0329229832], [18791.0, 0.0302933455], [25251.0, 0.0299238861], [28791.0, 0.0292186439], [11737.0, 0.0287246406], [14561.0, 0.0273156464], [3660.0, 0.025931567], [9631.0, 0.0244135559], [18332.0, 0.0216622055], [19045.0, 0.0213854909], [11767.0, 0.0208264291], [3109.0, 0.0192547739], [10719.0, 0.0181569159], [29131.0, 0.0173778236], [21306.0, 0.0162630677], [2344.0, 0.0162172914], [7828.0, 0.0160495639], [11539.0, 0.0158000886], [19115.0, 0.0151584744], [28240.0, 0.0149931312], [12976.0, 0.0146569312], [29181.0, 0.0143497288], [28571.0, 0.0137678981], [27776.0, 0.0132320821], [20468.0, 0.0128287077], [3148.0, 0.0127493143], [21590.0, 0.0123948157], [11349.0, 0.0123589635], [28811.0, 0.0113763511], [27380.0, 0.0110508204], [1634.0, 0.0110328794], [3239.0, 0.0107408464], [11738.0, 0.0104124546], [20106.0, 0.0102720559], [11276.0, 0.00983896852], [29157.0, 0.0093164444], [6958.0, 0.00860962272], [20728.0, 0.00844031572], [22300.0, 0.00820374489], [20098.0, 0.00805518], [19041.0, 0.00746485591], [14025.0, 0.00746440887], [9642.0, 0.00726684928], [14375.0, 0.00722879171], [26604.0, 0.00705805421], [27451.0, 0.00705367327], [17520.0, 0.00700184703], [28010.0, 0.00699970126], [18093.0, 0.00679349899], [9585.0, 0.00664955378], [17439.0, 0.00660660863], [16185.0, 0.00643864274], [4418.0, 0.00642257929], [11739.0, 0.00641462207], [29576.0, 0.00639393926], [21749.0, 0.00608295202], [18823.0, 0.00600987673], [29943.0, 0.00591516495], [75.0, 0.00577512383], [6807.0, 0.00566065311], [25455.0, 0.00543773174], [29869.0, 0.00515505672], [23963.0, 0.00513395667], [6810.0, 0.00504913926], [4400.0, 0.00479242206], [22308.0, 0.00465458632], [14374.0, 0.00453996658], [3149.0, 0.00449174643], [1250.0, 0.00448903441], [6338.0, 0.00444173813], [13006.0, 0.00433811545], [26132.0, 0.00425082445], [15806.0, 0.00415796041], [10129.0, 0.00400665402]]]}
-
 REPLACE_BRACKETS_INPUT = [
     {
         "pmid": 33998125,
@@ -1494,6 +1702,7 @@ REPLACE_BRACKETS_INPUT = [
    },
 ]
 
+
 REPLACE_BRACKETS_OUTPUT = [
     {
         "pmid": 33998125,
@@ -1532,6 +1741,149 @@ REPLACE_BRACKETS_OUTPUT = [
         "year_completed": 2021
    },
 ]
+
+
+_PMID1 = "32770536"
+_TITLE1 = "Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test."
+_ABSTRACT1 = "Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT2). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ2 was individually calculated using the deflection point of ventilatory equivalents. In addition, VT2 was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT2, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η2=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT2. Similarly, Bland Altman analysis showed a considerable agreement between VT2 vs. ECG-derived respiration (mean difference of -0.06 km·h-1, 95% CL: ±0.40) and VT2 vs. high frequency product (mean difference of 0.02 km·h-1, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT2 in a field shuttle run test."
+_NLMID1 = "8008349"
+_PUB1 = 2021
+_COMP1 = 2021
+
+_PMID2 = "30455223"
+_TITLE2 = "Update on the biology and management of renal cell carcinoma."
+_ABSTRACT2 = "Renal cell cancer (RCC) (epithelial carcinoma of the kidney) represents 2%-4% of newly diagnosed adult tumors. Over the past 2 decades, RCC has been better characterized clinically and molecularly. It is a heterogeneous disease, with multiple subtypes, each with characteristic histology, genetics, molecular profiles, and biologic behavior. Tremendous heterogeneity has been identified with many distinct subtypes characterized. There are clinical questions to be addressed at every stage of this disease, and new targets being identified for therapeutic development. The unique characteristics of the clinical presentations of RCC have led to both questions and opportunities for improvement in management. Advances in targeted drug development and understanding of immunologic control of RCC are leading to a number of new clinical trials and regimens for advanced disease, with the goal of achieving long-term disease-free survival, as has been achieved in a proportion of such patients historically. RCC management is a promising area of ongoing clinical investigation."
+_NLMID2 = "9501229"
+_PUB2 = 2019
+_COMP2 = 2020
+
+
+SUBHEADING_ENDPOINT_EXPECTED_INPUT_DATA = {"instances":
+                                           [
+                                               {
+                                                   "pmid": _PMID1, "title": _TITLE1, "abstract": _ABSTRACT1, "journal_nlmid": _NLMID1, "pub_year": _PUB1, "year_completed": _COMP1,
+                                                   "main_heading_ui": "D006801"
+                                               },
+                                               {
+                                                   "pmid": _PMID1, "title": _TITLE1, "abstract": _ABSTRACT1, "journal_nlmid": _NLMID1, "pub_year": _PUB1, "year_completed": _COMP1,
+                                                   "main_heading_ui": "D006339"
+                                               },
+                                               {
+                                                   "pmid": _PMID1, "title": _TITLE1, "abstract": _ABSTRACT1, "journal_nlmid": _NLMID1, "pub_year": _PUB1, "year_completed": _COMP1,
+                                                   "main_heading_ui": "D005080"
+                                               },
+                                               {
+                                                   "pmid": _PMID1, "title": _TITLE1, "abstract": _ABSTRACT1, "journal_nlmid": _NLMID1, "pub_year": _PUB1, "year_completed": _COMP1,
+                                                   "main_heading_ui": "D004562"
+                                               },
+                                               {
+                                                   "pmid": _PMID1, "title": _TITLE1, "abstract": _ABSTRACT1, "journal_nlmid": _NLMID1, "pub_year": _PUB1, "year_completed": _COMP1,
+                                                   "main_heading_ui": "D012916"
+                                               },
+                                               {
+                                                   "pmid": _PMID1, "title": _TITLE1, "abstract": _ABSTRACT1, "journal_nlmid": _NLMID1, "pub_year": _PUB1, "year_completed": _COMP1,
+                                                   "main_heading_ui": "D008297"
+                                               },
+                                               {
+                                                   "pmid": _PMID1, "title": _TITLE1, "abstract": _ABSTRACT1, "journal_nlmid": _NLMID1, "pub_year": _PUB1, "year_completed": _COMP1,
+                                                   "main_heading_ui": "D012420"
+                                               },
+                                               {
+                                                   "pmid": _PMID1, "title": _TITLE1, "abstract": _ABSTRACT1, "journal_nlmid": _NLMID1, "pub_year": _PUB1, "year_completed": _COMP1,
+                                                   "main_heading_ui": "D055815"
+                                               },
+                                               {
+                                                   "pmid": _PMID1, "title": _TITLE1, "abstract": _ABSTRACT1, "journal_nlmid": _NLMID1, "pub_year": _PUB1, "year_completed": _COMP1,
+                                                   "main_heading_ui": "D010101"
+                                               },
+                                               {
+                                                   "pmid": _PMID1, "title": _TITLE1, "abstract": _ABSTRACT1, "journal_nlmid": _NLMID1, "pub_year": _PUB1, "year_completed": _COMP1,
+                                                   "main_heading_ui": "D000293"
+                                               },
+                                               {
+                                                   "pmid": _PMID1, "title": _TITLE1, "abstract": _ABSTRACT1, "journal_nlmid": _NLMID1, "pub_year": _PUB1, "year_completed": _COMP1,
+                                                   "main_heading_ui": "D015308"
+                                               },
+                                               {
+                                                   "pmid": _PMID1, "title": _TITLE1, "abstract": _ABSTRACT1, "journal_nlmid": _NLMID1, "pub_year": _PUB1, "year_completed": _COMP1,
+                                                   "main_heading_ui": "D012123"
+                                               },
+                                               {
+                                                   "pmid": _PMID1, "title": _TITLE1, "abstract": _ABSTRACT1, "journal_nlmid": _NLMID1, "pub_year": _PUB1, "year_completed": _COMP1,
+                                                   "main_heading_ui": "D012119"
+                                               },
+                                               {
+                                                   "pmid": _PMID2, "title": _TITLE2, "abstract": _ABSTRACT2, "journal_nlmid": _NLMID2, "pub_year": _PUB2, "year_completed": _COMP2,
+                                                   "main_heading_ui": "D006801"
+                                               },
+                                               {
+                                                   "pmid": _PMID2, "title": _TITLE2, "abstract": _ABSTRACT2, "journal_nlmid": _NLMID2, "pub_year": _PUB2, "year_completed": _COMP2,
+                                                   "main_heading_ui": "D002292"
+                                               },
+                                               {
+                                                   "pmid": _PMID2, "title": _TITLE2, "abstract": _ABSTRACT2, "journal_nlmid": _NLMID2, "pub_year": _PUB2, "year_completed": _COMP2,
+                                                   "main_heading_ui": "D007680"
+                                               },
+                                               {
+                                                   "pmid": _PMID2, "title": _TITLE2, "abstract": _ABSTRACT2, "journal_nlmid": _NLMID2, "pub_year": _PUB2, "year_completed": _COMP2,
+                                                   "main_heading_ui": "D058990"
+                                               },
+                                           ]
+                                           }
+
+
+SUBHEADING_ENDPOINT_RESULTS = { 'predictions': [['32770536', 'D006801', '', '0.000000000'], 
+                                                ['32770536', 'D006339', 'Q000502', '0.565478683'], 
+                                                ['32770536', 'D005080', 'Q000379', '0.572322249'], 
+                                                ['32770536', 'D004562', '', '0.000000000'], 
+                                                ['32770536', 'D012916', 'Q000502', '0.924711347'], 
+                                                ['32770536', 'D008297', '', '0.000000000'], 
+                                                ['32770536', 'D012420', 'Q000502', '0.949281693'], 
+                                                ['32770536', 'D055815', '', '0.000000000'], 
+                                                ['32770536', 'D010101', 'Q000502', '0.390714854'], 
+                                                ['32770536', 'D000293', '', '0.000000000'], 
+                                                ['32770536', 'D015308', 'Q000502', '0.652366459'], 
+                                                ['32770536', 'D012123', 'Q000502', '0.407686025'], 
+                                                ['32770536', 'D012119', '', '0.000000000'], 
+                                                ['30455223', 'D006801', '', '0.000000000'], 
+                                                ['30455223', 'D002292', 'Q000473', '0.594457209'], 
+                                                ['30455223', 'D002292', 'Q000628', '0.691562295'], 
+                                                ['30455223', 'D007680', 'Q000473', '0.597696543'], 
+                                                ['30455223', 'D007680', 'Q000628', '0.605394661'], 
+                                                ['30455223', 'D058990', '', '0.000000000']]}
+
+
+SUBHEADING_NAME_LOOKUP = {
+    "Q000502": "physiology",
+    "Q000379": "methods",
+    "Q000473": "pathology",
+    "Q000628": "therapy"
+}
+
+
+TENSORFLOW_ENDPOINT_EXPECTED_INPUT_DATA = {
+    "instances":
+    [
+        {
+            "title": "Second Ventilatory Threshold Assessed by Heart Rate Variability in a Multiple Shuttle Run Test.",
+            "abstract": "Many studies have focused on heart rate variability in association with ventilatory thresholds. The purpose of the current study was to consider the ECG-derived respiration and the high frequency product of heart rate variability as applicable methods to assess the second ventilatory threshold (VT2). Fifteen healthy young soccer players participated in the study. Respiratory gases and ECGs were collected during an incremental laboratory test and in a multistage shuttle run test until exhaustion. VΤ2 was individually calculated using the deflection point of ventilatory equivalents. In addition, VT2 was assessed both by the deflection point of ECG-derived respiration and high frequency product. Results showed no statistically significant differences between VT2, and the threshold as determined with high frequency product and ECG-derived respiration (F(2,28)=0.83, p=0.45, η2=0.05). A significant intraclass correlation was observed for ECG-derived respiration (r=0.94) and high frequency product (r=0.95) with VT2. Similarly, Bland Altman analysis showed a considerable agreement between VT2 vs. ECG-derived respiration (mean difference of -0.06 km·h-1, 95% CL: ±0.40) and VT2 vs. high frequency product (mean difference of 0.02 km·h-1, 95% CL: ±0.38). This study suggests that, high frequency product and ECG-derived respiration are indeed reliable heart rate variability indices determining VT2 in a field shuttle run test.",
+            "journal_nlmid": "8008349",
+            "pub_year": 2021,
+            "year_completed": 2021,
+        },
+        {
+            "title": "Update on the biology and management of renal cell carcinoma.",
+            "abstract": "Renal cell cancer (RCC) (epithelial carcinoma of the kidney) represents 2%-4% of newly diagnosed adult tumors. Over the past 2 decades, RCC has been better characterized clinically and molecularly. It is a heterogeneous disease, with multiple subtypes, each with characteristic histology, genetics, molecular profiles, and biologic behavior. Tremendous heterogeneity has been identified with many distinct subtypes characterized. There are clinical questions to be addressed at every stage of this disease, and new targets being identified for therapeutic development. The unique characteristics of the clinical presentations of RCC have led to both questions and opportunities for improvement in management. Advances in targeted drug development and understanding of immunologic control of RCC are leading to a number of new clinical trials and regimens for advanced disease, with the goal of achieving long-term disease-free survival, as has been achieved in a proportion of such patients historically. RCC management is a promising area of ongoing clinical investigation.",
+            "journal_nlmid": "9501229",
+            "pub_year": 2019,
+            "year_completed": 2020,
+        },
+    ]
+}
+
+
+TENSORFLOW_ENDPOINT_RESULTS = {'predictions': [[[9291.0, 0.99991405], [8857.0, 0.996702492], [15149.0, 0.981794238], [7653.0, 0.909845233], [10719.0, 0.900856435], [7160.0, 0.86951232], [14670.0, 0.855143487], [3075.0, 0.744284689], [17432.0, 0.69153434], [27783.0, 0.668486893], [12453.0, 0.563120902], [27868.0, 0.541304171], [14390.0, 0.492241621], [27896.0, 0.430962443], [13943.0, 0.332509339], [14386.0, 0.315851], [3109.0, 0.243542165], [7828.0, 0.211396158], [1058.0, 0.150405943], [17338.0, 0.150172412], [27389.0, 0.104654014], [8839.0, 0.0997826159], [13133.0, 0.0561132431], [6074.0, 0.0504376888], [14396.0, 0.0449917316], [29719.0, 0.0399412811], [7794.0, 0.0353198946], [13740.0, 0.0283615291], [15372.0, 0.0258080065], [4651.0, 0.0241023], [7655.0, 0.0221712589], [14288.0, 0.021931529], [18833.0, 0.019269973], [29829.0, 0.0188019276], [16178.0, 0.0182481706], [5322.0, 0.0169704854], [16185.0, 0.0166066289], [3465.0, 0.0160861909], [11385.0, 0.0146306157], [17544.0, 0.0132394433], [13135.0, 0.0126036704], [559.0, 0.0118727684], [17955.0, 0.0117587447], [14922.0, 0.00959321856], [3007.0, 0.00951391459], [15050.0, 0.009254843], [12452.0, 0.00909403], [13190.0, 0.00903201103], [13548.0, 0.00823283195], [17678.0, 0.00785788894], [16970.0, 0.00770181417], [20215.0, 0.00707453489], [20262.0, 0.00680217147], [15401.0, 0.00607246161], [17947.0, 0.0059620142], [20752.0, 0.00549894571], [7809.0, 0.0051753521], [12444.0, 0.00512072444], [4933.0, 0.00474593043], [8153.0, 0.0046531558], [17719.0, 0.00450500846], [14410.0, 0.00415948033], [8400.0, 0.00411593914], [14412.0, 0.00405237079], [8847.0, 0.00398141146], [9466.0, 0.00376901031], [5820.0, 0.00363495946], [15849.0, 0.00353822112], [16184.0, 0.00353240967], [8852.0, 0.00347149372], [17452.0, 0.00342169404], [18156.0, 0.00332269073], [29299.0, 0.00325256586], [10595.0, 0.0032376647], [17930.0, 0.00284031034], [7326.0, 0.00280490518], [7021.0, 0.00248488784], [17520.0, 0.00240907073], [4626.0, 0.00240838528], [8870.0, 0.00223615766], [10567.0, 0.00219872594], [25026.0, 0.00218445063], [14316.0, 0.00212264061], [17107.0, 0.00210899115], [3883.0, 0.00202342868], [14408.0, 0.00193503499], [5006.0, 0.00192338228], [10864.0, 0.00190702081], [18374.0, 0.00190156698], [4540.0, 0.00185212493], [8095.0, 0.00177639723], [27196.0, 0.00177267194], [15402.0, 0.00176078081], [29387.0, 0.00174471736], [4072.0, 0.00171655416], [15888.0, 0.00169724226], [4358.0, 0.00165808201], [4505.0, 0.00165367126], [3640.0, 0.00150859356], [3239.0, 0.00146594644]], [[9291.0, 0.999201417], [4978.0, 0.992458224], [10133.0, 0.915374041], [28767.0, 0.493483245], [5649.0, 0.298031092], [3718.0, 0.264089227], [9643.0, 0.214085281], [20100.0, 0.204979181], [3575.0, 0.202000886], [20854.0, 0.201139838], [18671.0, 0.152674764], [1930.0, 0.14245829], [11742.0, 0.106658608], [17505.0, 0.0968137681], [16588.0, 0.0740844309], [13680.0, 0.0597955585], [3719.0, 0.0585802197], [17952.0, 0.0561129451], [5789.0, 0.0561043024], [17965.0, 0.0530118942], [10122.0, 0.0496570468], [10908.0, 0.0450125337], [17911.0, 0.0423626602], [1347.0, 0.0420189798], [28183.0, 0.03696087], [17934.0, 0.0349369943], [19990.0, 0.0329229832], [18791.0, 0.0302933455], [25251.0, 0.0299238861], [28791.0, 0.0292186439], [11737.0, 0.0287246406], [14561.0, 0.0273156464], [3660.0, 0.025931567], [9631.0, 0.0244135559], [18332.0, 0.0216622055], [19045.0, 0.0213854909], [11767.0, 0.0208264291], [3109.0, 0.0192547739], [10719.0, 0.0181569159], [29131.0, 0.0173778236], [21306.0, 0.0162630677], [2344.0, 0.0162172914], [7828.0, 0.0160495639], [11539.0, 0.0158000886], [19115.0, 0.0151584744], [28240.0, 0.0149931312], [12976.0, 0.0146569312], [29181.0, 0.0143497288], [28571.0, 0.0137678981], [27776.0, 0.0132320821], [20468.0, 0.0128287077], [3148.0, 0.0127493143], [21590.0, 0.0123948157], [11349.0, 0.0123589635], [28811.0, 0.0113763511], [27380.0, 0.0110508204], [1634.0, 0.0110328794], [3239.0, 0.0107408464], [11738.0, 0.0104124546], [20106.0, 0.0102720559], [11276.0, 0.00983896852], [29157.0, 0.0093164444], [6958.0, 0.00860962272], [20728.0, 0.00844031572], [22300.0, 0.00820374489], [20098.0, 0.00805518], [19041.0, 0.00746485591], [14025.0, 0.00746440887], [9642.0, 0.00726684928], [14375.0, 0.00722879171], [26604.0, 0.00705805421], [27451.0, 0.00705367327], [17520.0, 0.00700184703], [28010.0, 0.00699970126], [18093.0, 0.00679349899], [9585.0, 0.00664955378], [17439.0, 0.00660660863], [16185.0, 0.00643864274], [4418.0, 0.00642257929], [11739.0, 0.00641462207], [29576.0, 0.00639393926], [21749.0, 0.00608295202], [18823.0, 0.00600987673], [29943.0, 0.00591516495], [75.0, 0.00577512383], [6807.0, 0.00566065311], [25455.0, 0.00543773174], [29869.0, 0.00515505672], [23963.0, 0.00513395667], [6810.0, 0.00504913926], [4400.0, 0.00479242206], [22308.0, 0.00465458632], [14374.0, 0.00453996658], [3149.0, 0.00449174643], [1250.0, 0.00448903441], [6338.0, 0.00444173813], [13006.0, 0.00433811545], [26132.0, 0.00425082445], [15806.0, 0.00415796041], [10129.0, 0.00400665402]]]}
+
 
 UNORDERED_LISTWISE_AVG_RESULTS = {
     "32770536": {

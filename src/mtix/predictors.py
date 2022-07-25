@@ -1,32 +1,33 @@
 import copy
 import re
+from .utils import Base64Helper, CitationDataSanitizer, MedlineDateParser, PubMedXmlParser
 
 
 QUERY_TEMPLATE = "2017-2021|{journal_title}|{title}|{abstract}"
+
+
+def replace_brackets(citation_data_list):
+    # Currently there is a bug with the SageMaker API that throws an error 
+    # when the input data includes a pattern like "] [". If this pattern 
+    # is found in the abstract, make the substitutions [ -> ( and ] -> ).
+    for citation_data in citation_data_list:
+        for key in ["title", "abstract"]:
+            if key in citation_data:
+                if re.search(r'\]\s*\[', citation_data[key]):
+                    citation_data[key] = re.sub(r'\[', '(', citation_data[key])
+                    citation_data[key] = re.sub(r'\]', ')', citation_data[key])
+                    
+    return citation_data_list
 
 
 class CnnModelTop100Predictor:
     def __init__(self, tensorflow_endpoint):
         self.tensorflow_endpoint = tensorflow_endpoint
 
-    @staticmethod
-    def replace_brackets(citation_data_list):
-        # Currently there is a bug with the SageMaker API that throws an error 
-        # when the input data includes a pattern like "] [". If this pattern 
-        # is found in the abstract, make the substitutions [ -> ( and ] -> ).
-        for citation_data in citation_data_list:
-            for key in ["title", "abstract"]:
-                if key in citation_data:
-                    if re.search(r'\]\s*\[', citation_data[key]):
-                        citation_data[key] = re.sub(r'\[', '(', citation_data[key])
-                        citation_data[key] = re.sub(r'\]', ')', citation_data[key])
-                        
-        return citation_data_list
-
     def predict(self, citation_data_lookup):
         citation_data_list = list(citation_data_lookup.values())
         instances = [{ key: value for key, value in citation_data.items() if key not in ["pmid", "journal_title"] } for citation_data in citation_data_list]
-        instances = CnnModelTop100Predictor.replace_brackets(instances)
+        instances = replace_brackets(instances)
         data = { "instances": instances }
         response = self.tensorflow_endpoint.predict(data)
         predictions = response["predictions"]
@@ -159,20 +160,22 @@ class ListwiseModelTopNPredictor:
 
 
 class SubheadingPredictor:
-    def __init__(self, subheading_endpoint, subheading_name_lookup):
+    def __init__(self, input_parser, data_santizer, subheading_endpoint, subheading_name_lookup):
+        self.parser = input_parser
+        self.santizer = data_santizer
         self.subheading_endpoint = subheading_endpoint
         self.subheading_name_lookup = subheading_name_lookup
 
-    def predict(self, citation_data_lookup, citation_prediction_list):
-        data = self._create_input_data(citation_data_lookup, citation_prediction_list)
+    def predict(self, descriptor_predictions):
+        data = self._create_input_data(descriptor_predictions)
         response = self.subheading_endpoint.predict(data)
         result_lookup = self._create_result_lookup(response)
-        predictions = self._attach_subheadings(result_lookup, citation_prediction_list)
+        predictions = self._attach_subheadings(result_lookup, descriptor_predictions)
         return predictions
 
-    def _attach_subheadings(self, result_lookup, citation_prediction_list):
-        citation_prediction_list_copy = copy.deepcopy(citation_prediction_list)
-        for citation_prediction in citation_prediction_list_copy:
+    def _attach_subheadings(self, result_lookup, descriptor_predictions):
+        descriptor_predictions = copy.deepcopy(descriptor_predictions)
+        for citation_prediction in descriptor_predictions:
             pmid = citation_prediction["PMID"]
             for descriptor_prediction in citation_prediction["Indexing"]:
                 dui = descriptor_prediction["ID"]
@@ -186,19 +189,21 @@ class SubheadingPredictor:
                         "Name": self.subheading_name_lookup[qui],
                         "Reason": f"score: {score:.3f}"
                         })
-        return citation_prediction_list_copy
+        return descriptor_predictions
 
-    def _create_input_data(self, citation_data_lookup, citation_prediction_list):
+    def _create_input_data(self, descriptor_predictions):
         instances = []
-        for citation_prediction in citation_prediction_list:
-            pmid = citation_prediction["PMID"]
-            citation_data = { key: value for key, value in citation_data_lookup[pmid].items() if key not in ["journal_title"] }
-            citation_data["pmid"] = str(pmid)
+        for citation_prediction in descriptor_predictions:
+            encoded_citation_xml = citation_prediction["text-gz-64"]
+            citation_data = self.parser.parse_data(encoded_citation_xml)
+            self.santizer.sanitize(citation_data)
+            citation_data = { key: value for key, value in citation_data.items() if key not in ["journal_title"] }
+            citation_data["pmid"] = str(citation_data["pmid"])
             for descriptor_prediction in citation_prediction["Indexing"]:
                 citation_data_copy = copy.deepcopy(citation_data)
                 citation_data_copy["main_heading_ui"] = descriptor_prediction["ID"]
                 instances.append(citation_data_copy)
-        instances = CnnModelTop100Predictor.replace_brackets(instances)
+        instances = replace_brackets(instances)
         data = { "instances": instances }
         return data
 
