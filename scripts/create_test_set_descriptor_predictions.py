@@ -5,7 +5,7 @@ import pytrec_eval
 
 
 THRESHOLD = 0.475
-WORKING_DIR="/home/raear/working_dir/mtix/scripts/create_test_set_predictions"
+WORKING_DIR="/home/raear/working_dir/mtix/scripts/create_test_set_descriptor_predictions"
 
 
 def create_lookup(path):

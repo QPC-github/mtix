@@ -4,7 +4,7 @@ import pandas as pd
 import pytrec_eval
 
 
-WORKING_DIR="/home/raear/working_dir/mtix/scripts/create_test_set_ground_truth"
+WORKING_DIR="/home/raear/working_dir/mtix/scripts/create_test_set_descriptor_ground_truth"
 
 
 def create_lookup(path):
