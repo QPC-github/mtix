@@ -6,6 +6,10 @@ import requests
 import xml.etree.ElementTree as ET
 import zlib
 
+# Note: Expected predictions computed using article metadata from PubMed 2022 baseline.
+#       Integration tests make predictions using article metadata downloaded from EUtils.
+#       Minor differences between predictions is therefore expected
+
 
 ENCODING="utf-8"
 LIMIT = 1000000000

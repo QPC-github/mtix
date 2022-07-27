@@ -42,20 +42,17 @@ def main():
     subheading_predictions = copy.deepcopy(descriptor_predictions)
     for citation in subheading_predictions:
         pmid = citation["PMID"]
-        if pmid not in results_lookup:
-            continue
         for descriptor_prediction in citation["Indexing"]:
             subheadings = []
             descriptor_prediction["Subheadings"] = subheadings
             dui = descriptor_prediction["ID"]
-            if dui not in results_lookup[pmid]:
-                continue
-            for qui, score in sorted(results_lookup[pmid][dui].items(), key=lambda x: x[1], reverse=True):
-                subheadings.append({
-                        "ID": qui,
-                        "IM": "NO",
-                        "Name": subheading_names[qui],
-                        "Reason": f"score: {score:.3f}"})
+            if (pmid in results_lookup) and (dui in results_lookup[pmid]):
+                for qui, score in sorted(results_lookup[pmid][dui].items(), key=lambda x: x[1], reverse=True):
+                    subheadings.append({
+                            "ID": qui,
+                            "IM": "NO",
+                            "Name": subheading_names[qui],
+                            "Reason": f"score: {score:.3f}"})
 
     json.dump(subheading_predictions, open(subheading_predictions_path, "wt"), ensure_ascii=False, indent=4)
 
