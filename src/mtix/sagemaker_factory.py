@@ -1,5 +1,5 @@
 from .endpoints import HuggingFaceAsyncEndpoint, HuggingFaceRealTimeEndpoint, TensorflowAsyncEndpoint, TensorflowRealTimeEndpoint
-from .pipelines import DescriptorPredictionPipeline, MtiJsonResultsFormatter
+from .pipelines import DescriptorPredictionPipeline, IndexingPipeline, MtiJsonResultsFormatter
 from .predictors import CnnModelTop100Predictor, ListwiseModelTopNPredictor, PointwiseModelTopNPredictor, SubheadingPredictor
 from sagemaker.huggingface import HuggingFacePredictor
 from sagemaker.predictor_async import AsyncPredictor
@@ -13,14 +13,14 @@ WAIT_DELAY = 1
 WAIT_MAX_ATTEMPTS = 900
 
 
-def create_async_descriptor_prediction_pipeline(desc_name_lookup_path, dui_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name, async_bucket_name, async_prefix, cnn_batch_size=128, pointwise_batch_size=128, listwise_batch_size=128):
-    return create_descriptor_prediction_pipeline(desc_name_lookup_path, dui_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name, async_bucket_name, async_prefix, cnn_batch_size, pointwise_batch_size, listwise_batch_size)
+def create_async_pipeline(desc_name_lookup_path, dui_lookup_path, subheading_name_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name, subheading_endpoint_name, async_bucket_name, async_prefix, cnn_batch_size=128, pointwise_batch_size=128, listwise_batch_size=128, subheading_batch_size=128):
+    return create_indexing_pipeline(desc_name_lookup_path, dui_lookup_path, subheading_name_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name, subheading_endpoint_name, async_bucket_name, async_prefix, cnn_batch_size, pointwise_batch_size, listwise_batch_size, subheading_batch_size)
 
 
-def create_real_time_descriptor_prediction_pipeline(desc_name_lookup_path, dui_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name, cnn_batch_size=128, pointwise_batch_size=128, listwise_batch_size=128):
+def create_real_time_pipeline(desc_name_lookup_path, dui_lookup_path, subheading_name_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name, subheading_endpoint_name, cnn_batch_size=128, pointwise_batch_size=128, listwise_batch_size=128, subheading_batch_size=128):
     async_bucket_name = None
     async_prefix = None
-    return create_descriptor_prediction_pipeline(desc_name_lookup_path, dui_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name, async_bucket_name, async_prefix, cnn_batch_size, pointwise_batch_size, listwise_batch_size)
+    return create_indexing_pipeline(desc_name_lookup_path, dui_lookup_path, subheading_name_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name, subheading_endpoint_name, async_bucket_name, async_prefix, cnn_batch_size, pointwise_batch_size, listwise_batch_size, subheading_batch_size)
 
 
 def create_descriptor_prediction_pipeline(desc_name_lookup_path, dui_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name, async_bucket_name, async_prefix, cnn_batch_size=128, pointwise_batch_size=128, listwise_batch_size=128):
@@ -71,6 +71,13 @@ def create_descriptor_prediction_pipeline(desc_name_lookup_path, dui_lookup_path
 
     pipeline = DescriptorPredictionPipeline(input_data_parser, sanitizer, cnn_model_top_100_predictor, pointwise_model_top100_predictor, listwise_model_top50_predictor, results_formatter)
     return pipeline
+
+
+def create_indexing_pipeline(desc_name_lookup_path, dui_lookup_path, subheading_name_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name, subheading_endpoint_name, async_bucket_name, async_prefix, cnn_batch_size=128, pointwise_batch_size=128, listwise_batch_size=128, subheading_batch_size=128):
+    descriptor_prediction_pipeline = create_descriptor_prediction_pipeline(desc_name_lookup_path, dui_lookup_path, cnn_endpoint_name, pointwise_endpoint_name, listwise_endpoint_name, async_bucket_name, async_prefix, cnn_batch_size, pointwise_batch_size, listwise_batch_size)
+    subheading_predictor = create_subheading_predictor(subheading_name_lookup_path, subheading_endpoint_name, async_bucket_name, async_prefix, subheading_batch_size)
+    indexing_pipeline = IndexingPipeline(descriptor_prediction_pipeline, subheading_predictor)
+    return indexing_pipeline
 
 
 def create_subheading_predictor(subheading_name_lookup_path, subheading_endpoint_name, async_bucket_name, async_prefix, batch_size=128):

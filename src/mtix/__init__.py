@@ -1,1 +1,1 @@
-from .sagemaker_factory import create_async_descriptor_prediction_pipeline, create_real_time_descriptor_prediction_pipeline
+from .sagemaker_factory import create_async_pipeline, create_real_time_pipeline

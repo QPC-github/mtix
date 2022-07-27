@@ -1,12 +1,10 @@
 from .data import *
 import gzip
 import json
-import math
 from mtix.sagemaker_factory import create_subheading_predictor
 import os.path
 import pytest
-from unittest import skip, TestCase
-from .utils import compute_metrics
+from .utils import compute_metrics, TestCaseBase
 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -17,27 +15,8 @@ TEST_SET_EXPECTED_SUBHEADING_PREDICTIONS_PATH = os.path.join(DATA_DIR, "test_set
 TEST_SET_SUBHEADING_GROUND_TRUTH_PATH =         os.path.join(DATA_DIR, "test_set_2017-2022_Subheading_Ground_Truth.json.gz")
 
 
-CRITICAL_SUBHEADINGS = ["Q000009",
-                        "Q000139",                               
-                        "Q000150",
-                        "Q000175",
-                        "Q000000981",
-                        "Q000188",
-                        "Q000453",
-                        "Q000209",
-                        "Q000235",
-                        "Q000494",
-                        "Q000517",
-                        "Q000532",
-                        "Q000601",
-                        "Q000627",
-                        "Q000628",
-                        "Q000633",
-                        "Q000662"]
-
-
 @pytest.mark.integration
-class TestSubheadingPredictor(TestCase):
+class TestSubheadingPredictor(TestCaseBase):
 
     def setUp(self):
         self.pipeline = create_subheading_predictor(SUBHEADING_NAME_LOOKUP_PATH, 
@@ -45,7 +24,7 @@ class TestSubheadingPredictor(TestCase):
                                                     "ncbi-aws-pmdm-ingest",
                                                     "async_inference",
                                                      batch_size=128)
-        self.descriptor_predictions = json.load(gzip.open(TEST_SET_DESCRIPTOR_GROUND_TRUTH_PATH, "rt", encoding="utf-8"))
+        self.test_set_data = json.load(gzip.open(TEST_SET_DESCRIPTOR_GROUND_TRUTH_PATH, "rt", encoding="utf-8"))
 
     def test_output_for_first_five_articles(self):
         limit = 5
@@ -69,18 +48,3 @@ class TestSubheadingPredictor(TestCase):
         self.assertAlmostEqual(f1score,   0.6623, delta=delta, msg=f"F1 score of {f1score:.4f} not as expected for critical subheadings.")
         self.assertAlmostEqual(precision, 0.6289, delta=delta, msg=f"Precision of {precision:.4f} not as expected for critical subheadings.")
         self.assertAlmostEqual(recall,    0.6995, delta=delta, msg=f"Recall of {recall:.4f} not as expected for critical subheadings.")
-
-
-    def _predict(self, limit, batch_size=512):
-        test_data = self.descriptor_predictions[:limit]
-        citation_count = len(test_data)
-        num_batches = int(math.ceil(citation_count / batch_size))
-
-        predictions = []
-        for idx in range(num_batches):
-            batch_start = idx * batch_size
-            batch_end = (idx + 1) * batch_size
-            batch_inputs = test_data[batch_start:batch_end]
-            batch_predictions = self.pipeline.predict(batch_inputs)
-            predictions.extend(batch_predictions)
-        return predictions

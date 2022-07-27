@@ -30,10 +30,10 @@ def create_result_lookup(path):
 
 
 def main():
-    descriptor_predictions_path =      os.path.join(WORKING_DIR, "test_set_2017-2022_Descriptor_Ground_Truth.json")
-    subheading_endpoint_results_path = os.path.join(WORKING_DIR, "test_set_2017-2022_subheading_endpoint_results.tsv")
+    descriptor_predictions_path =      os.path.join(WORKING_DIR, "test_set_2017-2022_Listwise22Avg_Results.json")
+    subheading_endpoint_results_path = os.path.join(WORKING_DIR, "test_set_2017-2022_chained_subheading_endpoint_results.tsv")
     subheading_names_path =            os.path.join(WORKING_DIR, "subheading_names.tsv")
-    subheading_predictions_path =      os.path.join(WORKING_DIR, "test_set_2017-2022_Subheading_Predictions.json")
+    subheading_predictions_path =      os.path.join(WORKING_DIR, "test_set_2017-2022_Chained_Subheading_Predictions.json")
     
     descriptor_predictions = json.load(open(descriptor_predictions_path))
     subheading_names = create_lookup(subheading_names_path)
