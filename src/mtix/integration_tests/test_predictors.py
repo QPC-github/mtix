@@ -6,6 +6,7 @@ from mtix.sagemaker_factory import create_subheading_predictor
 import os.path
 import pytest
 from unittest import skip, TestCase
+from .utils import compute_metrics
 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -14,6 +15,25 @@ SUBHEADING_NAME_LOOKUP_PATH =                   os.path.join(DATA_DIR, "subheadi
 TEST_SET_DESCRIPTOR_GROUND_TRUTH_PATH =         os.path.join(DATA_DIR, "test_set_2017-2022_Descriptor_Ground_Truth.json.gz")
 TEST_SET_EXPECTED_SUBHEADING_PREDICTIONS_PATH = os.path.join(DATA_DIR, "test_set_2017-2022_Subheading_Predictions.json.gz")
 TEST_SET_SUBHEADING_GROUND_TRUTH_PATH =         os.path.join(DATA_DIR, "test_set_2017-2022_Subheading_Ground_Truth.json.gz")
+
+
+CRITICAL_SUBHEADINGS = ["Q000009",
+                        "Q000139",                               
+                        "Q000150",
+                        "Q000175",
+                        "Q000000981",
+                        "Q000188",
+                        "Q000453",
+                        "Q000209",
+                        "Q000235",
+                        "Q000494",
+                        "Q000517",
+                        "Q000532",
+                        "Q000601",
+                        "Q000627",
+                        "Q000628",
+                        "Q000633",
+                        "Q000662"]
 
 
 @pytest.mark.integration
@@ -32,6 +52,24 @@ class TestSubheadingPredictor(TestCase):
         expected_predictions = json.load(gzip.open(TEST_SET_EXPECTED_SUBHEADING_PREDICTIONS_PATH, "rt", encoding="utf-8"))[:limit]
         predictions = self._predict(limit)
         self.assertEqual(predictions, expected_predictions, "MTI JSON output not as expected.")
+
+    def test_performance(self):
+        delta = 0.001
+        limit = 40000
+
+        ground_truth = json.load(gzip.open(TEST_SET_SUBHEADING_GROUND_TRUTH_PATH, "rt", encoding="utf-8"))
+        predictions = self._predict(limit)
+        
+        precision, recall, f1score = compute_metrics(ground_truth, predictions)
+        self.assertAlmostEqual(f1score,   0.6547, delta=delta, msg=f"F1 score of {f1score:.4f} not as expected for all subheadings.")
+        self.assertAlmostEqual(precision, 0.6254, delta=delta, msg=f"Precision of {precision:.4f} not as expected for all subheadings.")
+        self.assertAlmostEqual(recall,    0.6870, delta=delta, msg=f"Recall of {recall:.4f} not as expected for all subheadings.")
+
+        precision, recall, f1score = compute_metrics(ground_truth, predictions, CRITICAL_SUBHEADINGS)
+        self.assertAlmostEqual(f1score,   0.6623, delta=delta, msg=f"F1 score of {f1score:.4f} not as expected for critical subheadings.")
+        self.assertAlmostEqual(precision, 0.6289, delta=delta, msg=f"Precision of {precision:.4f} not as expected for critical subheadings.")
+        self.assertAlmostEqual(recall,    0.6995, delta=delta, msg=f"Recall of {recall:.4f} not as expected for critical subheadings.")
+
 
     def _predict(self, limit, batch_size=512):
         test_data = self.descriptor_predictions[:limit]
