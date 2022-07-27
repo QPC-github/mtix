@@ -21,10 +21,10 @@ class TestSubheadingPredictor(TestCase):
 
     def setUp(self):
         self.pipeline = create_subheading_predictor(SUBHEADING_NAME_LOOKUP_PATH, 
-                                                    "raear-all-subheading-cnn-endpoint-2022-v1", 
-                                                    None,
-                                                    None,
-                                                    batch_size=128)
+                                                    "raear-all-subheading-cnn-endpoint-2022-v1-async", 
+                                                    "ncbi-aws-pmdm-ingest",
+                                                    "async_inference",
+                                                     batch_size=128)
         self.descriptor_predictions = json.load(gzip.open(TEST_SET_DESCRIPTOR_GROUND_TRUTH_PATH, "rt", encoding="utf-8"))
 
     def test_output_for_first_five_articles(self):
