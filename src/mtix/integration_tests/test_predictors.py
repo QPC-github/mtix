@@ -12,8 +12,7 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(THIS_DIR, "data")
 SUBHEADING_NAME_LOOKUP_PATH =                   os.path.join(DATA_DIR, "subheading_names.tsv")
 TEST_SET_DESCRIPTOR_GROUND_TRUTH_PATH =         os.path.join(DATA_DIR, "test_set_2017-2022_Descriptor_Ground_Truth.json.gz")
-TEST_SET_DESCRIPTOR_PREDICTIONS_PATH =          os.path.join(DATA_DIR, "test_set_2017-2022_Listwise22Avg_Results.json.gz")
-TEST_SET_EXPECTED_SUBHEADING_PREDICTIONS_PATH = os.path.join(DATA_DIR, "test_set_2017-2022_Listwise22Avg_Results.json.gz")
+TEST_SET_EXPECTED_SUBHEADING_PREDICTIONS_PATH = os.path.join(DATA_DIR, "test_set_2017-2022_Subheading_Predictions.json.gz")
 TEST_SET_SUBHEADING_GROUND_TRUTH_PATH =         os.path.join(DATA_DIR, "test_set_2017-2022_Subheading_Ground_Truth.json.gz")
 
 
@@ -26,7 +25,7 @@ class TestSubheadingPredictor(TestCase):
                                                     None,
                                                     None,
                                                     batch_size=128)
-        self.descriptor_predictions = json.load(gzip.open(TEST_SET_DESCRIPTOR_PREDICTIONS_PATH, "rt", encoding="utf-8"))
+        self.descriptor_predictions = json.load(gzip.open(TEST_SET_DESCRIPTOR_GROUND_TRUTH_PATH, "rt", encoding="utf-8"))
 
     def test_output_for_first_five_articles(self):
         limit = 5

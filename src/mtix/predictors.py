@@ -181,8 +181,7 @@ class SubheadingPredictor:
                 dui = descriptor_prediction["ID"]
                 subheading_list = []
                 descriptor_prediction["Subheadings"] = subheading_list
-                for qui in result_lookup[pmid][dui]:
-                    score = result_lookup[pmid][dui][qui]
+                for qui, score in sorted(result_lookup[pmid][dui].items(), key=lambda x: x[1], reverse=True):
                     subheading_list.append({
                         "ID": qui,
                         "IM": "NO",
