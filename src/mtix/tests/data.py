@@ -895,16 +895,16 @@ EXPECTED_DESCRIPTOR_PREDICTIONS_WITH_SUBHEADINGS = [
                 "Reason": "score: 0.997",
                 "Subheadings": [
                     {
-                        "ID": "Q000473",
-                        "IM": "NO",
-                        "Name": "pathology",
-                        "Reason": "score: 0.594"
-                    },
-                    {
                         "ID": "Q000628",
                         "IM": "NO",
                         "Name": "therapy",
                         "Reason": "score: 0.692"
+                    },
+                    {
+                        "ID": "Q000473",
+                        "IM": "NO",
+                        "Name": "pathology",
+                        "Reason": "score: 0.594"
                     }
                 ]
             },
@@ -916,16 +916,16 @@ EXPECTED_DESCRIPTOR_PREDICTIONS_WITH_SUBHEADINGS = [
                 "Reason": "score: 0.899",
                 "Subheadings": [
                     {
-                        "ID": "Q000473",
-                        "IM": "NO",
-                        "Name": "pathology",
-                        "Reason": "score: 0.598"
-                    },
-                    {
                         "ID": "Q000628",
                         "IM": "NO",
                         "Name": "therapy",
                         "Reason": "score: 0.605"
+                    },
+                    {
+                        "ID": "Q000473",
+                        "IM": "NO",
+                        "Name": "pathology",
+                        "Reason": "score: 0.598"
                     }
                 ]
             },
