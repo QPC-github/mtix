@@ -37,7 +37,7 @@ The pipeline is constructed with the following input parameters:
 4. Sagemaker endpoint name for CNN model.
 5. Sagemaker endpoint name for Pointwise model.
 6. Sagemaker endpoint name for Listwise model.
-7. Sagemaker endpoint name for subheading model.
+7. Sagemaker endpoint name for Subheading model.
 8. The s3 bucket name (for async prediction temporary data).
 9. The s3 prefix (for async prediction temporary data).
 10. The cnn model batch size.
@@ -51,8 +51,8 @@ Example usage for async endpoints:
 from mtix import create_async_pipeline
 
 pipeline = create_async_pipeline("path/to/main_heading_names.tsv", 
-                                "path/to/main_heading.tsv, 
-                                "path/to/subheading_names.tsv,
+                                "path/to/main_heading.tsv", 
+                                "path/to/subheading_names.tsv",
                                 "raear-cnn-endpoint-2022-v1-async", 
                                 "raear-pointwise-endpoint-2022-v2-async", 
                                 "raear-listwise-endpoint-2022-v2-async",
@@ -74,8 +74,8 @@ Example usage for real-time endpoints:
 from mtix import create_real_time_pipeline
 
 pipeline = create_real_time_pipeline("path/to/main_heading_names.tsv", 
-                                    "path/to/main_heading.tsv, 
-                                    "path/to/subheading_names.tsv,
+                                    "path/to/main_heading.tsv", 
+                                    "path/to/subheading_names.tsv",
                                     "raear-cnn-endpoint-2022-v1", 
                                     "raear-pointwise-endpoint-2022-v2", 
                                     "raear-listwise-endpoint-2022-v2",
