@@ -5,21 +5,21 @@ from unittest import TestCase
 EPS = 1e-9
 
 
-def compute_metrics(y_true, y_pred, qui_filter=None):
+def compute_metrics(y_true, y_pred, s_filter=None):
 
     def _extract_triples(results):
         triple_set = set()
         for citation_prediction in results:
             pmid = citation_prediction["PMID"]
             for descriptor_prediction in citation_prediction["Indexing"]:
-                dui = descriptor_prediction["ID"]
+                d_name = descriptor_prediction["Term"]
                 if "Subheadings" in descriptor_prediction:
                     for subheading_prediction in descriptor_prediction["Subheadings"]:
-                        qui = subheading_prediction["ID"]
-                        if qui_filter is None or qui in qui_filter:
-                            triple_set.add((pmid, dui, qui))
+                        s_name = subheading_prediction["Name"]
+                        if s_filter is None or s_name in s_filter:
+                            triple_set.add((pmid, d_name, s_name))
                 else:
-                    triple_set.add((pmid, dui, ""))
+                    triple_set.add((pmid, d_name, ""))
         return triple_set
 
     pred_pmids = {e["PMID"] for e in y_pred}
