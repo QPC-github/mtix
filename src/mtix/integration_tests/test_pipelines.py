@@ -10,6 +10,7 @@ from .utils import compute_metrics, TestCaseBase
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(THIS_DIR, "data")
+VPC_ENDPOINT = None
 DESC_NAME_LOOKUP_PATH =                                 os.path.join(DATA_DIR, "main_heading_names.tsv")
 DUI_LOOKUP_PATH =                                       os.path.join(DATA_DIR, "main_headings.tsv")
 SUBHEADING_NAME_LOOKUP_PATH =                           os.path.join(DATA_DIR, "subheading_names.tsv")
@@ -18,7 +19,6 @@ TEST_SET_DESCRIPTOR_GROUND_TRUTH_PATH =                 os.path.join(DATA_DIR, "
 TEST_SET_EXPECTED_CHAINED_SUBHEADING_PREDICTIONS_PATH = os.path.join(DATA_DIR, "test_set_2017-2022_Chained_Subheading_Predictions.json.gz")
 TEST_SET_EXPECTED_DESCRIPTOR_PREDICTIONS_PATH =         os.path.join(DATA_DIR, "test_set_2017-2022_Listwise22Avg_Results.json.gz")
 TEST_SET_SUBHEADING_GROUND_TRUTH_PATH =                 os.path.join(DATA_DIR, "test_set_2017-2022_Subheading_Ground_Truth.json.gz")
-
 
 @pytest.mark.integration
 class TestDescriptorPredictionPipeline(TestCaseBase):
@@ -33,7 +33,8 @@ class TestDescriptorPredictionPipeline(TestCaseBase):
                                             "async_inference",
                                             cnn_batch_size=128,
                                             pointwise_batch_size=128,
-                                            listwise_batch_size=128)
+                                            listwise_batch_size=128,
+                                            vpc_endpoint=VPC_ENDPOINT)
         self.test_set_data = json.load(gzip.open(TEST_SET_DATA_PATH, "rt", encoding="utf-8"))
 
     def test_output_for_first_five_articles(self):
@@ -75,7 +76,8 @@ class TestIndexingPipeline(TestCaseBase):
                                             cnn_batch_size=128,
                                             pointwise_batch_size=128,
                                             listwise_batch_size=128,
-                                            subheading_batch_size=128)
+                                            subheading_batch_size=128,
+                                            vpc_endpoint=VPC_ENDPOINT)
         self.test_set_data = json.load(gzip.open(TEST_SET_DATA_PATH, "rt", encoding="utf-8"))
 
     def test_output_for_first_five_articles(self):
