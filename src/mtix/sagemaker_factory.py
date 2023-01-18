@@ -10,7 +10,7 @@ from .utils import CitationDataSanitizer, create_lookup, PubMedXmlInputDataParse
 
 
 CONCURRENT_BATCHES = 100
-MAX_YEAR = 2021
+MAX_YEAR = 2023
 WAIT_DELAY = 1
 WAIT_MAX_ATTEMPTS = 900
 
@@ -35,7 +35,7 @@ def create_descriptor_prediction_pipeline(desc_name_lookup_path, dui_lookup_path
 
     listwise_top_n = 50
     pointwise_top_n = 100
-    threshold = 0.475
+    threshold = 0.48
 
     input_data_parser = PubMedXmlInputDataParser()
     sanitizer = CitationDataSanitizer(max_year)
