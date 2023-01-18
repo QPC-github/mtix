@@ -3,7 +3,7 @@ import re
 from .utils import Base64Helper, CitationDataSanitizer, MedlineDateParser, PubMedXmlParser
 
 
-QUERY_TEMPLATE = "2017-2021|{journal_title}|{title}|{abstract}"
+QUERY_TEMPLATE = "{year_completed}|{journal_title}|{title}|{abstract}"
 
 
 def replace_brackets(citation_data_list):
@@ -54,7 +54,7 @@ class PointwiseModelTopNPredictor:
         label_id_list = []
         for p_id, _ in sorted(citation_top_results.items(), key=lambda x: x[1], reverse=True)[:self.top_n]:
             label_id = int(p_id)
-            query = QUERY_TEMPLATE.format(journal_title=citation_data["journal_title"], title=citation_data["title"], abstract=citation_data["abstract"])
+            query = QUERY_TEMPLATE.format(year_completed=citation_data["year_completed"], journal_title=citation_data["journal_title"], title=citation_data["title"], abstract=citation_data["abstract"])
             passage = self.desc_name_lookup[label_id]
             input_list.append([[query, passage]])
             label_id_list.append(label_id)
@@ -120,7 +120,7 @@ class ListwiseModelTopNPredictor:
             top_label_ids.append(citation_top_label_ids)
 
             citation_data = citation_data_lookup[pmid]
-            query = "|" + QUERY_TEMPLATE.format(journal_title=citation_data["journal_title"], title=citation_data["title"], abstract=citation_data["abstract"])
+            query = "|" + QUERY_TEMPLATE.format(year_completed=citation_data["year_completed"], journal_title=citation_data["journal_title"], title=citation_data["title"], abstract=citation_data["abstract"])
          
             passage = ""
             for label_id in citation_top_label_ids:
