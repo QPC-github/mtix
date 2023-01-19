@@ -2,20 +2,14 @@ import base64
 import gzip
 import json
 import os.path
-import requests
 import xml.etree.ElementTree as ET
 import zlib
 
-# Note: Expected predictions computed using article metadata from PubMed 2022 baseline.
-#       Integration tests make predictions using article metadata downloaded from EUtils.
-#       Minor differences between predictions is therefore expected
 
-
+BASELINE_FILE_PATH_TEMPLATE="/net/intdev/pubmed_mti/ncbi/working_dir/samt-2023-v1/medline_data/{0:04d}.xml.gz"
 ENCODING="utf-8"
-LIMIT = 1000000000
-MAX_RETRYS = 3
-PUBONE_URL = "https://pubmed.ncbi.nlm.nih.gov/api/pubone/pubmed/pubmed_"
-WORKING_DIR="/home/raear/working_dir/mtix/scripts/create_test_set_data"
+NUM_BASELINE_FILES = 1166
+WORKING_DIR="/net/intdev/pubmed_mti/ncbi/working_dir/mtix/scripts/create_test_set_data"
 
 
 def base64_encode(text, level=-1):
@@ -26,42 +20,51 @@ def base64_encode(text, level=-1):
     return text
 
 
-def get_pubone_xml(pmid):
-    url = PUBONE_URL + str(pmid)
-    retrys = 0
-    while True:
-        try:
-            pubone_xml = requests.get(url).content
-            root_node = ET.fromstring(pubone_xml)
-            break
-        except ET.ParseError as e:
-            print(e)
-            retrys +=1
-            if retrys < MAX_RETRYS:
-                continue
-            else:
-                raise Exception("Exceeded max retrys.")
-    return root_node
+def get_test_set_pmids(test_set_path):
+    pmid_list = None
+    with gzip.open(test_set_path, "rt", encoding=ENCODING) as file:
+        pmid_list = [int(json.loads(line.strip())["pmid"]) for line in file.readlines()]
+    return pmid_list
+            
 
+def get_test_set_data(test_set_pmids):
+    data = {}
+    test_set_pmids_set = set(test_set_pmids)
+    for file_num in range(1, NUM_BASELINE_FILES + 1):
+        print(f"{file_num}/{NUM_BASELINE_FILES}", end="\r")
+        file_path = BASELINE_FILE_PATH_TEMPLATE.format(file_num)
+        with gzip.open(file_path, "rt", encoding=ENCODING) as read_file:
+            root_node = ET.parse(read_file)
+            for medline_citation_node in root_node.findall("PubmedArticle/MedlineCitation"):
+                pmid = int(medline_citation_node.find("PMID").text.strip())
+                if pmid in test_set_pmids_set:
+                    medline_citation_node_xml = ET.tostring(medline_citation_node, encoding=ENCODING, method="xml").decode(ENCODING)
+                    medline_citation_node_xml = base64_encode(medline_citation_node_xml)
+                    data[pmid] = json.dumps({ "uid": pmid, "data": medline_citation_node_xml }, ensure_ascii=False) 
+    return data
+
+
+def save_test_set_data(pmid_list, data, path):
+    with open(path, "wt", encoding=ENCODING) as write_file:
+        first = True
+        for pmid in pmid_list:
+            if pmid in data:
+                if first:
+                    write_file.write("[")
+                    first = False
+                else:
+                    write_file.write(",\n")
+                write_file.write(data[pmid])
+        write_file.write("]")
+                
 
 def main():
-    test_set_path = os.path.join(WORKING_DIR, "test_set.jsonl.gz")
+    test_set_path =      os.path.join(WORKING_DIR, "test_set.jsonl.gz")
     test_set_data_path = os.path.join(WORKING_DIR, "test_set_data.json")
-
-    test_set_data = []
-    with gzip.open(test_set_path, "rt", encoding=ENCODING) as file:
-        for idx, line in enumerate(file.readlines()[:LIMIT]):
-            print(idx, end="\r")
-            citation_data = json.loads(line.strip())
-            pmid = citation_data["pmid"]
-            root_node = get_pubone_xml(pmid)
-            medline_citation_node = root_node.find("PubmedArticle/MedlineCitation")
-            medline_citation_node_xml = ET.tostring(medline_citation_node, encoding=ENCODING, method="xml").decode(ENCODING)
-            medline_citation_node_xml = base64_encode(medline_citation_node_xml)
-            test_set_data.append({ "uid": pmid, "data": medline_citation_node_xml })
-
-    json.dump(test_set_data, open(test_set_data_path, "wt", encoding=ENCODING), ensure_ascii=False, indent=4)
-
-
+    pmids_list = get_test_set_pmids(test_set_path)
+    data = get_test_set_data(pmids_list)
+    save_test_set_data(pmids_list, data, test_set_data_path)
+    
+    
 if __name__ == "__main__":
     main()
