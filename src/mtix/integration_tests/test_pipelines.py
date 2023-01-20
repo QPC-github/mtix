@@ -15,10 +15,10 @@ DESC_NAME_LOOKUP_PATH =                                 os.path.join(DATA_DIR, "
 DUI_LOOKUP_PATH =                                       os.path.join(DATA_DIR, "main_headings.tsv")
 SUBHEADING_NAME_LOOKUP_PATH =                           os.path.join(DATA_DIR, "subheading_names.tsv")
 TEST_SET_DATA_PATH =                                    os.path.join(DATA_DIR, "test_set_data.json.gz")
-TEST_SET_DESCRIPTOR_GROUND_TRUTH_PATH =                 os.path.join(DATA_DIR, "test_set_2017-2022_Descriptor_Ground_Truth.json.gz")
-TEST_SET_EXPECTED_CHAINED_SUBHEADING_PREDICTIONS_PATH = os.path.join(DATA_DIR, "test_set_2017-2022_Chained_Subheading_Predictions.json.gz")
-TEST_SET_EXPECTED_DESCRIPTOR_PREDICTIONS_PATH =         os.path.join(DATA_DIR, "test_set_2017-2022_Listwise22Avg_Results.json.gz")
-TEST_SET_SUBHEADING_GROUND_TRUTH_PATH =                 os.path.join(DATA_DIR, "test_set_2017-2022_Subheading_Ground_Truth.json.gz")
+TEST_SET_DESCRIPTOR_GROUND_TRUTH_PATH =                 os.path.join(DATA_DIR, "test_set_2017-2023_Descriptor_Ground_Truth.json.gz")
+TEST_SET_EXPECTED_CHAINED_SUBHEADING_PREDICTIONS_PATH = os.path.join(DATA_DIR, "test_set_2017-2023_Chained_Subheading_Predictions.json.gz")
+TEST_SET_EXPECTED_DESCRIPTOR_PREDICTIONS_PATH =         os.path.join(DATA_DIR, "test_set_2017-2023_Listwise22Avg_Results.json.gz")
+TEST_SET_SUBHEADING_GROUND_TRUTH_PATH =                 os.path.join(DATA_DIR, "test_set_2017-2023_Subheading_Ground_Truth.json.gz")
 
 @pytest.mark.integration
 class TestDescriptorPredictionPipeline(TestCaseBase):
@@ -26,9 +26,9 @@ class TestDescriptorPredictionPipeline(TestCaseBase):
     def setUp(self):
         self.pipeline = create_descriptor_prediction_pipeline(DESC_NAME_LOOKUP_PATH, 
                                             DUI_LOOKUP_PATH, 
-                                            "raear-cnn-endpoint-2022-v1-async", 
-                                            "raear-pointwise-endpoint-2022-v2-async", 
-                                            "raear-listwise-endpoint-2022-v2-async",
+                                            "raear-cnn-endpoint-2023-v1-async", 
+                                            "raear-pointwise-endpoint-2023-v1-async", 
+                                            "raear-listwise-endpoint-2023-v1-async",
                                             "ncbi-aws-pmdm-ingest",
                                             "async_inference",
                                             cnn_batch_size=128,
@@ -67,10 +67,10 @@ class TestIndexingPipeline(TestCaseBase):
         self.pipeline = create_async_pipeline(DESC_NAME_LOOKUP_PATH, 
                                             DUI_LOOKUP_PATH, 
                                             SUBHEADING_NAME_LOOKUP_PATH,
-                                            "raear-cnn-endpoint-2022-v1-async", 
-                                            "raear-pointwise-endpoint-2022-v2-async", 
-                                            "raear-listwise-endpoint-2022-v2-async",
-                                            "raear-all-subheading-cnn-endpoint-2022-v1-async",
+                                            "raear-cnn-endpoint-2023-v1-async", 
+                                            "raear-pointwise-endpoint-2023-v1-async", 
+                                            "raear-listwise-endpoint-2023-v1-async",
+                                            "raear-all-subheading-cnn-endpoint-2023-v1-async",
                                             "ncbi-aws-pmdm-ingest",
                                             "async_inference",
                                             cnn_batch_size=128,

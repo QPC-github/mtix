@@ -4,7 +4,7 @@ import pandas as pd
 import pytrec_eval
 
 
-WORKING_DIR="/home/raear/working_dir/mtix/scripts/create_test_set_descriptor_ground_truth"
+WORKING_DIR="/net/intdev/pubmed_mti/ncbi/working_dir/mtix/scripts/create_test_set_descriptor_ground_truth"
 
 
 def create_lookup(path):
@@ -16,8 +16,8 @@ def create_lookup(path):
 def main():
     desc_names_path =    os.path.join(WORKING_DIR, "main_heading_names.tsv")
     desc_uis_path =      os.path.join(WORKING_DIR, "main_headings.tsv")
-    qrels_path =         os.path.join(WORKING_DIR, "test_set_2017-2022_qrels.tsv")
-    ground_truth_path =  os.path.join(WORKING_DIR, "test_set_2017-2022_Descriptor_Ground_Truth.json")
+    qrels_path =         os.path.join(WORKING_DIR, "test_set_2017-2023_qrels.tsv")
+    ground_truth_path =  os.path.join(WORKING_DIR, "test_set_2017-2023_Descriptor_Ground_Truth.json")
     test_set_data_path = os.path.join(WORKING_DIR, "test_set_data.json")
 
     desc_names = create_lookup(desc_names_path)

@@ -10,9 +10,9 @@ from .utils import compute_metrics, TestCaseBase
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(THIS_DIR, "data")
 SUBHEADING_NAME_LOOKUP_PATH =                   os.path.join(DATA_DIR, "subheading_names.tsv")
-TEST_SET_DESCRIPTOR_GROUND_TRUTH_PATH =         os.path.join(DATA_DIR, "test_set_2017-2022_Descriptor_Ground_Truth.json.gz")
-TEST_SET_EXPECTED_SUBHEADING_PREDICTIONS_PATH = os.path.join(DATA_DIR, "test_set_2017-2022_Subheading_Predictions.json.gz")
-TEST_SET_SUBHEADING_GROUND_TRUTH_PATH =         os.path.join(DATA_DIR, "test_set_2017-2022_Subheading_Ground_Truth.json.gz")
+TEST_SET_DESCRIPTOR_GROUND_TRUTH_PATH =         os.path.join(DATA_DIR, "test_set_2017-2023_Descriptor_Ground_Truth.json.gz")
+TEST_SET_EXPECTED_SUBHEADING_PREDICTIONS_PATH = os.path.join(DATA_DIR, "test_set_2017-2023_Subheading_Predictions.json.gz")
+TEST_SET_SUBHEADING_GROUND_TRUTH_PATH =         os.path.join(DATA_DIR, "test_set_2017-2023_Subheading_Ground_Truth.json.gz")
 
 
 @pytest.mark.integration
@@ -20,7 +20,7 @@ class TestSubheadingPredictor(TestCaseBase):
 
     def setUp(self):
         self.pipeline = create_subheading_predictor(SUBHEADING_NAME_LOOKUP_PATH, 
-                                                    "raear-all-subheading-cnn-endpoint-2022-v1-async", 
+                                                    "raear-all-subheading-cnn-endpoint-2023-v1-async", 
                                                     "ncbi-aws-pmdm-ingest",
                                                     "async_inference",
                                                      batch_size=128)
