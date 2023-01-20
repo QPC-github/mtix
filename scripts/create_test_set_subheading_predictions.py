@@ -4,7 +4,7 @@ import os.path
 import pandas as pd
 
 
-WORKING_DIR="/home/raear/working_dir/mtix/scripts/create_test_set_subheading_predictions"
+WORKING_DIR="/net/intdev/pubmed_mti/ncbi/working_dir/mtix/scripts/create_test_set_subheading_predictions"
 
 
 def create_lookup(path):
@@ -25,19 +25,20 @@ def create_result_lookup(path):
                 lookup[pmid] = {}
             if dui not in lookup[pmid]:
                 lookup[pmid][dui] = {}
-            lookup[pmid][dui][qui] = score
+            if qui:
+                lookup[pmid][dui][qui] = score
     return lookup
 
 
 def main():
-    descriptor_predictions_path =      os.path.join(WORKING_DIR, "test_set_2017-2022_Listwise22Avg_Results.json")
-    subheading_endpoint_results_path = os.path.join(WORKING_DIR, "test_set_2017-2022_chained_subheading_endpoint_results.tsv")
+    descriptor_predictions_path =      os.path.join(WORKING_DIR, "test_set_2017-2023_Descriptor_Ground_Truth.json")
+    subheading_results_path =          os.path.join(WORKING_DIR, "test_set_2017-2023_Subheading_Results.tsv")
     subheading_names_path =            os.path.join(WORKING_DIR, "subheading_names.tsv")
-    subheading_predictions_path =      os.path.join(WORKING_DIR, "test_set_2017-2022_Chained_Subheading_Predictions.json")
+    subheading_predictions_path =      os.path.join(WORKING_DIR, "test_set_2017-2023_Subheading_Predictions.json")
     
     descriptor_predictions = json.load(open(descriptor_predictions_path))
     subheading_names = create_lookup(subheading_names_path)
-    results_lookup = create_result_lookup(subheading_endpoint_results_path)
+    results_lookup = create_result_lookup(subheading_results_path)
 
     subheading_predictions = copy.deepcopy(descriptor_predictions)
     for citation in subheading_predictions:
