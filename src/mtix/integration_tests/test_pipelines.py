@@ -17,7 +17,7 @@ SUBHEADING_NAME_LOOKUP_PATH =                           os.path.join(DATA_DIR, "
 TEST_SET_DATA_PATH =                                    os.path.join(DATA_DIR, "test_set_data.json.gz")
 TEST_SET_DESCRIPTOR_GROUND_TRUTH_PATH =                 os.path.join(DATA_DIR, "test_set_2017-2023_Descriptor_Ground_Truth.json.gz")
 TEST_SET_EXPECTED_CHAINED_SUBHEADING_PREDICTIONS_PATH = os.path.join(DATA_DIR, "test_set_2017-2023_Chained_Subheading_Predictions.json.gz")
-TEST_SET_EXPECTED_DESCRIPTOR_PREDICTIONS_PATH =         os.path.join(DATA_DIR, "test_set_2017-2023_Listwise22Avg_Results.json.gz")
+TEST_SET_EXPECTED_DESCRIPTOR_PREDICTIONS_PATH =         os.path.join(DATA_DIR, "test_set_2017-2023_Listwise_Avg_Results.json.gz")
 TEST_SET_SUBHEADING_GROUND_TRUTH_PATH =                 os.path.join(DATA_DIR, "test_set_2017-2023_Subheading_Ground_Truth.json.gz")
 
 @pytest.mark.integration

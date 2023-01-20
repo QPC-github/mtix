@@ -4,8 +4,8 @@ import pandas as pd
 import pytrec_eval
 
 
-THRESHOLD = 0.475
-WORKING_DIR="/home/raear/working_dir/mtix/scripts/create_test_set_descriptor_predictions"
+THRESHOLD = 0.48
+WORKING_DIR="/net/intdev/pubmed_mti/ncbi/working_dir/mtix/scripts/create_test_set_descriptor_predictions"
 
 
 def create_lookup(path):
@@ -17,8 +17,8 @@ def create_lookup(path):
 def main():
     desc_names_path =           os.path.join(WORKING_DIR, "main_heading_names.tsv")
     desc_uis_path =             os.path.join(WORKING_DIR, "main_headings.tsv")
-    listwise_avg_results_path = os.path.join(WORKING_DIR, "test_set_2017-2022_Listwise22Avg.tsv")
-    predictions_path =          os.path.join(WORKING_DIR, "test_set_2017-2022_Listwise22Avg_Results.json")
+    listwise_avg_results_path = os.path.join(WORKING_DIR, "test_set_2017-2023_Listwise_Avg.tsv")
+    predictions_path =          os.path.join(WORKING_DIR, "test_set_2017-2023_Listwise_Avg_Results.json")
     test_set_data_path =        os.path.join(WORKING_DIR, "test_set_data.json")
 
     desc_names = create_lookup(desc_names_path)
