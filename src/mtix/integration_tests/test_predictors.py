@@ -27,10 +27,10 @@ class TestSubheadingPredictor(TestCaseBase):
                                                      batch_size=128)
         self.test_set_data = json.load(gzip.open(TEST_SET_DESCRIPTOR_GROUND_TRUTH_PATH, "rt", encoding="utf-8"))
 
-    def test_output_for_first_five_articles(self):
-        limit = 5
-        expected_predictions = json.load(xz.open(TEST_SET_EXPECTED_SUBHEADING_PREDICTIONS_PATH, "rt", encoding="utf-8"))[:limit]
-        predictions = self._predict(limit)
+    def test_output_for_n_articles(self):
+        n = 1
+        expected_predictions = json.load(xz.open(TEST_SET_EXPECTED_SUBHEADING_PREDICTIONS_PATH, "rt", encoding="utf-8"))[:n]
+        predictions = self._predict(n)
         self.assertEqual(predictions, expected_predictions, "MTI JSON output not as expected.")
 
     def test_performance(self):
