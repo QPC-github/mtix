@@ -20,6 +20,8 @@ setup(name="mtix",
           "python-dateutil==2.8.2",
           "pytrec-eval==0.5",
           "sagemaker==2.80.0",
+          "python-xz==0.4.0",
+          "protobuf==3.20.3"
       ],
       include_package_data=True,
       zip_safe=False,
