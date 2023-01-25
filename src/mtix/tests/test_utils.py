@@ -167,6 +167,94 @@ class TestCitationDataSanitizer(TestCase):
         self.sanitizer.sanitize(citation_data)
         self.assertEqual(citation_data, expected_citation_data, "Expected null pub year and year completed to be replaced by 2021.")
 
+    def test_sanitize_max_pub_year(self):
+        citation_data = {
+            "pmid": 123456789,
+            "title": "The title.",
+            "abstract": "The abstract.",
+            "journal_nlmid": "01234",
+            "journal_title": "The journal",
+            "pub_year": 2022,
+            "year_completed": 2021,
+        }
+        expected_citation_data = {
+            "pmid": 123456789,
+            "title": "The title.",
+            "abstract": "The abstract.",
+            "journal_nlmid": "01234",
+            "journal_title": "The journal",
+            "pub_year": 2021,
+            "year_completed": 2021,
+        }
+        self.sanitizer.sanitize(citation_data)
+        self.assertEqual(citation_data, expected_citation_data, "Expected enforce maximum pub year")
+
+    def test_sanitize_min_pub_year(self):
+        citation_data = {
+            "pmid": 123456789,
+            "title": "The title.",
+            "abstract": "The abstract.",
+            "journal_nlmid": "01234",
+            "journal_title": "The journal",
+            "pub_year": 1802,
+            "year_completed": 2018,
+        }
+        expected_citation_data = {
+            "pmid": 123456789,
+            "title": "The title.",
+            "abstract": "The abstract.",
+            "journal_nlmid": "01234",
+            "journal_title": "The journal",
+            "pub_year": 1902,
+            "year_completed": 2018,
+        }
+        self.sanitizer.sanitize(citation_data)
+        self.assertEqual(citation_data, expected_citation_data, "Expected enforce minimum pub year")
+
+    def test_sanitize_max_year_completed(self):
+        citation_data = {
+            "pmid": 123456789,
+            "title": "The title.",
+            "abstract": "The abstract.",
+            "journal_nlmid": "01234",
+            "journal_title": "The journal",
+            "pub_year": 2019,
+            "year_completed": 2022,
+        }
+        expected_citation_data = {
+            "pmid": 123456789,
+            "title": "The title.",
+            "abstract": "The abstract.",
+            "journal_nlmid": "01234",
+            "journal_title": "The journal",
+            "pub_year": 2019,
+            "year_completed": 2021,
+        }
+        self.sanitizer.sanitize(citation_data)
+        self.assertEqual(citation_data, expected_citation_data, "Expected enforce maximum year completed")
+
+    def test_sanitize_min_year_completed(self):
+        citation_data = {
+            "pmid": 123456789,
+            "title": "The title.",
+            "abstract": "The abstract.",
+            "journal_nlmid": "01234",
+            "journal_title": "The journal",
+            "pub_year": 2019,
+            "year_completed": 1809,
+        }
+        expected_citation_data = {
+            "pmid": 123456789,
+            "title": "The title.",
+            "abstract": "The abstract.",
+            "journal_nlmid": "01234",
+            "journal_title": "The journal",
+            "pub_year": 2019,
+            "year_completed": 1965,
+        }
+        self.sanitizer.sanitize(citation_data)
+        self.assertEqual(citation_data, expected_citation_data, "Expected enforce minimum year completed")
+
     def test_sanitize_list(self):
         citation_data_list = [
             {

@@ -49,10 +49,13 @@ class CitationDataSanitizer:
 
     def __init__(self, max_year):
         self.max_year = max_year
+        self.min_year_completed = 1965
+        self.min_pub_year = 1902
         
     def sanitize(self, citation_data):
         if citation_data["journal_nlmid"] is None:
             citation_data["journal_nlmid"] = "<unknown>"
+            
         if citation_data["pub_year"] is None:
             if citation_data["year_completed"] is not None:
                 citation_data["pub_year"] = citation_data["year_completed"]
@@ -60,6 +63,12 @@ class CitationDataSanitizer:
                 citation_data["pub_year"] = self.max_year
         if citation_data["year_completed"] is None:
             citation_data["year_completed"] = self.max_year
+
+        citation_data["pub_year"] = min(self.max_year, citation_data["pub_year"])
+        citation_data["pub_year"] = max(self.min_pub_year, citation_data["pub_year"])
+
+        citation_data["year_completed"] = min(self.max_year, citation_data["year_completed"])
+        citation_data["year_completed"] = max(self.min_year_completed, citation_data["year_completed"])
 
     def sanitize_list(self, citation_data_list):
         for citation_data in citation_data_list:
