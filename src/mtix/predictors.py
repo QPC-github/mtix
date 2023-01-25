@@ -1,6 +1,5 @@
 import copy
 import re
-from .utils import Base64Helper, CitationDataSanitizer, MedlineDateParser, PubMedXmlParser
 
 
 QUERY_TEMPLATE = "{year_completed}|{journal_title}|{title}|{abstract}"

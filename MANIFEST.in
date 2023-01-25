@@ -1,5 +1,10 @@
 include README.md
-include src/mtix_descriptor_prediction_pipeline/integration_tests/data/main_headings.tsv
-include src/mtix_descriptor_prediction_pipeline/integration_tests/data/main_heading_names.tsv
-include src/mtix_descriptor_prediction_pipeline/integration_tests/data/test_set_data.json.gz
-include src/mtix_descriptor_prediction_pipeline/integration_tests/data/test_set_2017-2022_Listwise22Avg_Results.json.gz
+include src/mtix/integration_tests/data/main_heading_names_2023_mesh.tsv
+include src/mtix/integration_tests/data/main_headings_2023_mesh.tsv
+include src/mtix/integration_tests/data/subheading_names_2023_mesh.tsv
+include src/mtix/integration_tests/data/test_set_2017-2023_Chained_Subheading_Predictions.json.xz
+include src/mtix/integration_tests/data/test_set_2017-2023_data.json.gz
+include src/mtix/integration_tests/data/test_set_2017-2023_Descriptor_Ground_Truth.json.gz
+include src/mtix/integration_tests/data/test_set_2017-2023_Descriptor_Predictions.json.gz
+include src/mtix/integration_tests/data/test_set_2017-2023_Subheading_Ground_Truth.json.xz
+include src/mtix/integration_tests/data/test_set_2017-2023_Subheading_Predictions.json.xz

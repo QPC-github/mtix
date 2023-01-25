@@ -29,10 +29,6 @@ def create_lookup(path):
     return lookup
 
 
-def sanitize_citation_data(citation_data):
-    return None
-
-
 class Base64Helper:
 
     def encode(self, text, level=-1):

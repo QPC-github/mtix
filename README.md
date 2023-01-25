@@ -50,13 +50,13 @@ Example usage for async endpoints:
 ```
 from mtix import create_async_pipeline
 
-pipeline = create_async_pipeline("path/to/main_heading_names.tsv", 
-                                "path/to/main_heading.tsv", 
-                                "path/to/subheading_names.tsv",
-                                "raear-cnn-endpoint-2022-v1-async", 
-                                "raear-pointwise-endpoint-2022-v2-async", 
-                                "raear-listwise-endpoint-2022-v2-async",
-                                "raear-all-subheading-cnn-endpoint-2022-v1-async",
+pipeline = create_async_pipeline("path/to/main_heading_names_2023_mesh.tsv", 
+                                "path/to/main_headings_2023_mesh.tsv", 
+                                "path/to/subheading_names_2023_mesh.tsv",
+                                "raear-cnn-endpoint-2023-v1-async", 
+                                "raear-pointwise-endpoint-2023-v1-async", 
+                                "raear-listwise-endpoint-2023-v1-async",
+                                "raear-all-subheading-cnn-endpoint-2023-v1-async",
                                 "ncbi-aws-pmdm-ingest",
                                 "async_inference",
                                 cnn_batch_size=128,
@@ -73,13 +73,13 @@ Example usage for real-time endpoints:
 ```
 from mtix import create_real_time_pipeline
 
-pipeline = create_real_time_pipeline("path/to/main_heading_names.tsv", 
-                                    "path/to/main_heading.tsv", 
-                                    "path/to/subheading_names.tsv",
-                                    "raear-cnn-endpoint-2022-v1", 
-                                    "raear-pointwise-endpoint-2022-v2", 
-                                    "raear-listwise-endpoint-2022-v2",
-                                    "raear-all-subheading-cnn-endpoint-2022-v1",
+pipeline = create_real_time_pipeline("path/to/main_heading_names_2023_mesh.tsv", 
+                                    "path/to/main_heading_2023_mesh.tsv", 
+                                    "path/to/subheading_names_2023_mesh.tsv",
+                                    "raear-cnn-endpoint-2023-v1", 
+                                    "raear-pointwise-endpoint-2023-v1", 
+                                    "raear-listwise-endpoint-2023-v1",
+                                    "raear-all-subheading-cnn-endpoint-2023-v1",
                                     cnn_batch_size=128,
                                     pointwise_batch_size=128,
                                     listwise_batch_size=128,

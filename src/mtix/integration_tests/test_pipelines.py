@@ -12,14 +12,15 @@ import xz
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(THIS_DIR, "data")
 VPC_ENDPOINT = None
-DESC_NAME_LOOKUP_PATH =                                 os.path.join(DATA_DIR, "main_heading_names.tsv")
-DUI_LOOKUP_PATH =                                       os.path.join(DATA_DIR, "main_headings.tsv")
-SUBHEADING_NAME_LOOKUP_PATH =                           os.path.join(DATA_DIR, "subheading_names.tsv")
-TEST_SET_DATA_PATH =                                    os.path.join(DATA_DIR, "test_set_data.json.gz")
+DESC_NAME_LOOKUP_PATH =                                 os.path.join(DATA_DIR, "main_heading_names_2023_mesh.tsv")
+DUI_LOOKUP_PATH =                                       os.path.join(DATA_DIR, "main_headings_2023_mesh.tsv")
+SUBHEADING_NAME_LOOKUP_PATH =                           os.path.join(DATA_DIR, "subheading_names_2023_mesh.tsv")
+TEST_SET_DATA_PATH =                                    os.path.join(DATA_DIR, "test_set_2017-2023_data.json.gz")
 TEST_SET_DESCRIPTOR_GROUND_TRUTH_PATH =                 os.path.join(DATA_DIR, "test_set_2017-2023_Descriptor_Ground_Truth.json.gz")
 TEST_SET_EXPECTED_CHAINED_SUBHEADING_PREDICTIONS_PATH = os.path.join(DATA_DIR, "test_set_2017-2023_Chained_Subheading_Predictions.json.xz")
-TEST_SET_EXPECTED_DESCRIPTOR_PREDICTIONS_PATH =         os.path.join(DATA_DIR, "test_set_2017-2023_Listwise_Avg_Results.json.gz")
+TEST_SET_EXPECTED_DESCRIPTOR_PREDICTIONS_PATH =         os.path.join(DATA_DIR, "test_set_2017-2023_Descriptor_Predictions.json.gz")
 TEST_SET_SUBHEADING_GROUND_TRUTH_PATH =                 os.path.join(DATA_DIR, "test_set_2017-2023_Subheading_Ground_Truth.json.xz")
+
 
 @pytest.mark.integration
 class TestDescriptorPredictionPipeline(TestCaseBase):
