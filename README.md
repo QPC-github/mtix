@@ -74,7 +74,7 @@ Example usage for real-time endpoints:
 from mtix import create_real_time_pipeline
 
 pipeline = create_real_time_pipeline("path/to/main_heading_names_2023_mesh.tsv", 
-                                    "path/to/main_heading_2023_mesh.tsv", 
+                                    "path/to/main_headings_2023_mesh.tsv", 
                                     "path/to/subheading_names_2023_mesh.tsv",
                                     "raear-cnn-endpoint-2023-v1", 
                                     "raear-pointwise-endpoint-2023-v1", 
